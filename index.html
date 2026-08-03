@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <title>Ritchie — distributed computing by default</title>
+  <meta name="description" content="Ritchie is a programming language for applications whose state and work cross process boundaries.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+
+</head>
+<body>
+
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" aria-current="page">About</a>
+        <a href="/preview/">Preview</a>
+        <a href="/rite/">RITE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Distributed Programming Language</p>
+          <h1 class="hero-brand"><img src="/assets/Ritchie.2.png" alt="Ritchie" style="width: 100%; aspect-ratio: 1373 / 509" /></h1>
+          <p class="hero-claim">Multiple Components,<br />One Application</p>
+          <p class="lede">Ritchie is a programming language for distributed, stateful cloud-native enterprise applications. Stop assembing servers, start composing functionality</p>
+          <div class="hero-actions">
+            <a class="button" href="/preview/">Preview distributed Hello World</a>
+            <a class="button button-secondary" href="/rite/">The Programming Model</a>
+          </div>
+        </div>
+
+        <div class="code-window" aria-label="Ritchie distributed Hello World example">
+          <div class="code-window-bar"><span>hello.rsc</span><span>Ritchie</span></div>
+          <pre><code data-highlighted="ritchie"><span style="color: #0184bc">$User</span> {<br>    <span style="color: #a626a4">unique</span> <span style="color: #c18401">String</span> name<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><br><span style="color: #2b5a8f">@Greeter</span> { }<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">name</span>: toWhom]<br>        <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span>{} <span style="color: #a626a4">then</span> {<br>            <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">toWhom</span>}"<br>        }<br>    <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-plain">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">See the type, know the boundary</p>
+          <h2>First class support for distributed concepts.</h2>
+          <p>Ritchie gives the compiler a semantic view of the application: which work is local, which state persists, which operations cross a boundary, which reads are published, and which failures callers can recover from.</p>
+        </div>
+        <div class="surface-grid">
+          <article class="surface">
+            <code>@T</code>
+            <h3>Services</h3>
+            <p>Stateless, networked application operations.</p>
+          </article>
+          <article class="surface">
+            <code>$T</code>
+            <h3>Entities</h3>
+            <p>Durable identity and transactional state.</p>
+          </article>
+          <article class="surface">
+            <code>%T</code>
+            <h3>Projections</h3>
+            <p>Read-only rows over committed state.</p>
+          </article>
+          <article class="surface">
+            <code>T~></code>
+            <h3>Streams</h3>
+            <p>Continuous facts and subscriptions.</p>
+          </article>
+          <article class="surface">
+            <code>T!</code>
+            <h3>Errors</h3>
+            <p>Typed, recoverable domain outcomes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">One programming model</p>
+          <h2>Less Integration. More Program.</h2>
+        </div>
+        <div class="principles">
+          <article class="principle">
+            <span class="principle-index">01 / DEVELOPMENT</span>
+            <h3>First-Class Distributed Application Concepts</h3>
+            <p>Execution boundaries, durable state, derived reads, event flow and recoverable failures in the source code — not just in an architecture diagram assembled from conventions.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-index">02 / OPERATIONS</span>
+            <h3>Clean Hand-Off Across Engineering Disciplines</h3>
+            <p>Software, reliability, database and data engineering work against the same application structure rather than integrating between disconnected tools and models.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-index">03 / DESIGN</span>
+            <h3>DDD as Language Semantics</h3>
+            <p>Ownership, behaviour, boundaries and published reads become compiler-visible rules instead of conventions enforced by framework discipline and runtime discovery.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-plain">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Quick Peek</p>
+          <h2>Preview the Language and the Model.</h2>
+        </div>
+        <div class="path-grid">
+          <a class="path-card" href="/preview/">
+            <div>
+              <small>Preview</small>
+              <h3>See distributed Hello World in Ritchie</h3>
+              <p>Compare five lines of Go with state, concurrency and a network boundary, then see the resulting application expressed in Ritchie.</p>
+            </div>
+            <strong>Open preview →</strong>
+          </a>
+          <a class="path-card" href="/rite/">
+            <div>
+              <small>Runtime model</small>
+              <h3>Reliable Interaction with Typed Endpoints</h3>
+              <p>See the ownership, boundary, failure and runtime rules that turn Ritchie’s program graph into a reliable distributed system.</p>
+            </div>
+            <strong>Read about RITE →</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/rite/">RITE</a></p>
+      <small>Ritchie — distributed programming language. © 2026 Tahir Hashmi. queries@ritchie.dev</small>
+    </div>
+  </footer>
+
+</body>
+</html>

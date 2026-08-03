@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <title>Distributed Hello World — Ritchie preview</title>
+  <meta name="description" content="Build a distributed Hello World application and see how Ritchie makes persistence, concurrency and network boundaries part of the program.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+
+</head>
+<body>
+
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/">About</a>
+        <a href="/preview/" aria-current="page">Preview</a>
+        <a href="/rite/">RITE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Preview · distributed Hello World</p>
+        <h1>Take Hello World across a process boundary.</h1>
+        <p class="lede">We will add memory, concurrency and a network API to the smallest familiar program. The exercise is deliberately tiny; the distributed concerns are not.</p>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+        <ol>
+          <li><a href="#local"><span class="toc-index" aria-hidden="true">01.</span>Local greeting</a></li>
+          <li><a href="#memory"><span class="toc-index" aria-hidden="true">02.</span>Remember a user</a></li>
+          <li><a href="#distributed"><span class="toc-index" aria-hidden="true">03.</span>Cross the boundary</a></li>
+          <li><a href="#problem"><span class="toc-index" aria-hidden="true">04.</span>The problem</a></li>
+          <li><a href="#ritchie"><span class="toc-index" aria-hidden="true">05.</span>The Ritchie program</a></li>
+          <li><a href="#deploy"><span class="toc-index" aria-hidden="true">06.</span>Build and deploy</a></li>
+        </ol>
+      </aside>
+
+      <article class="article">
+        <section id="local">
+          <div class="section-heading">
+            <p class="eyebrow">01</p>
+            <h2>Local greeting</h2>
+          </div>
+          <p>How hard is it to say Hello World? It should not be much trouble. Let’s try with Go.</p>
+          <div class="code-window">
+            <div class="code-window-bar"><span>hello.go</span><span>Go</span></div>
+            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> "<span style="color: #50a14f">fmt</span>"<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">sayHello</span>(toWhom <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello </span>" <span style="color: #0184bc">+</span> toWhom<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>}</code></pre>
+          </div>
+          <p>That was not too hard: five lines of code, barring blanks and punctuation.</p>
+        </section>
+
+        <section id="memory">
+          <div class="section-heading">
+            <p class="eyebrow">02</p>
+            <h2>Remember a user</h2>
+          </div>
+          <p>Now the greeter should remember whom it has already greeted.</p>
+          <div class="code-window">
+            <div class="code-window-bar"><span>hello-memory.go</span><span>Go</span></div>
+            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> "<span style="color: #50a14f">fmt</span>"<br><br><span style="color: #a626a4">var</span> users <span style="color: #0184bc">=</span> <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span>{}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">sayHello</span>(toWhom <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    <span style="color: #a626a4">if</span> _, ok <span style="color: #0184bc">:=</span> users[toWhom]; ok {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello registered user </span>" <span style="color: #0184bc">+</span> toWhom<br>    }<br>    users[toWhom] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> toWhom<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>}</code></pre>
+          </div>
+          <p>This is still easy to follow. It is also still a single process with temporary memory.</p>
+        </section>
+
+        <section id="distributed">
+          <div class="section-heading">
+            <p class="eyebrow">03</p>
+            <h2>Cross the boundary</h2>
+          </div>
+          <p>Let's turn the greeter into a minimal distributed application:</p>
+          <ol class="requirements">
+            <li><span>01</span><div><strong>Persistent registry.</strong> A restart must not forget whom we have greeted.</div></li>
+            <li><span>02</span><div><strong>Network API.</strong> Other processes must be able to ask for a greeting.</div></li>
+            <li><span>03</span><div><strong>Concurrent requests.</strong> Registration must remain correct while calls overlap.</div></li>
+          </ol>
+
+          <div class="code-window">
+            <div class="code-window-bar"><span>hello-network.go</span><span>Go</span></div>
+            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> (<br>    "<span style="color: #50a14f">bufio</span>"<br>    "<span style="color: #50a14f">fmt</span>"<br>    "<span style="color: #50a14f">log</span>"<br>    "<span style="color: #50a14f">net/http</span>"<br>    "<span style="color: #50a14f">os</span>"<br>    "<span style="color: #50a14f">sync</span>"<br>)<br><br><span style="color: #a626a4">const</span> userFile <span style="color: #0184bc">=</span> "<span style="color: #50a14f">users.txt</span>"<br><br><span style="color: #a626a4">type</span> <span style="color: #c18401">Registry</span> <span style="color: #a626a4">struct</span> {<br>    <span style="color: #9a5050">mu</span>    sync.<span style="color: #a626a4">Mutex</span><br>    <span style="color: #9a5050">users</span> <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span><br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">load</span>(path <span style="color: #c18401">string</span>) <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span> {<br>    users <span style="color: #0184bc">:=</span> <span style="color: #4078f2">make</span>(<span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span>)<br>    f, err <span style="color: #0184bc">:=</span> os.Open(path)<br>    <span style="color: #a626a4">if</span> err <span style="color: #0184bc">!=</span> <span style="color: #986801">nil</span> {<br>        <span style="color: #a626a4">return</span> users<br>    }<br>    <span style="color: #a626a4">defer</span> f.Close()<br><br>    scanner <span style="color: #0184bc">:=</span> bufio.NewScanner(f)<br>    <span style="color: #a626a4">for</span> scanner.Scan() {<br>        users[scanner.Text()] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    }<br>    <span style="color: #a626a4">return</span> users<br>}<br><br><span style="color: #a626a4">func</span> (r <span style="color: #0184bc">*</span><span style="color: #a626a4">Registry</span>) <span style="color: #4078f2">greet</span>(name <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    r.<span style="color: #9a5050">mu</span>.Lock()<br>    <span style="color: #a626a4">defer</span> r.<span style="color: #9a5050">mu</span>.Unlock()<br><br>    <span style="color: #a626a4">if</span> r.<span style="color: #9a5050">users</span>[name] {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello registered user </span>" <span style="color: #0184bc">+</span> name<br>    }<br><br>    r.<span style="color: #9a5050">users</span>[name] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    flags <span style="color: #0184bc">:=</span> os.<span style="color: #9a5050">O_APPEND</span> <span style="color: #0184bc">|</span><br>        os.<span style="color: #9a5050">O_CREATE</span> <span style="color: #0184bc">|</span><br>        os.<span style="color: #9a5050">O_WRONLY</span><br>    f, err <span style="color: #0184bc">:=</span> os.OpenFile(<br>        userFile,<br>        flags,<br>        0<span style="color: #986801">644</span>,<br>    )<br>    <span style="color: #a626a4">if</span> err <span style="color: #0184bc">!=</span> <span style="color: #986801">nil</span> {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> name <span style="color: #0184bc">+</span><br>            "<span style="color: #50a14f"> (not saved)</span>"<br>    }<br>    <span style="color: #a626a4">defer</span> f.Close()<br>    fmt.Fprintln(f, name)<br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> name<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">hello</span>(r <span style="color: #0184bc">*</span><span style="color: #a626a4">Registry</span>) http.<span style="color: #a626a4">HandlerFunc</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">func</span>(<br>        w http.<span style="color: #a626a4">ResponseWriter</span>,<br>        req <span style="color: #0184bc">*</span>http.<span style="color: #a626a4">Request</span>,<br>    ) {<br>        name <span style="color: #0184bc">:=</span> req.<span style="color: #9a5050">URL</span>.Query().Get("<span style="color: #50a14f">name</span>")<br>        <span style="color: #a626a4">if</span> name <span style="color: #0184bc">==</span> "" {<br>            http.Error(<br>                w,<br>                "<span style="color: #50a14f">missing name</span>",<br>                http.<span style="color: #9a5050">StatusBadRequest</span>,<br>            )<br>            <span style="color: #a626a4">return</span><br>        }<br>        fmt.Fprintln(w, r.greet(name))<br>    }<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    registry <span style="color: #0184bc">:=</span> <span style="color: #0184bc">&amp;</span>Registry{<br>        users: load(userFile),<br>    }<br>    http.HandleFunc("<span style="color: #50a14f">/hello</span>", hello(registry))<br>    log.Fatal(http.ListenAndServe("<span style="color: #50a14f">:8080</span>", <span style="color: #986801">nil</span>))<br>}</code></pre>
+          </div>
+
+          <blockquote>
+            <p>You know what, don’t bother reading the code above. It’s okay. While I wrote the first two Go snippets by hand, I got an LLM to write this one and I didn’t bother reading it myself!</p>
+          </blockquote>
+        </section>
+
+        <section id="problem">
+          <div class="section-heading">
+            <p class="eyebrow">04</p>
+            <h2>The problem</h2>
+          </div>
+          <p>The program fails as soon as we run multiple instances behind a load balancer. Each instance has its own in-memory registry and all of them append to a file that was never designed to be shared this way.</p>
+          <p>A real version now needs a storage service, a schema and client, migrations, connection management, transaction rules, service discovery, authentication, deployment configuration, health checks, scaling policy, observability and a failure model.</p>
+          <div class="callout">
+            <span class="callout-label">The mismatch</span>
+            <p>The domain operation remains “remember a user and greet them.” The implementation has become mostly machinery required to make that operation survive distribution.</p>
+          </div>
+        </section>
+
+        <section id="ritchie">
+          <div class="section-heading">
+            <p class="eyebrow">05</p>
+            <h2>The Ritchie program</h2>
+          </div>
+          <p>Ritchie makes durable identity and the network boundary visible in the program. The entity owns persistence and transactional state. The service publishes the operation.</p>
+          <div class="code-window">
+            <div class="code-window-bar"><span>hello.rsc</span><span>Ritchie</span></div>
+            <pre><code data-highlighted="ritchie"><span style="color: #0184bc">$User</span> {<br>    <span style="color: #a626a4">unique</span> <span style="color: #c18401">String</span> name<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><br><span style="color: #2b5a8f">@Greeter</span> { }<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">name</span>: toWhom]<br>        <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span>{} <span style="color: #a626a4">then</span> {<br>            <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">toWhom</span>}"<br>        }<br>    <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>}</code></pre>
+          </div>
+
+          <table class="comparison">
+            <thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code>$User</code></td><td>Persistent state with durable identity.</td></tr>
+              <tr><td><code>$User.name()</code></td><td>Behaviour that owns access to entity state.</td></tr>
+              <tr><td><code>@Greeter</code></td><td>A stateless networked application boundary.</td></tr>
+            </tbody>
+          </table>
+          <p>The source retains the domain operation while giving the compiler and runtime the structure they need to provide persistence, concurrency and distributed execution.</p>
+        </section>
+
+        <section id="deploy">
+          <div class="section-heading">
+            <p class="eyebrow">06</p>
+            <h2>Build and deploy</h2>
+          </div>
+          <p>With the current Ritchie toolchain installed, check the source and compile it into an immutable, environment-neutral release:</p>
+          <div class="code-window">
+            <div class="code-window-bar"><span>terminal</span><span>build</span></div>
+            <pre><code data-highlighted="sh">rsc<span style="color: #4078f2"> check hello.rsc</span><br>rsc<span style="color: #4078f2"> build </span>\<br>    --application<span style="color: #4078f2"> ritchie.dev/hello </span>\<br>    --output<span style="color: #4078f2"> hello.rap </span>\<br><span style="color: #4078f2">    hello.rsc</span></code></pre>
+          </div>
+          <p>Create an environment on a configured runtime site, deploy the same release, then inspect its status:</p>
+          <div class="code-window">
+            <div class="code-window-bar"><span>terminal</span><span>deploy</span></div>
+            <pre><code data-highlighted="sh">rap<span style="color: #4078f2"> environment create hello-dev</span> --site<span style="color: #4078f2"> nswcloud</span><br>rap<span style="color: #4078f2"> deploy</span> --environment<span style="color: #4078f2"> hello-dev hello.rap</span></code></pre>
+          </div>
+          <p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
+          <p><a class="button" href="/rite/">Continue to RITE</a></p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/rite/">RITE</a></p>
+      <small>Ritchie — distributed programming language. © 2026 Tahir Hashmi. queries@ritchie.dev</small>
+    </div>
+  </footer>
+
+</body>
+</html>
