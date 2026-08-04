@@ -126,15 +126,15 @@
 
         <section id="constraints">
           <h2>7 Constraints</h2>
-          <p><strong>Premise.</strong> Slices are independent failure domains.</p>
           <ul>
+            <li><strong>C1 &ndash; Premise.</strong> Slices are independent failure domains.</li>
             <li><strong>C2 &ndash; Single Ownership.</strong> Every piece of durable state has exactly one owning unit at any point in time.</li>
             <li><strong>C3 &ndash; The Invariant Rule.</strong> An invariant MUST NOT span units.</li>
             <li><strong>C4 &ndash; Explicit Interaction Modes.</strong> All communication between units uses one of a small set of defined modes with known consistency and coupling properties.</li>
             <li><strong>C5 &ndash; Idempotent Mutations.</strong> All state-mutating operations MUST be idempotent.</li>
             <li><strong>C6 &ndash; Bounded Calls.</strong> Every synchronous call MUST carry a budget: an explicit, finite time allocation.</li>
           </ul>
-          <p>The constraint set is minimal: no constraint is redundant with the others, and each addresses a distinct failure mode.</p>
+          <p>No constraint is redundant with the others, and each addresses a distinct failure mode.</p>
         </section>
 
       </article>
