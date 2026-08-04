@@ -743,22 +743,22 @@ h4 {
   font-size: 0.8rem;
 }
 
-.comparison {
+.exhibit {
   width: 100%;
   margin: 2rem 0;
   border-collapse: collapse;
   font-size: 1rem;
 }
 
-.comparison th,
-.comparison td {
+.exhibit th,
+.exhibit td {
   padding: 0.85rem 0.75rem;
   border-bottom: 1px solid var(--line);
   text-align: left;
   vertical-align: top;
 }
 
-.comparison th {
+.exhibit th {
   color: var(--muted);
   font-size: 0.82rem;
   letter-spacing: 0.05em;

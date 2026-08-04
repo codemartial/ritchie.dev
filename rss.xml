@@ -7,10 +7,10 @@
     <language>en-GB</language>
     <atom:link href="https://ritchie.dev/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Ritchie — distributed computing by default</title>
+      <title>Ritchie — Distributed Application Programming Language</title>
       <link>https://ritchie.dev/</link>
       <guid isPermaLink="true">https://ritchie.dev/</guid>
-      <description>Ritchie is a programming language for applications whose state and work cross process boundaries.</description>
+      <description>Ritchie is a programming language for applications whose state and work cross network boundaries.</description>
     </item>
     <item>
       <title>Distributed Hello World — Ritchie preview</title>
