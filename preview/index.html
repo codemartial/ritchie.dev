@@ -60,13 +60,13 @@
       <aside class="toc" aria-label="On this page">
         <strong>On this page</strong>
         <ol>
-          <li><a href="#local"><span class="toc-index" aria-hidden="true">01.</span>Greeting, on a Box</a></li>
+          <li><a href="#local"><span class="toc-index" aria-hidden="true">01.</span>Greeting, in a Box</a></li>
           <li><a href="#memory"><span class="toc-index" aria-hidden="true">02.</span>Remember a User</a></li>
           <li><a href="#distributed"><span class="toc-index" aria-hidden="true">03.</span>Cross the Machine Boundary</a></li>
           <li><a href="#problem"><span class="toc-index" aria-hidden="true">04.</span>The Problem</a></li>
           <li><a href="#ritchie"><span class="toc-index" aria-hidden="true">05.</span>The Ritchie Program</a></li>
           <li><a href="#deploy"><span class="toc-index" aria-hidden="true">06.</span>Build and deploy</a></li>
-          <li><a href="#more"><span class="toc-index" aria-hidden="true">07.</span>A Bit More...</a></li>
+          <li><a href="#more"><span class="toc-index" aria-hidden="true">07.</span>A Bit More&hellip;</a></li>
         </ol>
       </aside>
 
@@ -74,7 +74,7 @@
         <section id="local">
           <div class="section-heading">
             <p class="eyebrow">01</p>
-            <h2>Greeting, on a Box</h2>
+            <h2>Greeting, in a Box</h2>
           </div>
           <p>How hard is it to say Hello World? It shouldn't be much trouble. Let’s try with Go.</p>
           <div class="code-window">
@@ -122,7 +122,7 @@
             <p class="eyebrow">04</p>
             <h2>The Problem</h2>
           </div>
-          <p>The program ceases to be correct when run as multiple instances. Each instance has its own in-memory registry and all of them append to a file that was never designed to be shared this way.</p>
+          <p>The program above ceases to be correct when run as multiple instances. Each instance has its own in-memory registry and all of them append to a file that was never designed to be shared this way.</p>
           <p>A real version now needs a storage service, a schema and client, connection management, consistency model, transaction rules, service discovery, authentication, deployment configuration, health checks, scaling policy, observability and a failure model.</p>
           <div class="callout">
             <span class="callout-label">The mismatch</span>
@@ -177,12 +177,12 @@
 		<section id="more">
           <div class="section-heading">
             <p class="eyebrow">07</p>
-            <h2>A Bit More...</h2>
+            <h2>A Bit More&hellip;</h2>
           </div>
 		  <p>The previous Ritchie program demonstrated the functionality that we had in the second version of Hello World, but distributed. Let's extend it a bit more. We want:</p>
 		  <ol class="requirements">
-            <li><span>01</span><div><strong>Overlapping Names.</strong> Because, of course, more than one person can have the same name.</div></li>
-            <li><span>02</span><div><strong>Unique Emails.</strong> That's how we know who's actually who.</div></li>
+            <li><span>01</span><div><strong>Overlapping Names.</strong> Because more than one person can have the same name.</div></li>
+            <li><span>02</span><div><strong>Unique Emails.</strong> That's how we know who's who.</div></li>
             <li><span>03</span><div><strong>Stats!</strong> Let's find the most popular names.</div></li>
 		  </ol>
 		  <p>Here's the Ritchie Program for that:</p>
@@ -226,7 +226,7 @@
   <footer class="site-footer">
     <div class="shell footer-inner">
       <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/rite/">RITE</a></p>
-      <small>Ritchie — distributed programming language. © 2026 Tahir Hashmi. queries@ritchie.dev</small>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
 
