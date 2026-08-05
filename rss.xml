@@ -10,7 +10,7 @@
       <title>Ritchie — Distributed Application Programming Language</title>
       <link>https://ritchie.dev/</link>
       <guid isPermaLink="true">https://ritchie.dev/</guid>
-      <description>Ritchie is a programming language for applications whose state and work cross network boundaries.</description>
+      <description>Build stateful distributed applications as one program. Ritchie makes services, durable entities, streams and recoverable failures first-class language concepts.</description>
     </item>
     <item>
       <title>Distributed Hello World — Ritchie preview</title>
