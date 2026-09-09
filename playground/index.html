@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <title>Try Ritchie — Browser playground</title>
+  <meta name="description" content="Write and run a single-file Ritchie program in the browser playground.">
+  <link rel="canonical" href="https://ritchie.dev/playground/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Try Ritchie — Browser playground">
+  <meta property="og:description" content="Write and run a single-file Ritchie program in the browser playground.">
+  <meta property="og:url" content="https://ritchie.dev/playground/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Try Ritchie — Browser playground">
+  <meta name="twitter:description" content="Write and run a single-file Ritchie program in the browser playground.">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+
+  <link rel="stylesheet" href="/assets/playground.css?v=20260909-1030">
+  <script src="/playground/config.js"></script>
+  <script src="/playground/app.js?v=20260909-1030" defer></script>
+</head>
+<body class="playground-page">
+
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/">About</a>
+        <a href="/preview/">Preview</a>
+        <a href="/playground/" aria-current="page">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/rite/">RITE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="playground-main">
+    <header class="playground-intro">
+      <div class="shell">
+        <p class="eyebrow">Run Ritchie</p>
+        <h1>Try the Language.</h1>
+        <p class="lede">Start with an example or write your own Ritchie program, then run it right here.</p>
+        <p class="playground-skill-link">Prefer a guided introduction? <a href="/skill/">Get the Ritchie Skill for your coding agent.</a></p>
+      </div>
+    </header>
+
+    <div class="shell playground-workspace">
+      <section class="playground-editor-panel" aria-labelledby="source-title">
+        <div class="playground-panel-heading">
+          <h2 id="source-title">Source</h2>
+          <label>
+            <span class="visually-hidden">Example</span>
+            <select id="examples" aria-label="Choose an example"></select>
+          </label>
+        </div>
+        <label class="playground-editor">
+          <span class="line-number" aria-hidden="true">
+            <span id="line-number-content" class="line-number-content">1</span>
+          </span>
+          <span class="source-stack">
+            <span id="source-highlights" class="source-highlights" aria-hidden="true"></span>
+            <textarea id="source" wrap="off" spellcheck="false" aria-label="Ritchie source"></textarea>
+          </span>
+        </label>
+        <div class="playground-actions">
+          <span class="playground-shortcut">⌘/Ctrl + Enter</span>
+          <button id="run" type="button">Run program</button>
+        </div>
+      </section>
+
+      <section class="playground-result-panel" aria-labelledby="result-title" aria-live="polite">
+        <div class="playground-panel-heading">
+          <h2 id="result-title">Result</h2>
+          <span id="duration"></span>
+        </div>
+        <div id="outcome" class="outcome idle">Ready</div>
+        <div id="diagnostics" class="diagnostics" hidden></div>
+        <pre id="terminal" class="terminal" aria-label="Program output"><span class="muted">Output will appear here.</span></pre>
+        <p id="revision" class="revision"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/rite/">RITE</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+
+</body>
+</html>

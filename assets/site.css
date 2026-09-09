@@ -443,31 +443,57 @@ h4 {
   line-height: 1.5;
 }
 
-.principles {
+.zero-change {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(2.5rem, 4vw, 4.5rem);
 }
 
-.principle {
-  min-width: 0;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper-raised);
+.zero-change-heading {
+  display: flex;
+  align-items: center;
 }
 
-.principle-index {
+.zero-change-heading h2 {
+  font-size: clamp(4.5rem, 8.5vw, 7.5rem);
+  line-height: 0.84;
+}
+
+.zero-change-heading h2 span {
   display: block;
-  margin-bottom: 3.5rem;
-  color: var(--rust);
-  font-family: "Iosevka Term", ui-monospace, monospace;
-  font-size: 0.8rem;
 }
 
-.principle p {
-  margin: 0.9rem 0 0;
-  color: var(--muted);
+.zero-change-when {
+  padding-top: 0;
+}
+
+.zero-change-when .eyebrow {
+  margin: 0 0 1.15rem;
+}
+
+.zero-change-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line-strong);
+  list-style: none;
+}
+
+.zero-change-list li {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.7rem;
+  margin: 0;
+  padding: 1.15rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: clamp(1.18rem, 2vw, 1.45rem);
+  line-height: 1.35;
+}
+
+.zero-change-list li::before {
+  color: var(--rust);
+  content: "—";
 }
 
 .path-grid {
@@ -526,6 +552,14 @@ h4 {
   max-width: 50rem;
 }
 
+.page-subtitle {
+  margin: 1.1rem 0 0;
+  color: var(--rust);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+
 .document-meta {
   margin: 1.4rem 0 0;
   color: var(--muted);
@@ -568,6 +602,7 @@ h4 {
 .toc a {
   display: grid;
   grid-template-columns: 2.3rem 1fr;
+  align-items: baseline;
   padding: 0.28rem 0;
   color: var(--muted);
   font-size: 0.95rem;
@@ -804,7 +839,7 @@ h4 {
   letter-spacing: 0.035em;
 }
 
-.rite-document pre {
+.rite-document .document-code {
   --code-padding-block: 1rem;
 
   container-type: inline-size;
@@ -821,7 +856,7 @@ h4 {
   line-height: 1.65;
 }
 
-.rite-document pre code {
+.rite-document .document-code code {
   display: block;
   min-width: max-content;
   font-size: inherit;
@@ -921,12 +956,13 @@ h4 {
 }
 
 @media (max-width: 820px) {
-  .principles {
+  .zero-change {
     grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
-  .principle-index {
-    margin-bottom: 1.5rem;
+  .zero-change-heading h2 {
+    font-size: clamp(4.5rem, 16vw, 7rem);
   }
 
   .doc-layout {
@@ -971,11 +1007,16 @@ h4 {
 
   .header-inner {
     min-height: 64px;
+    flex-wrap: wrap;
     gap: 1rem;
+    padding-block: 0.6rem;
   }
 
   .site-nav {
+    order: 2;
+    width: 100%;
     gap: 0;
+    overflow-x: auto;
   }
 
   .site-nav a {

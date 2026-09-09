@@ -42,6 +42,8 @@
       <nav class="site-nav" aria-label="Main navigation">
         <a href="/">About</a>
         <a href="/preview/" aria-current="page">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
         <a href="/rite/">RITE</a>
       </nav>
     </div>
@@ -52,7 +54,7 @@
       <div class="shell">
         <p class="eyebrow">Preview · Distributed Hello World</p>
         <h1>Hello World, Enterprise Grade.</h1>
-        <p class="lede">We will add persistence, concurrency and a network API to the smallest familiar program. The functionality is deliberately tiny, but the distributed concerns are not.</p>
+        <p class="lede">We will add persistence, concurrency and a network API to the smallest familiar program. The functionality is tiny, but the distributed concerns are not.</p>
       </div>
     </header>
 
@@ -136,10 +138,10 @@
             <p class="eyebrow">05</p>
             <h2>The Ritchie Program</h2>
           </div>
-			<p>RITE — Reliable Interaction with Typed Endpoints — distils what we have collectively learned into a small model built around single ownership, bounded calls, idempotent retries and invariants that do not cross boundaries. Ritchie is the language that enforces the programming model</p>		  
+			<p>RITE — Reliable Interaction with Typed Endpoints — distils what we have collectively learned into a small model built around single ownership, bounded calls, idempotent retries and invariants that do not cross boundaries. Ritchie is the language that enforces that model.</p>		  
           <p>Ritchie makes durable identity and the network boundary visible in the program. The entity owns persistence and transactional state. The service publishes the operation.</p>
           <div class="code-window">
-            <div class="code-window-bar"><span>hello.rsc</span><span>Ritchie</span></div>
+            <div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
             <pre><code data-highlighted="ritchie"><span style="color: #0184bc">$User</span> {<br>    <span style="color: #a626a4">unique</span> <span style="color: #c18401">String</span> name<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><br><span style="color: #2b5a8f">@Greeter</span> { }<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">name</span>: toWhom]<br>        <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span>{} <span style="color: #a626a4">then</span> {<br>            <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>        }<br>    <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>}</code></pre>
           </div>
 
@@ -164,12 +166,12 @@
           <p>With the current Ritchie toolchain installed, check the source and compile it into an immutable, environment-neutral release:</p>
           <div class="code-window">
             <div class="code-window-bar"><span>terminal</span><span>build</span></div>
-            <pre><code data-highlighted="sh">rsc<span style="color: #4078f2"> check hello.rsc</span><br>rsc<span style="color: #4078f2"> build </span>\<br>    --application<span style="color: #4078f2"> ritchie.dev.hello </span>\<br>    --output<span style="color: #4078f2"> hello.rap </span>\<br><span style="color: #4078f2">    hello.rsc</span></code></pre>
+            <pre><code data-highlighted="sh">rcc<span style="color: #4078f2"> check hello.ri</span><br>rcc<span style="color: #4078f2"> build </span>\<br>    --application<span style="color: #4078f2"> ritchie.dev.hello </span>\<br>    --output<span style="color: #4078f2"> hello.run </span>\<br><span style="color: #4078f2">    hello.ri</span></code></pre>
           </div>
-          <p>Create an environment on a configured runtime site and deploy the same release</p>
+          <p>Create an environment on a configured runtime site and deploy the same release:</p>
           <div class="code-window">
             <div class="code-window-bar"><span>terminal</span><span>deploy</span></div>
-            <pre><code data-highlighted="sh">rap<span style="color: #4078f2"> environment create hello-dev</span> --site<span style="color: #4078f2"> nswcloud</span><br>rap<span style="color: #4078f2"> deploy</span> --environment<span style="color: #4078f2"> hello-dev hello.rap</span></code></pre>
+            <pre><code data-highlighted="sh">ritchie<span style="color: #4078f2"> environment create hello-dev</span> --site<span style="color: #4078f2"> nswcloud</span><br>ritchie<span style="color: #4078f2"> deploy</span> --environment<span style="color: #4078f2"> hello-dev hello.run</span></code></pre>
           </div>
           <p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
         </section>
@@ -187,7 +189,7 @@
 		  </ol>
 		  <p>Here's the Ritchie Program for that:</p>
           <div class="code-window">
-            <div class="code-window-bar"><span>hello.rsc</span><span>Ritchie</span></div>
+            <div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
 			<pre><code data-highlighted="ritchie"><span style="color: #c18401">Email</span> <span style="color: #0184bc">=</span> <span style="color: #c18401">String</span><br><br><span style="color: #0184bc">$User</span> { <br>  <span style="color: #c18401">String</span> name<br>  <span style="color: #a626a4">unique</span> <span style="color: #c18401">Email</span> email<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">email</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">Email</span> {<br>  <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">email</span><br>}<br><br><span style="color: #c18401">%UStats</span> {<br>  <span style="color: #c18401">String</span> name<br>  <span style="color: #c18401">Int</span> total<br>}<br><br><span style="color: #c18401">%UStats</span>.<span style="color: #4078f2">stats</span>() {<br>  from <span style="color: #0184bc">$User</span> u<br>  group by u.<span style="color: #9a5050">name</span><br>  select { <span style="color: #9a5050">name</span>: u.<span style="color: #9a5050">name</span>, <span style="color: #9a5050">total</span>: <span style="color: #4078f2">count</span>(u) }<br>  sort total desc<br>}<br><br><span style="color: #2b5a8f">@Greeter</span> {}<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom, <span style="color: #c18401">Email</span> email) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">email</span>: email]<br>    <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span> { <span style="color: #9a5050">name</span>:toWhom } <span style="color: #a626a4">then</span> {<br>      <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}<span style="color: #50a14f"> &lt;</span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">email</span>()}<span style="color: #50a14f">></span>"<br>    }<br>  <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}<span style="color: #50a14f"> &lt;</span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">email</span>()}<span style="color: #50a14f">></span>"<br>}<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">stats</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #c18401">String</span>[] stats <span style="color: #0184bc">=</span> []<br>  <span style="color: #a626a4">for</span> row <span style="color: #a626a4">in</span> <span style="color: #c18401">%UStats</span>.<span style="color: #4078f2">stats</span>() {<br>    stats <span style="color: #0184bc">=</span> <span style="color: #4078f2">append</span>(stats, f"{<span style="color: #50a14f">row.</span><span style="color: #9a5050">name</span>}<span style="color: #50a14f">: </span>{<span style="color: #50a14f">row.</span><span style="color: #9a5050">total</span>}")<br>  }<br>  <span style="color: #a626a4">return</span> stats.<span style="color: #4078f2">join</span>("<span style="color: #50a14f">, </span>")<br>}<br><br><span style="color: #2b5a8f">@Gateway</span>.<span style="color: #4078f2">external</span>(<span style="color: #9a5050">endpoint</span>: <span style="color: #2b5a8f">@Greeter</span>.<span style="color: #9a5050">sayHello</span>, <span style="color: #9a5050">budget</span>: <span style="color: #986801">1500ms</span>)<br><span style="color: #2b5a8f">@Gateway</span>.<span style="color: #4078f2">external</span>(<span style="color: #9a5050">endpoint</span>: <span style="color: #2b5a8f">@Greeter</span>.<span style="color: #9a5050">stats</span>, <span style="color: #9a5050">budget</span>: <span style="color: #986801">1000ms</span>)<br>      </code></pre>
           </div>
 		  <p>This program introduces a few more interesting Ritchie concepts.</p>
@@ -201,7 +203,7 @@
 			  <tr><td><code>@Gateway.external()</code></td><td>Registers specific service endpoints for external access.</td></tr>
 			</tbody>
 		  </table>
-		  <p>When deployed, <code>rap</code> created a Kubernetes development environment for this program. It provisioned:</p>
+		  <p>When deployed, <code>ritchie</code> created a Kubernetes development environment for this program. It provisioned:</p>
 		  <ul>
 			<li>A persistent <code>$User</code> entity service backed by PostgreSQL, including its schema and unique email constraint.</li>
 			<li>A replicated <code>@Greeter</code> service that calls <code>$User</code> and the query collection.</li>
@@ -216,8 +218,11 @@
             <div class="code-window-bar"><span>terminal</span><span>run</span></div>
             <pre><code data-highlighted="sh"><br>$<span style="color: #4078f2"> URL=</span>'<span style="color: #50a14f">https://127.0.0.1:32031/ritchie.dev.hello/v1/main/Greeter</span>'<br>$<span style="color: #4078f2"> OPTS=(-ksS</span> -H<span style="color: #4078f2"> </span>'<span style="color: #50a14f">Content-Type: application/json</span>')<br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworld@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworld@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworld@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> registered user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworld@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworldagain@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworldagain@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"Ada","email":"ada@example.com"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user Ada </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">ada@example.com</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/stats</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>World:<span style="color: #4078f2"> 2, Ada: 1</span><br>      </code></pre>
           </div>
-		  <p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.
-          <p><a class="button" href="/rite/">Continue to RITE</a></p>
+		  <p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.</p>
+          <div class="hero-actions">
+            <a class="button" href="/rite/">Continue to RITE</a>
+            <a class="button button-secondary" href="/playground/">Try Ritchie</a>
+          </div>
 		</section>
       </article>
     </div>
@@ -225,7 +230,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/rite/">RITE</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/rite/">RITE</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

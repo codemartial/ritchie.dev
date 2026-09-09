@@ -13,6 +13,18 @@
       <description>Build stateful distributed applications as one program. Ritchie makes services, durable entities, streams and recoverable failures first-class language concepts.</description>
     </item>
     <item>
+      <title>Ritchie Playground Is Live — Ritchie News</title>
+      <link>https://ritchie.dev/news/</link>
+      <guid isPermaLink="true">https://ritchie.dev/news/</guid>
+      <description>The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.</description>
+    </item>
+    <item>
+      <title>Try Ritchie — Browser playground</title>
+      <link>https://ritchie.dev/playground/</link>
+      <guid isPermaLink="true">https://ritchie.dev/playground/</guid>
+      <description>Write and run a single-file Ritchie program in the browser playground.</description>
+    </item>
+    <item>
       <title>Distributed Hello World — Ritchie preview</title>
       <link>https://ritchie.dev/preview/</link>
       <guid isPermaLink="true">https://ritchie.dev/preview/</guid>
@@ -23,6 +35,12 @@
       <link>https://ritchie.dev/rite/</link>
       <guid isPermaLink="true">https://ritchie.dev/rite/</guid>
       <description>RITE — Reliable Interaction with Typed Endpoints — is the runtime model underneath Ritchie&apos;s programming model.</description>
+    </item>
+    <item>
+      <title>Ritchie Skill — Teach Your Coding Agent Ritchie</title>
+      <link>https://ritchie.dev/skill/</link>
+      <guid isPermaLink="true">https://ritchie.dev/skill/</guid>
+      <description>Download the Ritchie Agent Skill and install it in your coding harness to write, run, explain and learn Ritchie.</description>
     </item>
   </channel>
 </rss>
