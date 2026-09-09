@@ -891,6 +891,50 @@ h4 {
   font-size: 0.98rem;
 }
 
+.skill-install-steps {
+  max-width: var(--measure);
+}
+
+.claude-installation-shots {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+  margin: 2rem 0 2.35rem;
+}
+
+.claude-installation-shots figure {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  box-shadow: 0 12px 30px rgba(59, 43, 75, 0.08);
+}
+
+.claude-installation-shots img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid var(--line);
+}
+
+.claude-installation-shots figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.8rem 0.9rem;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+.claude-installation-shots figcaption span {
+  color: var(--rust);
+  font-family: "Iosevka Term", ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
 .model-flow {
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr;
@@ -1097,6 +1141,10 @@ h4 {
 
   .article .code-window {
     width: calc(100vw - 2rem);
+  }
+
+  .claude-installation-shots {
+    grid-template-columns: 1fr;
   }
 
   .footer-inner {
