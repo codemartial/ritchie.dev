@@ -864,6 +864,33 @@ h4 {
   white-space: pre;
 }
 
+.copy-prompt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.copy-prompt-actions + .document-code {
+  margin-top: 1rem;
+}
+
+.copy-prompt-actions .button {
+  cursor: pointer;
+}
+
+.copy-prompt-actions .button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.copy-prompt-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
 .model-flow {
   display: grid;
   grid-template-columns: 1fr auto 1fr auto 1fr;
