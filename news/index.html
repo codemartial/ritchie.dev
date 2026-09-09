@@ -124,8 +124,8 @@
 
         <section id="language-architecture">
           <h2>Language Architecture</h2>
-          <p>Ritchie is implemented as a custom-built recursive-descent parser that emits Go intermediate code which then is compiled by the Go compiler to native code. A lot of the Ritchie tricks are actually calls into a <code>rlr</code> package (Ritchie Language Runtime) that allows me to define Ritchie semantics as Go logic and keep the size of the generated Go code down.</p>
-          <p>In a small suite of equivalent programs, Ritchie revision <code>e115792c9648</code> ran every measured workload faster than Node.js 22.22.2 and CPython 3.14.0. On Linux/amd64, with compilation excluded and startup approximately subtracted, median workload times were 1.4–3.1× faster than Node and 2.9–82× faster than CPython.</p>
+          <p>Ritchie is implemented as a custom-built recursive-descent parser that emits Go intermediate code which then is compiled by the Go compiler to native code. A lot of the Ritchie tricks are actually calls into a <code>rlr</code> package (Ritchie Language Runtime) that allows me to define Ritchie semantics as Go logic and keep the size of the generated Go code down. It also allows me to leverage the immense, highly mature Go standard library and avoid third party dependencies in Ritchie compiler toolchain.</p>
+          <p>In terms of performance, Ritchie is within a few percentage points of Go and faster than Python or JS (NodeJS). In a small suite of equivalent programs, Ritchie revision <code>e115792c9648</code> ran every measured workload faster than Node.js 22.22.2 and CPython 3.14.0. Median workload times were 1.4–3.1× faster than Node and 2.9–82× faster than CPython on my Linux/amd64 Intel NUC, with compilation excluded and startup approximately subtracted. If we include startup times, Ritchie is even faster.</p>
         </section>
 
         <section id="try-it-now">
