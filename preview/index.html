@@ -28,11 +28,9 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css">
-
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
 </head>
 <body>
-
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -61,6 +59,7 @@
     <div class="shell doc-layout">
       <aside class="toc" aria-label="On this page">
         <strong>On this page</strong>
+
         <ol>
           <li><a href="#local"><span class="toc-index" aria-hidden="true">01.</span>Greeting, in a Box</a></li>
           <li><a href="#memory"><span class="toc-index" aria-hidden="true">02.</span>Remember a User</a></li>
@@ -68,162 +67,339 @@
           <li><a href="#problem"><span class="toc-index" aria-hidden="true">04.</span>The Problem</a></li>
           <li><a href="#ritchie"><span class="toc-index" aria-hidden="true">05.</span>The Ritchie Program</a></li>
           <li><a href="#deploy"><span class="toc-index" aria-hidden="true">06.</span>Build and deploy</a></li>
-          <li><a href="#more"><span class="toc-index" aria-hidden="true">07.</span>A Bit More&hellip;</a></li>
+          <li><a href="#more"><span class="toc-index" aria-hidden="true">07.</span>A Bit More…</a></li>
         </ol>
+
       </aside>
 
       <article class="article">
-        <section id="local">
-          <div class="section-heading">
-            <p class="eyebrow">01</p>
-            <h2>Greeting, in a Box</h2>
-          </div>
-          <p>How hard is it to say Hello World? It shouldn't be much trouble. Let’s try with Go.</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>hello.go</span><span>Go</span></div>
-            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> "<span style="color: #50a14f">fmt</span>"<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">sayHello</span>(toWhom <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello </span>" <span style="color: #0184bc">+</span> toWhom<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>}</code></pre>
-          </div>
-          <p>That was not too hard – about five lines of code to the eye.</p>
-        </section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">01</p>
+<h2 id="local">Greeting, in a Box</h2>
+</div>
+<p>How hard is it to say Hello World? It shouldn't be much trouble. Let’s try with Go.</p>
+<div class="code-window">
+<div class="code-window-bar"><span>hello.go</span><span>Go</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">import</span><span style="color: #50A14F;"> &quot;fmt&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> sayHello</span><span>(toWhom</span><span style="color: #A626A4;"> string</span><span>)</span><span style="color: #A626A4;"> string</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> &quot;Hello &quot;</span><span> +</span><span style="color: #E45649;"> toWhom</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>That was not too hard – about five lines of code to the eye.</p>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">02</p>
+<h2 id="memory">Remember a User</h2>
+</div>
+<p>How about remembering whom we've already greeted? That's not so easy but not too tough either:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>hello-memory.go</span><span>Go</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">import</span><span style="color: #50A14F;"> &quot;fmt&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">var</span><span style="color: #E45649;"> users</span><span> =</span><span style="color: #A626A4;"> map</span><span>[</span><span style="color: #A626A4;">string</span><span>]</span><span style="color: #A626A4;">bool</span><span>{}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> sayHello</span><span>(toWhom</span><span style="color: #A626A4;"> string</span><span>)</span><span style="color: #A626A4;"> string</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span style="color: #E45649;"> _</span><span>,</span><span style="color: #E45649;"> ok</span><span> :=</span><span style="color: #E45649;"> users</span><span>[</span><span style="color: #E45649;">toWhom</span><span>];</span><span style="color: #E45649;"> ok</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        return</span><span style="color: #50A14F;"> &quot;Hello registered user &quot;</span><span> +</span><span style="color: #E45649;"> toWhom</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    users</span><span>[</span><span style="color: #E45649;">toWhom</span><span>] =</span><span style="color: #986801;"> true</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> &quot;Hello new user &quot;</span><span> +</span><span style="color: #E45649;"> toWhom</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>That looks a bit more involved but still not too difficult to follow, even if you don't know Go. It is, however, still a single process with temporary memory.</p>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">03</p>
+<h2 id="distributed">Cross the Machine Boundary</h2>
+</div>
+<p>Let's turn the greeter into a minimal distributed application. We need:</p>
+<ol class="requirements">
+<li><span>01</span><div><strong>Persistent registry.</strong> A restart must not forget whom we have greeted.</div></li>
+<li><span>02</span><div><strong>Network API.</strong> Other processes must be able to ask for a greeting.</div></li>
+<li><span>03</span><div><strong>Concurrent requests.</strong> Registration must remain correct while calls overlap.</div></li>
+</ol>
+<div class="code-window">
+<div class="code-window-bar"><span>hello-network.go</span><span>Go</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">import</span><span> (</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;bufio&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;fmt&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;log&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;net/http&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;os&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    &quot;sync&quot;</span></span>
+<span class="giallo-l"><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">const</span><span style="color: #E45649;"> userFile</span><span> =</span><span style="color: #50A14F;"> &quot;users.txt&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">type</span><span style="color: #C18401;"> Registry</span><span style="color: #A626A4;"> struct</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    mu</span><span style="color: #C18401;">    sync</span><span>.</span><span style="color: #C18401;">Mutex</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    users</span><span style="color: #A626A4;"> map</span><span>[</span><span style="color: #A626A4;">string</span><span>]</span><span style="color: #A626A4;">bool</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> load</span><span>(path</span><span style="color: #A626A4;"> string</span><span>)</span><span style="color: #A626A4;"> map</span><span>[</span><span style="color: #A626A4;">string</span><span>]</span><span style="color: #A626A4;">bool</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    users</span><span> :=</span><span style="color: #4078F2;"> make</span><span>(</span><span style="color: #A626A4;">map</span><span>[</span><span style="color: #A626A4;">string</span><span>]</span><span style="color: #A626A4;">bool</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    f</span><span>,</span><span style="color: #E45649;"> err</span><span> :=</span><span style="color: #E45649;"> os</span><span>.</span><span style="color: #4078F2;">Open</span><span>(</span><span style="color: #E45649;">path</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span style="color: #E45649;"> err</span><span> !=</span><span style="color: #986801;"> nil</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        return</span><span style="color: #E45649;"> users</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    defer</span><span style="color: #E45649;"> f</span><span>.</span><span style="color: #4078F2;">Close</span><span>()</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #E45649;">    scanner</span><span> :=</span><span style="color: #E45649;"> bufio</span><span>.</span><span style="color: #4078F2;">NewScanner</span><span>(</span><span style="color: #E45649;">f</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span style="color: #E45649;"> scanner</span><span>.</span><span style="color: #4078F2;">Scan</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        users</span><span>[</span><span style="color: #E45649;">scanner</span><span>.</span><span style="color: #4078F2;">Text</span><span>()] =</span><span style="color: #986801;"> true</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #E45649;"> users</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span> (r *</span><span style="color: #C18401;">Registry</span><span>)</span><span style="color: #4078F2;"> greet</span><span>(name</span><span style="color: #A626A4;"> string</span><span>)</span><span style="color: #A626A4;"> string</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    r</span><span>.</span><span style="color: #E45649;">mu</span><span>.</span><span style="color: #4078F2;">Lock</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    defer</span><span style="color: #E45649;"> r</span><span>.</span><span style="color: #E45649;">mu</span><span>.</span><span style="color: #4078F2;">Unlock</span><span>()</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span style="color: #E45649;"> r</span><span>.</span><span style="color: #E45649;">users</span><span>[</span><span style="color: #E45649;">name</span><span>] {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        return</span><span style="color: #50A14F;"> &quot;Hello registered user &quot;</span><span> +</span><span style="color: #E45649;"> name</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #E45649;">    r</span><span>.</span><span style="color: #E45649;">users</span><span>[</span><span style="color: #E45649;">name</span><span>] =</span><span style="color: #986801;"> true</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    flags</span><span> :=</span><span style="color: #E45649;"> os</span><span>.</span><span style="color: #E45649;">O_APPEND</span><span> |</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        os</span><span>.</span><span style="color: #E45649;">O_CREATE</span><span> |</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        os</span><span>.</span><span style="color: #E45649;">O_WRONLY</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    f</span><span>,</span><span style="color: #E45649;"> err</span><span> :=</span><span style="color: #E45649;"> os</span><span>.</span><span style="color: #4078F2;">OpenFile</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        userFile</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        flags</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #986801;">        0644</span><span>,</span></span>
+<span class="giallo-l"><span>    )</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span style="color: #E45649;"> err</span><span> !=</span><span style="color: #986801;"> nil</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        return</span><span style="color: #50A14F;"> &quot;Hello new user &quot;</span><span> +</span><span style="color: #E45649;"> name</span><span> +</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">            &quot; (not saved)&quot;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    defer</span><span style="color: #E45649;"> f</span><span>.</span><span style="color: #4078F2;">Close</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Fprintln</span><span>(</span><span style="color: #E45649;">f</span><span>,</span><span style="color: #E45649;"> name</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> &quot;Hello new user &quot;</span><span> +</span><span style="color: #E45649;"> name</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> hello</span><span>(r *</span><span style="color: #C18401;">Registry</span><span>)</span><span style="color: #C18401;"> http</span><span>.</span><span style="color: #C18401;">HandlerFunc</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return func</span><span>(</span></span>
+<span class="giallo-l"><span>        w</span><span style="color: #C18401;"> http</span><span>.</span><span style="color: #C18401;">ResponseWriter</span><span>,</span></span>
+<span class="giallo-l"><span>        req *</span><span style="color: #C18401;">http</span><span>.</span><span style="color: #C18401;">Request</span><span>,</span></span>
+<span class="giallo-l"><span>    ) {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        name</span><span> :=</span><span style="color: #E45649;"> req</span><span>.</span><span style="color: #E45649;">URL</span><span>.</span><span style="color: #4078F2;">Query</span><span>().</span><span style="color: #4078F2;">Get</span><span>(</span><span style="color: #50A14F;">&quot;name&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span style="color: #E45649;"> name</span><span> ==</span><span style="color: #50A14F;"> &quot;&quot;</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">            http</span><span>.</span><span style="color: #4078F2;">Error</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #E45649;">                w</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">                &quot;missing name&quot;</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #E45649;">                http</span><span>.</span><span style="color: #E45649;">StatusBadRequest</span><span>,</span></span>
+<span class="giallo-l"><span>            )</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">            return</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        fmt</span><span>.</span><span style="color: #4078F2;">Fprintln</span><span>(</span><span style="color: #E45649;">w</span><span>,</span><span style="color: #E45649;"> r</span><span>.</span><span style="color: #4078F2;">greet</span><span>(</span><span style="color: #E45649;">name</span><span>))</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    registry</span><span> := &amp;</span><span style="color: #C18401;">Registry</span><span>{</span></span>
+<span class="giallo-l"><span style="color: #E45649;">        users</span><span>:</span><span style="color: #4078F2;"> load</span><span>(</span><span style="color: #E45649;">userFile</span><span>),</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    http</span><span>.</span><span style="color: #4078F2;">HandleFunc</span><span>(</span><span style="color: #50A14F;">&quot;/hello&quot;</span><span>,</span><span style="color: #4078F2;"> hello</span><span>(</span><span style="color: #E45649;">registry</span><span>))</span></span>
+<span class="giallo-l"><span style="color: #E45649;">    log</span><span>.</span><span style="color: #4078F2;">Fatal</span><span>(</span><span style="color: #E45649;">http</span><span>.</span><span style="color: #4078F2;">ListenAndServe</span><span>(</span><span style="color: #50A14F;">&quot;:8080&quot;</span><span>,</span><span style="color: #986801;"> nil</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>You know what, don’t bother reading the code above. It’s okay. While I wrote the first two Go snippets by hand, I got an LLM to write this one and I didn’t bother reading it myself!</p>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">04</p>
+<h2 id="problem">The Problem</h2>
+</div>
+<p>The program above ceases to be correct when run as multiple instances. Each instance has its own in-memory registry and all of them append to a file that was never designed to be shared this way.</p>
+<p>A real version now needs a storage service, a schema and client, connection management, consistency model, transaction rules, service discovery, authentication, deployment configuration, health checks, scaling policy, observability and a failure model.</p>
+<div class="callout">
+<span class="callout-label">The mismatch</span>
+<p>The domain operation remains “remember a user and greet them.” The implementation has become mostly machinery required to make that operation survive distribution. You could try to ease the pain using a framework, but there's still a problem. A framework is open. It can only <em>assume</em> that things are a certain way. As long as you're programming in a lower model, using a framework just means that you promise to follow the instructions on the label. It's not too hard to inadvertently go against the instructions. Therein lie production outages.</p>
+<p>Writing "Hello World" on a computer involves processors, memory, storage, device drivers, operating systems, compilers and runtimes, yet we do it without skipping a beat because the programming model is there. Distributed applications do not yet have such a model, so every developer must reason directly about networks, parallel execution, partial failure, retries, data ownership and operations. The good news is that we now know just enough to build one.</p>
+</div>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">05</p>
+<h2 id="ritchie">The Ritchie Program</h2>
+</div>
+<p>RITE — Reliable Interaction with Typed Endpoints — distils what we have collectively learned into a small model built around single ownership, bounded calls, idempotent retries and invariants that do not cross boundaries. Ritchie is the language that enforces that model.</p>
+<p>Ritchie makes durable identity and the network boundary visible in the program. The entity owns persistence and transactional state. The service publishes the operation.</p>
+<div class="code-window">
+<div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">$User</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    unique</span><span style="color: #C18401;"> String</span><span> name</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">$User</span><span>.</span><span style="color: #4078F2;">name</span><span>() -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return self</span><span>.name</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Greeter</span><span> { }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Greeter</span><span>.</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #C18401;">String</span><span> toWhom) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    $User</span><span> u =</span><span style="color: #C18401;"> $User</span><span>[name: toWhom]</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        else create</span><span style="color: #C18401;"> $User</span><span>{} </span><span style="color: #A626A4;">then</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">            return</span><span style="color: #50A14F;"> f&quot;Hello new user {u.name()}&quot;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;Hello registered user {u.name()}&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<table class="exhibit">
+<thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>$User</code></td><td>Persistent state with durable identity.</td></tr>
+<tr><td><code>$User.name()</code></td><td>Behaviour that owns access to entity state.</td></tr>
+<tr><td><code>else create</code></td><td>Atomic get-or-create.</td></tr>
+<tr><td><code>@Greeter</code></td><td>A stateless networked application boundary.</td></tr>
+<tr><td><code>@Greeter.sayHello()</code></td><td>An API endpoint of the <code>Greeter</code> service.</td></tr>
+</tbody>
+</table>
+<p>The source retains the domain operation while giving the compiler and runtime the structure they need to provide persistence, concurrency and distributed execution.</p>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">06</p>
+<h2 id="deploy">Build and deploy</h2>
+</div>
+<p>With the current Ritchie toolchain installed, check the source and compile it into an immutable, environment-neutral release:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>terminal</span><span>build</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">rcc</span><span style="color: #50A14F;"> check hello.ri</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">rcc</span><span style="color: #50A14F;"> build</span><span style="color: #0184BC;"> \</span></span>
+<span class="giallo-l"><span style="color: #986801;">    --application</span><span style="color: #50A14F;"> ritchie.dev.hello</span><span style="color: #0184BC;"> \</span></span>
+<span class="giallo-l"><span style="color: #986801;">    --output</span><span style="color: #50A14F;"> hello.run</span><span style="color: #0184BC;"> \</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">    hello.ri</span></span></code></pre></div>
+<p>Create an environment on a configured runtime site and deploy the same release:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>terminal</span><span>deploy</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> environment create hello-dev</span><span style="color: #986801;"> --site</span><span style="color: #50A14F;"> nswcloud</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> deploy</span><span style="color: #986801;"> --environment</span><span style="color: #50A14F;"> hello-dev hello.run</span></span></code></pre></div>
+<p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
+</section>
+<section>
+<div class="section-heading">
+<p class="eyebrow">07</p>
+<h2 id="more">A Bit More…</h2>
+</div>
+<p>The previous Ritchie program demonstrated the functionality that we had in the second version of Hello World, but distributed. Let's extend it a bit more. We want:</p>
+<ol class="requirements">
+<li><span>01</span><div><strong>Overlapping Names.</strong> Because more than one person can have the same name.</div></li>
+<li><span>02</span><div><strong>Unique Emails.</strong> That's how we know who's who.</div></li>
+<li><span>03</span><div><strong>Stats!</strong> Let's find the most popular names.</div></li>
+</ol>
+<p>Here's the Ritchie Program for that:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">Email</span><span> =</span><span style="color: #C18401;"> String</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">$User</span><span> { </span></span>
+<span class="giallo-l"><span style="color: #C18401;">	String</span><span> name</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	unique</span><span style="color: #C18401;"> Email</span><span> email</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">$User</span><span>.</span><span style="color: #4078F2;">name</span><span>() -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	return self</span><span>.name</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span style="color: #C18401;">$User</span><span>.</span><span style="color: #4078F2;">email</span><span>() -&gt;</span><span style="color: #C18401;"> Email</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	return self</span><span>.email</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">%UStats</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">	String</span><span> name</span></span>
+<span class="giallo-l"><span style="color: #C18401;">	Int</span><span> total</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">%UStats</span><span>.</span><span style="color: #4078F2;">stats</span><span>() {</span></span>
+<span class="giallo-l"><span>	from </span><span style="color: #C18401;">$User</span><span> u</span></span>
+<span class="giallo-l"><span>	group by u.name</span></span>
+<span class="giallo-l"><span>	select { name: u.name, total: </span><span style="color: #4078F2;">count</span><span>(u) }</span></span>
+<span class="giallo-l"><span>	sort total desc</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Greeter</span><span> {}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Greeter</span><span>.</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #C18401;">String</span><span> toWhom, </span><span style="color: #C18401;">Email</span><span> email) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">	$User</span><span> u =</span><span style="color: #C18401;"> $User</span><span>[email: email]</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">		else create</span><span style="color: #C18401;"> $User</span><span> { name:toWhom } </span><span style="color: #A626A4;">then</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">			return</span><span style="color: #50A14F;"> f&quot;Hello new user {u.name()} &lt;{u.email()}&gt;&quot;</span></span>
+<span class="giallo-l"><span>		}</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	return</span><span style="color: #50A14F;"> f&quot;Hello registered user {u.name()} &lt;{u.email()}&gt;&quot;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Greeter</span><span>.</span><span style="color: #4078F2;">stats</span><span>() -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">	String</span><span>[] stats = []</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	for</span><span> row </span><span style="color: #A626A4;">in</span><span style="color: #C18401;"> %UStats</span><span>.</span><span style="color: #4078F2;">stats</span><span>() {</span></span>
+<span class="giallo-l"><span>		stats =</span><span style="color: #4078F2;"> append</span><span>(stats, </span><span style="color: #50A14F;">f&quot;{row.name}: {row.total}&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>	}</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">	return</span><span> stats.</span><span style="color: #4078F2;">join</span><span>(</span><span style="color: #50A14F;">&quot;, &quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Gateway</span><span>.</span><span style="color: #4078F2;">external</span><span>(endpoint: </span><span style="color: #C18401;">@Greeter</span><span>.sayHello, budget: </span><span style="color: #986801;">1500ms</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">@Gateway</span><span>.</span><span style="color: #4078F2;">external</span><span>(endpoint: </span><span style="color: #C18401;">@Greeter</span><span>.stats, budget: </span><span style="color: #986801;">1000ms</span><span>)</span></span></code></pre></div>
+<p>This program introduces a few more interesting Ritchie concepts.</p>
+<table class="exhibit">
+<thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>Email = String</code></td><td>A type alias. Use <code>:=</code> for a <strong>new type</strong>.</td></tr>
+<tr><td><code>%UStats</code></td><td>A <strong>Projection</strong>, used for eventually consistent reads.</td></tr>
+<tr><td><code>%UStats.stats()</code></td><td>A <strong>Projection query</strong>, used to filter, sort or aggregate entities.</td></tr>
+<tr><td><code>@Gateway</code></td><td>A built-in service that exposes selected Ritchie service methods through HTTPS/JSON.</td></tr>
+<tr><td><code>@Gateway.external()</code></td><td>Registers specific service endpoints for external access.</td></tr>
+</tbody>
+</table>
+<p>When deployed, <code>ritchie</code> created a Kubernetes development environment for this program. It provisioned:</p>
+<ul>
+<li>A persistent <code>$User</code> entity service backed by PostgreSQL, including its schema and unique email constraint.</li>
+<li>A replicated <code>@Greeter</code> service that calls <code>$User</code> and the query collection.</li>
+<li>A <code>%UStats</code> collection service that executes the grouped, sorted read query with read-only database access.</li>
+<li>An HTTPS Gateway exposing <code>sayHello</code> and <code>stats</code> through NodePort <code>32031</code>, with their declared request budgets.</li>
+<li>Internal headless Services, DNS bindings, mutual-TLS identities, authorization rules, NetworkPolicies, runtime budgets, and readiness checks connecting those units.</li>
+<li>A shared PostgreSQL database with Ritchie-managed schemas and roles.</li>
+<li>Imported OCI images for the entry point, entity, service, collection, Gateway, and schema-management artifact.</li>
+</ul>
+<p>Here's a sample run (simplified presentation) of the program:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>terminal</span><span>run</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> URL=&#39;https://127.0.0.1:32031/ritchie.dev.hello/v1/main/Greeter&#39;</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> OPTS=</span><span>(</span><span style="color: #4078F2;">-ksS</span><span style="color: #986801;"> -H</span><span style="color: #50A14F;"> &#39;Content-Type: application/json&#39;</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{&quot;toWhom&quot;:&quot;World&quot;,&quot;email&quot;:&quot;helloworld@ritchie.dev&quot;}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/sayHello&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">Hello</span><span style="color: #50A14F;"> new user World</span><span> &lt;</span><span style="color: #50A14F;">helloworld@ritchie.de</span><span>v&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{&quot;toWhom&quot;:&quot;World&quot;,&quot;email&quot;:&quot;helloworld@ritchie.dev&quot;}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/sayHello&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">Hello</span><span style="color: #50A14F;"> registered user World</span><span> &lt;</span><span style="color: #50A14F;">helloworld@ritchie.de</span><span>v&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{&quot;toWhom&quot;:&quot;World&quot;,&quot;email&quot;:&quot;helloworldagain@ritchie.dev&quot;}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/sayHello&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">Hello</span><span style="color: #50A14F;"> new user World</span><span> &lt;</span><span style="color: #50A14F;">helloworldagain@ritchie.de</span><span>v&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{&quot;toWhom&quot;:&quot;Ada&quot;,&quot;email&quot;:&quot;ada@example.com&quot;}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/sayHello&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">Hello</span><span style="color: #50A14F;"> new user Ada</span><span> &lt;</span><span style="color: #50A14F;">ada@example.co</span><span>m&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/stats&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">World:</span><span style="color: #50A14F;"> 2, Ada:</span><span style="color: #986801;"> 1</span></span></code></pre></div>
+<p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.</p>
+<div class="hero-actions">
+<a class="button" href="/rite/">Continue to RITE</a>
+<a class="button button-secondary" href="/playground/">Try Ritchie</a>
+</div>
+</section>
 
-        <section id="memory">
-          <div class="section-heading">
-            <p class="eyebrow">02</p>
-            <h2>Remember a User</h2>
-          </div>
-          <p>How about remembering whom we've already greeted? That's not so easy but not too tough either:</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>hello-memory.go</span><span>Go</span></div>
-            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> "<span style="color: #50a14f">fmt</span>"<br><br><span style="color: #a626a4">var</span> users <span style="color: #0184bc">=</span> <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span>{}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">sayHello</span>(toWhom <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    <span style="color: #a626a4">if</span> _, ok <span style="color: #0184bc">:=</span> users[toWhom]; ok {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello registered user </span>" <span style="color: #0184bc">+</span> toWhom<br>    }<br>    users[toWhom] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> toWhom<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>    fmt.Println(sayHello("<span style="color: #50a14f">World</span>"))<br>}</code></pre>
-          </div>
-          <p>That looks a bit more involved but still not too difficult to follow, even if you don't know Go. It is, however, still a single process with temporary memory.</p>
-        </section>
-
-        <section id="distributed">
-          <div class="section-heading">
-            <p class="eyebrow">03</p>
-            <h2>Cross the Machine Boundary</h2>
-          </div>
-          <p>Let's turn the greeter into a minimal distributed application. We need:</p>
-          <ol class="requirements">
-            <li><span>01</span><div><strong>Persistent registry.</strong> A restart must not forget whom we have greeted.</div></li>
-            <li><span>02</span><div><strong>Network API.</strong> Other processes must be able to ask for a greeting.</div></li>
-            <li><span>03</span><div><strong>Concurrent requests.</strong> Registration must remain correct while calls overlap.</div></li>
-          </ol>
-
-          <div class="code-window">
-            <div class="code-window-bar"><span>hello-network.go</span><span>Go</span></div>
-            <pre><code data-highlighted="go"><span style="color: #a626a4">package</span> main<br><br><span style="color: #a626a4">import</span> (<br>    "<span style="color: #50a14f">bufio</span>"<br>    "<span style="color: #50a14f">fmt</span>"<br>    "<span style="color: #50a14f">log</span>"<br>    "<span style="color: #50a14f">net/http</span>"<br>    "<span style="color: #50a14f">os</span>"<br>    "<span style="color: #50a14f">sync</span>"<br>)<br><br><span style="color: #a626a4">const</span> userFile <span style="color: #0184bc">=</span> "<span style="color: #50a14f">users.txt</span>"<br><br><span style="color: #a626a4">type</span> <span style="color: #c18401">Registry</span> <span style="color: #a626a4">struct</span> {<br>    <span style="color: #9a5050">mu</span>    sync.<span style="color: #a626a4">Mutex</span><br>    <span style="color: #9a5050">users</span> <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span><br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">load</span>(path <span style="color: #c18401">string</span>) <span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span> {<br>    users <span style="color: #0184bc">:=</span> <span style="color: #4078f2">make</span>(<span style="color: #a626a4">map</span>[<span style="color: #c18401">string</span>]<span style="color: #c18401">bool</span>)<br>    f, err <span style="color: #0184bc">:=</span> os.Open(path)<br>    <span style="color: #a626a4">if</span> err <span style="color: #0184bc">!=</span> <span style="color: #986801">nil</span> {<br>        <span style="color: #a626a4">return</span> users<br>    }<br>    <span style="color: #a626a4">defer</span> f.Close()<br><br>    scanner <span style="color: #0184bc">:=</span> bufio.NewScanner(f)<br>    <span style="color: #a626a4">for</span> scanner.Scan() {<br>        users[scanner.Text()] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    }<br>    <span style="color: #a626a4">return</span> users<br>}<br><br><span style="color: #a626a4">func</span> (r <span style="color: #0184bc">*</span><span style="color: #a626a4">Registry</span>) <span style="color: #4078f2">greet</span>(name <span style="color: #c18401">string</span>) <span style="color: #c18401">string</span> {<br>    r.<span style="color: #9a5050">mu</span>.Lock()<br>    <span style="color: #a626a4">defer</span> r.<span style="color: #9a5050">mu</span>.Unlock()<br><br>    <span style="color: #a626a4">if</span> r.<span style="color: #9a5050">users</span>[name] {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello registered user </span>" <span style="color: #0184bc">+</span> name<br>    }<br><br>    r.<span style="color: #9a5050">users</span>[name] <span style="color: #0184bc">=</span> <span style="color: #986801">true</span><br>    flags <span style="color: #0184bc">:=</span> os.<span style="color: #9a5050">O_APPEND</span> <span style="color: #0184bc">|</span><br>        os.<span style="color: #9a5050">O_CREATE</span> <span style="color: #0184bc">|</span><br>        os.<span style="color: #9a5050">O_WRONLY</span><br>    f, err <span style="color: #0184bc">:=</span> os.OpenFile(<br>        userFile,<br>        flags,<br>        0<span style="color: #986801">644</span>,<br>    )<br>    <span style="color: #a626a4">if</span> err <span style="color: #0184bc">!=</span> <span style="color: #986801">nil</span> {<br>        <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> name <span style="color: #0184bc">+</span><br>            "<span style="color: #50a14f"> (not saved)</span>"<br>    }<br>    <span style="color: #a626a4">defer</span> f.Close()<br>    fmt.Fprintln(f, name)<br>    <span style="color: #a626a4">return</span> "<span style="color: #50a14f">Hello new user </span>" <span style="color: #0184bc">+</span> name<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">hello</span>(r <span style="color: #0184bc">*</span><span style="color: #a626a4">Registry</span>) http.<span style="color: #a626a4">HandlerFunc</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">func</span>(<br>        w http.<span style="color: #a626a4">ResponseWriter</span>,<br>        req <span style="color: #0184bc">*</span>http.<span style="color: #a626a4">Request</span>,<br>    ) {<br>        name <span style="color: #0184bc">:=</span> req.<span style="color: #9a5050">URL</span>.Query().Get("<span style="color: #50a14f">name</span>")<br>        <span style="color: #a626a4">if</span> name <span style="color: #0184bc">==</span> "" {<br>            http.Error(<br>                w,<br>                "<span style="color: #50a14f">missing name</span>",<br>                http.<span style="color: #9a5050">StatusBadRequest</span>,<br>            )<br>            <span style="color: #a626a4">return</span><br>        }<br>        fmt.Fprintln(w, r.greet(name))<br>    }<br>}<br><br><span style="color: #a626a4">func</span> <span style="color: #4078f2">main</span>() {<br>    registry <span style="color: #0184bc">:=</span> <span style="color: #0184bc">&amp;</span>Registry{<br>        users: load(userFile),<br>    }<br>    http.HandleFunc("<span style="color: #50a14f">/hello</span>", hello(registry))<br>    log.Fatal(http.ListenAndServe("<span style="color: #50a14f">:8080</span>", <span style="color: #986801">nil</span>))<br>}</code></pre>
-          </div>
-
-          <p>You know what, don’t bother reading the code above. It’s okay. While I wrote the first two Go snippets by hand, I got an LLM to write this one and I didn’t bother reading it myself!</p>
-        </section>
-
-        <section id="problem">
-          <div class="section-heading">
-            <p class="eyebrow">04</p>
-            <h2>The Problem</h2>
-          </div>
-          <p>The program above ceases to be correct when run as multiple instances. Each instance has its own in-memory registry and all of them append to a file that was never designed to be shared this way.</p>
-          <p>A real version now needs a storage service, a schema and client, connection management, consistency model, transaction rules, service discovery, authentication, deployment configuration, health checks, scaling policy, observability and a failure model.</p>
-          <div class="callout">
-            <span class="callout-label">The mismatch</span>
-            <p>The domain operation remains “remember a user and greet them.” The implementation has become mostly machinery required to make that operation survive distribution. You could try to ease the pain using a framework, but there's still a problem. A framework is open. It can only <em>assume</em> that things are a certain way. As long as you're programming in a lower model, using a framework just means that you promise to follow the instructions on the label. It's not too hard to inadvertently go against the instructions. Therein lie production outages.</p>
-			<p>Writing "Hello World" on a computer involves processors, memory, storage, device drivers, operating systems, compilers and runtimes, yet we do it without skipping a beat because the programming model is there. Distributed applications do not yet have such a model, so every developer must reason directly about networks, parallel execution, partial failure, retries, data ownership and operations. The good news is that we now know just enough to build one.</p>
-          </div>
-        </section>
-
-        <section id="ritchie">
-          <div class="section-heading">
-            <p class="eyebrow">05</p>
-            <h2>The Ritchie Program</h2>
-          </div>
-			<p>RITE — Reliable Interaction with Typed Endpoints — distils what we have collectively learned into a small model built around single ownership, bounded calls, idempotent retries and invariants that do not cross boundaries. Ritchie is the language that enforces that model.</p>		  
-          <p>Ritchie makes durable identity and the network boundary visible in the program. The entity owns persistence and transactional state. The service publishes the operation.</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
-            <pre><code data-highlighted="ritchie"><span style="color: #0184bc">$User</span> {<br>    <span style="color: #a626a4">unique</span> <span style="color: #c18401">String</span> name<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><br><span style="color: #2b5a8f">@Greeter</span> { }<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>    <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">name</span>: toWhom]<br>        <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span>{} <span style="color: #a626a4">then</span> {<br>            <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>        }<br>    <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}"<br>}</code></pre>
-          </div>
-
-          <table class="exhibit">
-            <thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><code>$User</code></td><td>Persistent state with durable identity.</td></tr>
-              <tr><td><code>$User.name()</code></td><td>Behaviour that owns access to entity state.</td></tr>
-              <tr><td><code>else create</code></td><td>Atomic get-or-create.</td></tr>
-              <tr><td><code>@Greeter</code></td><td>A stateless networked application boundary.</td></tr>
-              <tr><td><code>@Greeter.sayHello()</code></td><td>An API endpoint of the <code>Greeter</code> service.</td></tr>
-            </tbody>
-          </table>
-          <p>The source retains the domain operation while giving the compiler and runtime the structure they need to provide persistence, concurrency and distributed execution.</p>
-        </section>
-
-        <section id="deploy">
-          <div class="section-heading">
-            <p class="eyebrow">06</p>
-            <h2>Build and deploy</h2>
-          </div>
-          <p>With the current Ritchie toolchain installed, check the source and compile it into an immutable, environment-neutral release:</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>terminal</span><span>build</span></div>
-            <pre><code data-highlighted="sh">rcc<span style="color: #4078f2"> check hello.ri</span><br>rcc<span style="color: #4078f2"> build </span>\<br>    --application<span style="color: #4078f2"> ritchie.dev.hello </span>\<br>    --output<span style="color: #4078f2"> hello.run </span>\<br><span style="color: #4078f2">    hello.ri</span></code></pre>
-          </div>
-          <p>Create an environment on a configured runtime site and deploy the same release:</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>terminal</span><span>deploy</span></div>
-            <pre><code data-highlighted="sh">ritchie<span style="color: #4078f2"> environment create hello-dev</span> --site<span style="color: #4078f2"> nswcloud</span><br>ritchie<span style="color: #4078f2"> deploy</span> --environment<span style="color: #4078f2"> hello-dev hello.run</span></code></pre>
-          </div>
-          <p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
-        </section>
-
-		<section id="more">
-          <div class="section-heading">
-            <p class="eyebrow">07</p>
-            <h2>A Bit More&hellip;</h2>
-          </div>
-		  <p>The previous Ritchie program demonstrated the functionality that we had in the second version of Hello World, but distributed. Let's extend it a bit more. We want:</p>
-		  <ol class="requirements">
-            <li><span>01</span><div><strong>Overlapping Names.</strong> Because more than one person can have the same name.</div></li>
-            <li><span>02</span><div><strong>Unique Emails.</strong> That's how we know who's who.</div></li>
-            <li><span>03</span><div><strong>Stats!</strong> Let's find the most popular names.</div></li>
-		  </ol>
-		  <p>Here's the Ritchie Program for that:</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
-			<pre><code data-highlighted="ritchie"><span style="color: #c18401">Email</span> <span style="color: #0184bc">=</span> <span style="color: #c18401">String</span><br><br><span style="color: #0184bc">$User</span> { <br>  <span style="color: #c18401">String</span> name<br>  <span style="color: #a626a4">unique</span> <span style="color: #c18401">Email</span> email<br>}<br><br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">name</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">name</span><br>}<br><span style="color: #0184bc">$User</span>.<span style="color: #4078f2">email</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">Email</span> {<br>  <span style="color: #a626a4">return</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">email</span><br>}<br><br><span style="color: #c18401">%UStats</span> {<br>  <span style="color: #c18401">String</span> name<br>  <span style="color: #c18401">Int</span> total<br>}<br><br><span style="color: #c18401">%UStats</span>.<span style="color: #4078f2">stats</span>() {<br>  from <span style="color: #0184bc">$User</span> u<br>  group by u.<span style="color: #9a5050">name</span><br>  select { <span style="color: #9a5050">name</span>: u.<span style="color: #9a5050">name</span>, <span style="color: #9a5050">total</span>: <span style="color: #4078f2">count</span>(u) }<br>  sort total desc<br>}<br><br><span style="color: #2b5a8f">@Greeter</span> {}<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">sayHello</span>(<span style="color: #c18401">String</span> toWhom, <span style="color: #c18401">Email</span> email) <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #0184bc">$User</span> u <span style="color: #0184bc">=</span> <span style="color: #0184bc">$User</span>[<span style="color: #9a5050">email</span>: email]<br>    <span style="color: #a626a4">else</span> <span style="color: #a626a4">create</span> <span style="color: #0184bc">$User</span> { <span style="color: #9a5050">name</span>:toWhom } <span style="color: #a626a4">then</span> {<br>      <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello new user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}<span style="color: #50a14f"> &lt;</span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">email</span>()}<span style="color: #50a14f">></span>"<br>    }<br>  <span style="color: #a626a4">return</span> f"<span style="color: #50a14f">Hello registered user </span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">name</span>()}<span style="color: #50a14f"> &lt;</span>{<span style="color: #50a14f">u.</span><span style="color: #4078f2">email</span>()}<span style="color: #50a14f">></span>"<br>}<br><br><span style="color: #2b5a8f">@Greeter</span>.<span style="color: #4078f2">stats</span>() <span style="color: #0184bc">-></span> <span style="color: #c18401">String</span> {<br>  <span style="color: #c18401">String</span>[] stats <span style="color: #0184bc">=</span> []<br>  <span style="color: #a626a4">for</span> row <span style="color: #a626a4">in</span> <span style="color: #c18401">%UStats</span>.<span style="color: #4078f2">stats</span>() {<br>    stats <span style="color: #0184bc">=</span> <span style="color: #4078f2">append</span>(stats, f"{<span style="color: #50a14f">row.</span><span style="color: #9a5050">name</span>}<span style="color: #50a14f">: </span>{<span style="color: #50a14f">row.</span><span style="color: #9a5050">total</span>}")<br>  }<br>  <span style="color: #a626a4">return</span> stats.<span style="color: #4078f2">join</span>("<span style="color: #50a14f">, </span>")<br>}<br><br><span style="color: #2b5a8f">@Gateway</span>.<span style="color: #4078f2">external</span>(<span style="color: #9a5050">endpoint</span>: <span style="color: #2b5a8f">@Greeter</span>.<span style="color: #9a5050">sayHello</span>, <span style="color: #9a5050">budget</span>: <span style="color: #986801">1500ms</span>)<br><span style="color: #2b5a8f">@Gateway</span>.<span style="color: #4078f2">external</span>(<span style="color: #9a5050">endpoint</span>: <span style="color: #2b5a8f">@Greeter</span>.<span style="color: #9a5050">stats</span>, <span style="color: #9a5050">budget</span>: <span style="color: #986801">1000ms</span>)<br>      </code></pre>
-          </div>
-		  <p>This program introduces a few more interesting Ritchie concepts.</p>
-          <table class="exhibit">
-            <thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><code>Email = String</code></td><td>A type alias. Use <code>:=</code> for a <strong>new type</strong>.</td></tr>
-              <tr><td><code>%UStats</code></td><td>A <strong>Projection</strong>, used for eventually consistent reads.</td></tr>
-			  <tr><td><code>%UStats.stats()</code></td><td>A <strong>Projection query</strong>, used to filter, sort or aggregate entities.</td></tr>
-			  <tr><td><code>@Gateway</code></td><td>A built-in service that exposes selected Ritchie service methods through HTTPS/JSON.</td></tr>
-			  <tr><td><code>@Gateway.external()</code></td><td>Registers specific service endpoints for external access.</td></tr>
-			</tbody>
-		  </table>
-		  <p>When deployed, <code>ritchie</code> created a Kubernetes development environment for this program. It provisioned:</p>
-		  <ul>
-			<li>A persistent <code>$User</code> entity service backed by PostgreSQL, including its schema and unique email constraint.</li>
-			<li>A replicated <code>@Greeter</code> service that calls <code>$User</code> and the query collection.</li>
-			<li>A <code>%UStats</code> collection service that executes the grouped, sorted read query with read-only database access.</li>
-			<li>An HTTPS Gateway exposing <code>sayHello</code> and <code>stats</code> through NodePort <code>32031</code>, with their declared request budgets.</li>
-			<li>Internal headless Services, DNS bindings, mutual-TLS identities, authorization rules, NetworkPolicies, runtime budgets, and readiness checks connecting those units.</li>
-			<li>A shared PostgreSQL database with Ritchie-managed schemas and roles.</li>
-			<li>Imported OCI images for the entry point, entity, service, collection, Gateway, and schema-management artifact.</li>
-		  </ul>
-		  <p>Here's a sample run (simplified presentation) of the program:</p>
-          <div class="code-window">
-            <div class="code-window-bar"><span>terminal</span><span>run</span></div>
-            <pre><code data-highlighted="sh"><br>$<span style="color: #4078f2"> URL=</span>'<span style="color: #50a14f">https://127.0.0.1:32031/ritchie.dev.hello/v1/main/Greeter</span>'<br>$<span style="color: #4078f2"> OPTS=(-ksS</span> -H<span style="color: #4078f2"> </span>'<span style="color: #50a14f">Content-Type: application/json</span>')<br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworld@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworld@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworld@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> registered user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworld@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"World","email":"helloworldagain@ritchie.dev"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user World </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">helloworldagain@ritchie.dev</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{"toWhom":"Ada","email":"ada@example.com"}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/sayHello</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>Hello<span style="color: #4078f2"> new user Ada </span><span style="color: #0184bc">&lt;</span><span style="color: #4078f2">ada@example.com</span><span style="color: #0184bc">></span><br><br>$<span style="color: #4078f2"> curl </span>"${OPTS[@]}" -d<span style="color: #4078f2"> </span>'<span style="color: #50a14f">{}</span>'<span style="color: #4078f2"> </span>"$URL<span style="color: #50a14f">/stats</span>" <span style="color: #0184bc">|</span> jq -r<span style="color: #4078f2"> .</span><br>World:<span style="color: #4078f2"> 2, Ada: 1</span><br>      </code></pre>
-          </div>
-		  <p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.</p>
-          <div class="hero-actions">
-            <a class="button" href="/rite/">Continue to RITE</a>
-            <a class="button button-secondary" href="/playground/">Try Ritchie</a>
-          </div>
-		</section>
       </article>
     </div>
   </main>
@@ -234,6 +410,5 @@
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
-
 </body>
 </html>

@@ -1,46 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>Ritchie</title>
     <link>https://ritchie.dev/</link>
     <description>Ritchie — distributed computing by default</description>
     <language>en-GB</language>
     <atom:link href="https://ritchie.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 09 Sep 2026 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Ritchie — Distributed Application Programming Language</title>
-      <link>https://ritchie.dev/</link>
-      <guid isPermaLink="true">https://ritchie.dev/</guid>
-      <description>Build stateful distributed applications as one program. Ritchie makes services, durable entities, streams and recoverable failures first-class language concepts.</description>
-    </item>
-    <item>
-      <title>Ritchie Playground Is Live — Ritchie News</title>
-      <link>https://ritchie.dev/news/</link>
-      <guid isPermaLink="true">https://ritchie.dev/news/</guid>
+      <title>Ritchie Playground Is Live</title>
+      <pubDate>Wed, 09 Sep 2026 00:00:00 +0000</pubDate>
+      <link>https://ritchie.dev/news/playground-is-live/</link>
+      <guid isPermaLink="true">https://ritchie.dev/news/playground-is-live/</guid>
       <description>The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.</description>
-    </item>
-    <item>
-      <title>Try Ritchie — Browser playground</title>
-      <link>https://ritchie.dev/playground/</link>
-      <guid isPermaLink="true">https://ritchie.dev/playground/</guid>
-      <description>Write and run a single-file Ritchie program in the browser playground.</description>
-    </item>
-    <item>
-      <title>Distributed Hello World — Ritchie preview</title>
-      <link>https://ritchie.dev/preview/</link>
-      <guid isPermaLink="true">https://ritchie.dev/preview/</guid>
-      <description>Build a distributed Hello World application and see how Ritchie makes persistence, concurrency and network boundaries part of the program.</description>
-    </item>
-    <item>
-      <title>RITE — Ritchie runtime model</title>
-      <link>https://ritchie.dev/rite/</link>
-      <guid isPermaLink="true">https://ritchie.dev/rite/</guid>
-      <description>RITE — Reliable Interaction with Typed Endpoints — is the runtime model underneath Ritchie&apos;s programming model.</description>
-    </item>
-    <item>
-      <title>Ritchie Skill — Teach Your Coding Agent Ritchie</title>
-      <link>https://ritchie.dev/skill/</link>
-      <guid isPermaLink="true">https://ritchie.dev/skill/</guid>
-      <description>Download the Ritchie Agent Skill and install it in your coding harness to write, run, explain and learn Ritchie.</description>
     </item>
   </channel>
 </rss>

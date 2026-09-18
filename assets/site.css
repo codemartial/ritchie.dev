@@ -443,59 +443,6 @@ h4 {
   line-height: 1.5;
 }
 
-.zero-change {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  align-items: stretch;
-  gap: clamp(2.5rem, 4vw, 4.5rem);
-}
-
-.zero-change-heading {
-  display: flex;
-  align-items: center;
-}
-
-.zero-change-heading h2 {
-  font-size: clamp(4.5rem, 8.5vw, 7.5rem);
-  line-height: 0.84;
-}
-
-.zero-change-heading h2 span {
-  display: block;
-}
-
-.zero-change-when {
-  padding-top: 0;
-}
-
-.zero-change-when .eyebrow {
-  margin: 0 0 1.15rem;
-}
-
-.zero-change-list {
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--line-strong);
-  list-style: none;
-}
-
-.zero-change-list li {
-  display: grid;
-  grid-template-columns: 1.6rem minmax(0, 1fr);
-  gap: 0.7rem;
-  margin: 0;
-  padding: 1.15rem 0 1.25rem;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink-soft);
-  font-size: clamp(1.18rem, 2vw, 1.45rem);
-  line-height: 1.35;
-}
-
-.zero-change-list li::before {
-  color: var(--rust);
-  content: "—";
-}
-
 .path-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -607,6 +554,10 @@ h4 {
   color: var(--muted);
   font-size: 0.95rem;
   text-decoration: none;
+}
+
+.toc-unnumbered a {
+  display: block;
 }
 
 .toc-index {
@@ -778,7 +729,8 @@ h4 {
   font-size: 0.8rem;
 }
 
-.exhibit {
+.exhibit,
+.article table {
   width: 100%;
   margin: 2rem 0;
   border-collapse: collapse;
@@ -786,14 +738,17 @@ h4 {
 }
 
 .exhibit th,
-.exhibit td {
+.exhibit td,
+.article table th,
+.article table td {
   padding: 0.85rem 0.75rem;
   border-bottom: 1px solid var(--line);
   text-align: left;
   vertical-align: top;
 }
 
-.exhibit th {
+.exhibit th,
+.article table th {
   color: var(--muted);
   font-size: 0.82rem;
   letter-spacing: 0.05em;
@@ -1027,15 +982,6 @@ h4 {
 }
 
 @media (max-width: 820px) {
-  .zero-change {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .zero-change-heading h2 {
-    font-size: clamp(4.5rem, 16vw, 7rem);
-  }
-
   .doc-layout {
     grid-template-columns: minmax(0, var(--measure));
   }
@@ -1165,4 +1111,70 @@ h4 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+.code-window pre.giallo {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+.news-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-list li + li {
+  margin-top: 2.25rem;
+}
+
+.news-list h2 {
+  margin: 0 0 0.35rem;
+}
+
+.news-list h2 a {
+  text-decoration: none;
+}
+
+.news-list .document-meta {
+  margin: 0 0 0.5rem;
+}
+
+.article .footnote-definition {
+  display: flex;
+  gap: 0.6rem;
+  margin: 2.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.article .footnote-definition-label {
+  color: var(--rust);
+  font-family: "Iosevka Term", ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+
+.article .footnote-definition p {
+  margin: 0;
+}
+
+.article .footnote-reference a {
+  color: var(--rust);
+  text-decoration: none;
+}
+
+.draft-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--rust);
+  border-radius: 999px;
+  color: var(--rust);
+  font-family: "Iosevka Term", ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
 }

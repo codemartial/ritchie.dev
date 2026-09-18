@@ -28,11 +28,10 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css">
-
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
+  <script src="https://ritchie.dev/assets/skill.js?h=2e1421cd20ae3d532331" defer></script>
 </head>
 <body>
-
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -49,84 +48,78 @@
     </div>
   </header>
 
-  <main id="content">
-    <header class="page-hero">
-      <div class="shell">
-        <p class="eyebrow">Agent Skill</p>
-        <h1>Teach Your Agent Ritchie</h1>
-        <p class="page-subtitle">so it can teach Ritchie to you</p>
-        <p class="lede">A self-contained language guide for coding agents to write, run, explain, debug and teach Ritchie.</p>
-        <div class="hero-actions">
-          <a class="button" href="/assets/downloads/ritchie-skill-2026-09-09-3f6.zip" download>Download the Skill</a>
-        </div>
-        <p class="document-meta">ZIP · 124 KB · 09 September 2026</p>
-      </div>
-    </header>
-
-    <div class="shell rite-layout">
-      <article class="article rite-document">
-        <section>
-          <h2>What’s Inside</h2>
-          <p>The package follows the open Agent Skills folder format. It contains a compact Ritchie language capsule, compiler-verified observations, teaching guidance and a small Python client for the public playground service.</p>
-          <p>It has no third-party dependencies. The client sends source code to the public Ritchie playground only when the skill’s instructions permit a compile or run.</p>
-          <p>The entire package is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.</p>
-        </section>
-
-        <section>
-          <h2>Install in Claude</h2>
-          <p>Claude can import the downloaded ZIP directly as a skill.</p>
-          <ol class="skill-install-steps">
-            <li><a href="/assets/downloads/ritchie-skill-2026-09-09-3f6.zip" download>Download the Ritchie Skill</a> and leave the archive zipped.</li>
-            <li>In a Claude chat, open <strong>+</strong>, choose <strong>Skills → Manage skills</strong>, then open <strong>Add → Upload skill</strong> and select the downloaded ZIP.</li>
-            <li>Open a new chat and invoke the Ritchie skill using <code>/ritchie</code>. Try: <em>“/ritchie what’s the most exciting feature of this language?”</em></li>
-          </ol>
-          <div class="claude-installation-shots">
-            <figure>
-              <img src="/assets/instructions/claude-chat-skills-menu.png" width="856" height="830" loading="lazy" decoding="async" alt="Claude chat attachment menu with the Skills submenu open, showing ritchie and Manage skills">
-              <figcaption><span aria-hidden="true">1</span> Open Skills from a Claude chat.</figcaption>
-            </figure>
-            <figure>
-              <img src="/assets/instructions/claude-upload-skill.png" width="748" height="576" loading="lazy" decoding="async" alt="Claude skills page Add menu with Upload skill selected">
-              <figcaption><span aria-hidden="true">2</span> Upload the downloaded ZIP.</figcaption>
-            </figure>
-          </div>
-        </section>
-
-        <section>
-          <h2>Ask Your Harness to Install It</h2>
-          <p>Copy this prompt into your coding agent or harness. It leaves the exact installation location up to the harness while asking it to verify the package first.</p>
-          <div class="copy-prompt-actions">
-            <button class="button button-secondary" id="copy-skill-prompt" type="button">Copy prompt</button>
-            <p class="copy-prompt-status" id="copy-skill-prompt-status" role="status" aria-live="polite"></p>
-          </div>
-          <pre class="document-code"><code id="skill-install-prompt">Install the Ritchie skill from:
+<main id="content">
+<header class="page-hero">
+<div class="shell">
+<p class="eyebrow">Agent Skill</p>
+<h1>Teach Your Agent Ritchie</h1>
+<p class="page-subtitle">so it can teach Ritchie to you</p>
+<p class="lede">A self-contained language guide for coding agents to write, run, explain, debug and teach Ritchie.</p>
+<div class="hero-actions">
+<a class="button" href="/assets/downloads/ritchie-skill-2026-09-09-3f6.zip" download>Download the Skill</a>
+</div>
+<p class="document-meta">ZIP · 124 KB · 09 September 2026</p>
+</div>
+</header>
+<div class="shell rite-layout">
+<article class="article rite-document">
+<section>
+<h2>What’s Inside</h2>
+<p>The package follows the open Agent Skills folder format. It contains a compact Ritchie language capsule, compiler-verified observations, teaching guidance and a small Python client for the public playground service.</p>
+<p>It has no third-party dependencies. The client sends source code to the public Ritchie playground only when the skill’s instructions permit a compile or run.</p>
+<p>The entire package is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>.</p>
+</section>
+<section>
+<h2>Install in Claude</h2>
+<p>Claude can import the downloaded ZIP directly as a skill.</p>
+<ol class="skill-install-steps">
+<li><a href="/assets/downloads/ritchie-skill-2026-09-09-3f6.zip" download>Download the Ritchie Skill</a> and leave the archive zipped.</li>
+<li>In a Claude chat, open <strong>+</strong>, choose <strong>Skills → Manage skills</strong>, then open <strong>Add → Upload skill</strong> and select the downloaded ZIP.</li>
+<li>Open a new chat and invoke the Ritchie skill using <code>/ritchie</code>. Try: <em>“/ritchie what’s the most exciting feature of this language?”</em></li>
+</ol>
+<div class="claude-installation-shots">
+<figure>
+<img src="/assets/instructions/claude-chat-skills-menu.png" width="856" height="830" loading="lazy" decoding="async" alt="Claude chat attachment menu with the Skills submenu open, showing ritchie and Manage skills">
+<figcaption><span aria-hidden="true">1</span> Open Skills from a Claude chat.</figcaption>
+</figure>
+<figure>
+<img src="/assets/instructions/claude-upload-skill.png" width="748" height="576" loading="lazy" decoding="async" alt="Claude skills page Add menu with Upload skill selected">
+<figcaption><span aria-hidden="true">2</span> Upload the downloaded ZIP.</figcaption>
+</figure>
+</div>
+</section>
+<section>
+<h2>Ask Your Harness to Install It</h2>
+<p>Copy this prompt into your coding agent or harness. It leaves the exact installation location up to the harness while asking it to verify the package first.</p>
+<div class="copy-prompt-actions">
+<button class="button button-secondary" id="copy-skill-prompt" type="button">Copy prompt</button>
+<p class="copy-prompt-status" id="copy-skill-prompt-status" role="status" aria-live="polite"></p>
+</div>
+<pre class="document-code"><code id="skill-install-prompt">Install the Ritchie skill from:
 https://ritchie.dev/assets/downloads/ritchie-skill-2026-09-09-3f6.zip
-
 Before installing it:
 1. Download the archive without executing anything.
 2. Verify its SHA-256 checksum is:
-   3f6bf96d5a70f0f938d3270a8e32d2d10df989a25fd32a7816308f686f11ec32
+3f6bf96d5a70f0f938d3270a8e32d2d10df989a25fd32a7816308f686f11ec32
 3. Confirm it contains one top-level ritchie/ folder, no symlinks,
-   and a SKILL.md file directly inside that folder.
+and a SKILL.md file directly inside that folder.
 4. Install that folder in this harness's user-scoped skills location,
-   preserving its contents and structure.
+preserving its contents and structure.
 5. Tell me where you installed it and how I can invoke it.
-
 If this harness does not support SKILL.md-based Agent Skills, do not
 guess an installation path or execute the bundled client. Explain the
 closest supported way to load these instructions instead.</code></pre>
-        </section>
+</section>
+<section>
+<h2>Verify It Yourself</h2>
+<p>The published archive has this SHA-256 checksum:</p>
+<pre class="document-code"><code>3f6bf96d5a70f0f938d3270a8e32d2d10df989a25fd32a7816308f686f11ec32</code></pre>
+<p>After installation, try: <em>“Use the Ritchie skill to teach me a Ritchie concept with a runnable exercise.”</em></p>
+</section>
+</article>
+</div>
+</main>
 
-        <section>
-          <h2>Verify It Yourself</h2>
-          <p>The published archive has this SHA-256 checksum:</p>
-          <pre class="document-code"><code>3f6bf96d5a70f0f938d3270a8e32d2d10df989a25fd32a7816308f686f11ec32</code></pre>
-          <p>After installation, try: <em>“Use the Ritchie skill to teach me a Ritchie concept with a runnable exercise.”</em></p>
-        </section>
-      </article>
-    </div>
-  </main>
-  <script>(()=>{"use strict";const e=document.querySelector("#copy-skill-prompt"),t=document.querySelector("#skill-install-prompt"),n=document.querySelector("#copy-skill-prompt-status");if(!e||!t||!n)return;const o=t=>{const n=document.createElement("textarea");n.value=t,n.setAttribute("readonly",""),n.style.position="fixed",n.style.opacity="0",document.body.append(n),n.select(),n.setSelectionRange(0,n.value.length);const o=document.execCommand("copy");return n.remove(),o};e.addEventListener("click",async()=>{e.disabled=!0,n.textContent="";try{let r=!1;if(navigator.clipboard?.writeText)try{await navigator.clipboard.writeText(t.textContent),r=!0}catch{}if(r||(r=o(t.textContent)),!r)throw new Error("Copy unavailable");e.textContent="Copied",n.textContent="The prompt is ready to paste as plain text."}catch{e.textContent="Copy prompt",n.textContent="Couldn’t copy automatically. Select and copy the prompt below."}finally{e.disabled=!1}})})();</script>
 
   <footer class="site-footer">
     <div class="shell footer-inner">
@@ -134,6 +127,5 @@ closest supported way to load these instructions instead.</code></pre>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
-
 </body>
 </html>

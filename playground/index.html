@@ -28,14 +28,12 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css">
-
-  <link rel="stylesheet" href="/assets/playground.css?v=20260909-1030">
-  <script src="/playground/config.js"></script>
-  <script src="/playground/app.js?v=20260909-1030" defer></script>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/playground.css?h=5e68a985c5dcc36e9476">
+  <script src="https://ritchie.dev/playground/config.js?h=3b407fa53e09807850b2"></script>
+  <script src="https://ritchie.dev/playground/app.js?h=8b45fb4fa65701371c91" defer></script>
 </head>
 <body class="playground-page">
-
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -52,52 +50,51 @@
     </div>
   </header>
 
-  <main id="content" class="playground-main">
-    <header class="playground-intro">
-      <div class="shell">
-        <p class="eyebrow">Run Ritchie</p>
-        <h1>Try the Language.</h1>
-        <p class="lede">Start with an example or write your own Ritchie program, then run it right here.</p>
-        <p class="playground-skill-link">Prefer a guided introduction? <a href="/skill/">Get the Ritchie Skill for your coding agent.</a></p>
-      </div>
-    </header>
+<main id="content" class="playground-main">
+<header class="playground-intro">
+<div class="shell">
+<p class="eyebrow">Run Ritchie</p>
+<h1>Try the Language.</h1>
+<p class="lede">Start with an example or write your own Ritchie program, then run it right here.</p>
+<p class="playground-skill-link">Prefer a guided introduction? <a href="/skill/">Get the Ritchie Skill for your coding agent.</a></p>
+</div>
+</header>
+<div class="shell playground-workspace">
+<section class="playground-editor-panel" aria-labelledby="source-title">
+<div class="playground-panel-heading">
+<h2 id="source-title">Source</h2>
+<label>
+<span class="visually-hidden">Example</span>
+<select id="examples" aria-label="Choose an example"></select>
+</label>
+</div>
+<label class="playground-editor">
+<span class="line-number" aria-hidden="true">
+<span id="line-number-content" class="line-number-content">1</span>
+</span>
+<span class="source-stack">
+<span id="source-highlights" class="source-highlights" aria-hidden="true"></span>
+<textarea id="source" wrap="off" spellcheck="false" aria-label="Ritchie source"></textarea>
+</span>
+</label>
+<div class="playground-actions">
+<span class="playground-shortcut">⌘/Ctrl + Enter</span>
+<button id="run" type="button">Run program</button>
+</div>
+</section>
+<section class="playground-result-panel" aria-labelledby="result-title" aria-live="polite">
+<div class="playground-panel-heading">
+<h2 id="result-title">Result</h2>
+<span id="duration"></span>
+</div>
+<div id="outcome" class="outcome idle">Ready</div>
+<div id="diagnostics" class="diagnostics" hidden></div>
+<pre id="terminal" class="terminal" aria-label="Program output"><span class="muted">Output will appear here.</span></pre>
+<p id="revision" class="revision"></p>
+</section>
+</div>
+</main>
 
-    <div class="shell playground-workspace">
-      <section class="playground-editor-panel" aria-labelledby="source-title">
-        <div class="playground-panel-heading">
-          <h2 id="source-title">Source</h2>
-          <label>
-            <span class="visually-hidden">Example</span>
-            <select id="examples" aria-label="Choose an example"></select>
-          </label>
-        </div>
-        <label class="playground-editor">
-          <span class="line-number" aria-hidden="true">
-            <span id="line-number-content" class="line-number-content">1</span>
-          </span>
-          <span class="source-stack">
-            <span id="source-highlights" class="source-highlights" aria-hidden="true"></span>
-            <textarea id="source" wrap="off" spellcheck="false" aria-label="Ritchie source"></textarea>
-          </span>
-        </label>
-        <div class="playground-actions">
-          <span class="playground-shortcut">⌘/Ctrl + Enter</span>
-          <button id="run" type="button">Run program</button>
-        </div>
-      </section>
-
-      <section class="playground-result-panel" aria-labelledby="result-title" aria-live="polite">
-        <div class="playground-panel-heading">
-          <h2 id="result-title">Result</h2>
-          <span id="duration"></span>
-        </div>
-        <div id="outcome" class="outcome idle">Ready</div>
-        <div id="diagnostics" class="diagnostics" hidden></div>
-        <pre id="terminal" class="terminal" aria-label="Program output"><span class="muted">Output will appear here.</span></pre>
-        <p id="revision" class="revision"></p>
-      </section>
-    </div>
-  </main>
 
   <footer class="site-footer">
     <div class="shell footer-inner">
@@ -105,6 +102,5 @@
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
-
 </body>
 </html>

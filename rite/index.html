@@ -2,12 +2,12 @@
 <html lang="en-GB">
 <head>
   <title>RITE — Ritchie runtime model</title>
-  <meta name="description" content="RITE — Reliable Interaction with Typed Endpoints — is the runtime model underneath Ritchie's programming model.">
+  <meta name="description" content="RITE — Reliable Interaction with Typed Endpoints — is the runtime model underneath Ritchie&#39;s programming model.">
   <link rel="canonical" href="https://ritchie.dev/rite/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ritchie">
-  <meta property="og:title" content="RITE — Ritchie's Distributed Runtime Model">
-  <meta property="og:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie's programming model.">
+  <meta property="og:title" content="RITE — Ritchie&#39;s Distributed Runtime Model">
+  <meta property="og:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie&#39;s programming model.">
   <meta property="og:url" content="https://ritchie.dev/rite/">
   <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
   <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
@@ -16,8 +16,8 @@
   <meta property="og:image:height" content="627">
   <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RITE — Ritchie's Distributed Runtime Model">
-  <meta name="twitter:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie's programming model.">
+  <meta name="twitter:title" content="RITE — Ritchie&#39;s Distributed Runtime Model">
+  <meta name="twitter:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie&#39;s programming model.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
   <meta charset="utf-8">
@@ -28,11 +28,9 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css">
-
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
 </head>
 <body>
-
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -59,102 +57,86 @@
       </div>
     </header>
 
-    <div class="shell rite-layout">
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol class="toc-unnumbered">
+          <li><a href="#1-reliable-interaction-with-typed-endpoints">1. Reliable Interaction with Typed Endpoints</a></li>
+          <li><a href="#slices">2. Slice</a></li>
+          <li><a href="#state">3. State</a></li>
+          <li><a href="#foundations">4. Foundations</a></li>
+          <li><a href="#invocation-mode">5. Invocation Mode</a></li>
+          <li><a href="#activation-mode">6. Activation Mode</a></li>
+          <li><a href="#constraints">7. Constraints</a></li>
+        </ol>
+
+      </aside>
+
       <article class="article rite-document">
-        <p>RITE is the architectural model underlying Ritchie and its runtimes.</p>
-		<p>It defines the primitives, constraints, abstract machine, and phases for designing and executing distributed enterprise applications. The scope of this model covers applications running in a single datacenter or a cluster of well-connected datacenters. Multi-region semantics need to be explicitly designed by the developer. What follows is a condensed overview of that model.</p>
-
-        <p><strong>Reliable.</strong> Every operation has a classifiable outcome: it succeeded, it was not attempted, or its result is unknown.</p>
-        <p><strong>Interaction.</strong> Communication between units uses a small set of defined modes with known consistency and failure semantics.</p>
-        <p><strong>Typed Endpoints.</strong> Every Endpoint has an explicit contract: interaction mode, schema, error types, and SLA dimensions.</p>
-
-        <section id="slices">
-          <h2>2 Slice</h2>
-
-          <h3 id="slice">2.1 Slice</h3>
-          <p>A <strong>Slice</strong> is the unit of ownership, failure isolation, and interface. An <strong>Endpoint</strong> is a typed, network-addressable interaction target exposed by a Slice. A Slice may expose multiple Endpoints.</p>
-
-          <h3 id="locator">2.2 Locator</h3>
-          <p>An Endpoint is addressed by a <strong>Locator</strong>: a stable name that survives restarts, deploys, and scaling.</p>
-
-          <h3 id="slice-kinds">2.3 Slice Kinds</h3>
-          <p>An <strong>Entity Slice</strong> owns durable state. The Entity Slice defines the schema and the invariants that hold per instance. Its methods are commands and queries.</p>
-          <p>A <strong>Service Slice</strong> owns no durable state. It performs stateless computation and may invoke Entity Slices or other Service Slices. It does not own the state it reads or modifies.</p>
-          <p>A <strong>Stream Slice</strong> owns a durable, append-only sequence of Envelopes.</p>
-
-          <h3 id="invariant-rule">2.5 The Invariant Rule</h3>
-          <p>A business invariant MUST NOT span across multiple Slices.</p>
-        </section>
-
-        <section id="state">
-          <h2>3 State</h2>
-
-          <h3 id="structure">3.1 Structure</h3>
-          <p><strong>Event.</strong> An immutable record of a fact. Events are not Entities &ndash; Entities are mutable current state, Events are immutable history.</p>
-          <p><strong>Collection.</strong> A named set of Entity instances plus indexes and materialisations associated with an Entity Slice. Collections are read surfaces.</p>
-
-          <h3 id="consistency-by-form">3.3 Consistency by Form</h3>
-          <p>Consistency is determined by state form and ownership. There is no runtime negotiation.</p>
-          <p><strong>Entity instance.</strong> State modifications through Entity methods MUST be atomic. Entity instance reads are strongly consistent.</p>
-          <p><strong>Collection.</strong> These are used for bulk queries like search, sort and aggregation. Collection reads are eventually consistent.</p>
-        </section>
-
-        <section id="foundations">
-          <h2>4 Foundations</h2>
-
-          <h3 id="envelope">4.1 Envelope</h3>
-          <p>Every cross-Slice interaction carries an <strong>Envelope</strong> &ndash; a structured message conveying the interaction’s identity, source Slice, destination Endpoint, an ordering context where ordering matters, and an optional correlation handle for cross-Slice tracing.</p>
-
-          <h3 id="identity-and-idempotency">4.2 Identity and Idempotency</h3>
-          <p>All state-mutating cross-Slice interactions MUST be idempotent on the interaction’s identity.</p>
-
-          <h3 id="deadline-and-budget">4.3 Deadline and Budget</h3>
-          <p>Every cross-Slice <em>call</em> &ndash; an Invocation, a publish into a Stream, or an Activation at a consumer &ndash; has a deadline: a cutoff by which the call must produce one of the three outcomes (<a href="#three-outcomes">§4.4</a>). Budget is the time remaining until the deadline.</p>
-
-          <h3 id="three-outcomes">4.4 Three Outcomes</h3>
-          <p>Every cross-Slice interaction produces exactly one of three outcomes:</p>
-          <ul>
-            <li><em>Succeeded</em> &ndash; the handler ran to a verdict. The verdict is either a positive result or an application-domain rejection.</li>
-            <li><em>Request not completed</em> &ndash; the destination’s runtime knows the request did not run to a verdict. State at the destination is unchanged.</li>
-            <li><em>Outcome unknown</em> &ndash; the originator does not know whether the request ran or what its state effect was.</li>
-          </ul>
-        </section>
-
-        <section id="invocation-mode">
-          <h2>5 Invocation Mode</h2>
-          <p>Invocation is the interaction mode in which a single Envelope is a single logical operation at the destination. The destination Slice processes the Envelope through the selected Endpoint and produces an outcome (<a href="#three-outcomes">§4.4</a>); the originator may wait for that outcome (Sync) or not (Messaging).</p>
-          <p><strong>Sync</strong> covers both state-mutating requests and reads. The distinction between commands and queries is a property of the operation, not a separate sub-mode.</p>
-          <p><strong>Messaging</strong> is fire-and-deliver: the originator sends and does not wait for a processing outcome.</p>
-
-          <h3 id="entity-invocation">5.4 Entity Invocation</h3>
-          <p>An Entity invocation is the unit of atomic state change for an Entity Slice.</p>
-          <p>The invocation’s writes are atomic across its participants.</p>
-
-          <h3 id="service-invocation">5.5 Service Invocation</h3>
-          <p>A Service invocation is a stateless orchestration.</p>
-        </section>
-
-        <section id="activation-mode">
-          <h2>6 Activation Mode</h2>
-          <p>Activation is the interaction mode in which Envelopes flow continuously from a publisher into a durable Stream, and one or more consumer Slices each track their own progress through that Stream and process Envelopes individually. Each Envelope, at each consumer, is one activation &ndash; a bounded unit of processing with its own three-class outcome.</p>
-
-          <h3 id="streams">6.1 Streams</h3>
-          <p>A <strong>Stream Slice</strong> is a Slice that owns a durable, append-only sequence of Envelopes from one or more publishers to one or more consumers.</p>
-          <p>A <strong>publisher</strong> is anything that emits Envelopes into a Stream. A <strong>consumer</strong> is a Slice that subscribes to a Stream and processes Envelopes from it.</p>
-        </section>
-
-        <section id="constraints">
-          <h2>7 Constraints</h2>
-          <ul>
-            <li><strong>C1 &ndash; Premise.</strong> Slices are independent failure domains.</li>
-            <li><strong>C2 &ndash; Single Ownership.</strong> Every piece of durable state has exactly one owning unit at any point in time.</li>
-            <li><strong>C3 &ndash; The Invariant Rule.</strong> An invariant MUST NOT span units.</li>
-            <li><strong>C4 &ndash; Explicit Interaction Modes.</strong> All communication between units uses one of a small set of defined modes with known consistency and coupling properties.</li>
-            <li><strong>C5 &ndash; Idempotent Mutations.</strong> All state-mutating operations MUST be idempotent.</li>
-            <li><strong>C6 &ndash; Bounded Calls.</strong> Every synchronous call MUST carry a budget: an explicit, finite time allocation.</li>
-          </ul>
-          <p>No constraint is redundant with the others, and each addresses a distinct failure mode.</p>
-        </section>
+<h2 id="1-reliable-interaction-with-typed-endpoints">1. Reliable Interaction with Typed Endpoints</h2>
+<p>RITE is the architectural model underlying Ritchie and its runtimes.</p>
+<p>It defines the primitives, constraints, abstract machine, and phases for designing and executing distributed enterprise applications. The scope of this model covers applications running in a single datacenter or a cluster of well-connected datacenters. Multi-region semantics need to be explicitly designed by the developer. What follows is a condensed overview of that model.</p>
+<p><strong>Reliable.</strong> Every operation has a classifiable outcome: it succeeded, it was not attempted, or its result is unknown.</p>
+<p><strong>Interaction.</strong> Communication between units uses a small set of defined modes with known consistency and failure semantics.</p>
+<p><strong>Typed Endpoints.</strong> Every Endpoint has an explicit contract: interaction mode, schema, error types, and SLA dimensions.</p>
+<h2 id="slices">2. Slice</h2>
+<h3 id="slice">2.1. Slice</h3>
+<p>A <strong>Slice</strong> is the unit of ownership, failure isolation, and interface. An <strong>Endpoint</strong> is a typed, network-addressable interaction target exposed by a Slice. A Slice may expose multiple Endpoints.</p>
+<h3 id="locator">2.2. Locator</h3>
+<p>An Endpoint is addressed by a <strong>Locator</strong>: a stable name that survives restarts, deploys, and scaling.</p>
+<h3 id="slice-kinds">2.3. Slice Kinds</h3>
+<p>An <strong>Entity Slice</strong> owns durable state. The Entity Slice defines the schema and the invariants that hold per instance. Its methods are commands and queries.</p>
+<p>A <strong>Service Slice</strong> owns no durable state. It performs stateless computation and may invoke Entity Slices or other Service Slices. It does not own the state it reads or modifies.</p>
+<p>A <strong>Stream Slice</strong> owns a durable, append-only sequence of Envelopes.</p>
+<h3 id="invariant-rule">2.5. The Invariant Rule</h3>
+<p>A business invariant MUST NOT span across multiple Slices.</p>
+<h2 id="state">3. State</h2>
+<h3 id="structure">3.1. Structure</h3>
+<p><strong>Event.</strong> An immutable record of a fact. Events are not Entities – Entities are mutable current state, Events are immutable history.</p>
+<p><strong>Collection.</strong> A named set of Entity instances plus indexes and materialisations associated with an Entity Slice. Collections are read surfaces.</p>
+<h3 id="consistency-by-form">3.3. Consistency by Form</h3>
+<p>Consistency is determined by state form and ownership. There is no runtime negotiation.</p>
+<p><strong>Entity instance.</strong> State modifications through Entity methods MUST be atomic. Entity instance reads are strongly consistent.</p>
+<p><strong>Collection.</strong> These are used for bulk queries like search, sort and aggregation. Collection reads are eventually consistent.</p>
+<h2 id="foundations">4. Foundations</h2>
+<h3 id="envelope">4.1. Envelope</h3>
+<p>Every cross-Slice interaction carries an <strong>Envelope</strong> – a structured message conveying the interaction’s identity, source Slice, destination Endpoint, an ordering context where ordering matters, and an optional correlation handle for cross-Slice tracing.</p>
+<h3 id="identity-and-idempotency">4.2. Identity and Idempotency</h3>
+<p>All state-mutating cross-Slice interactions MUST be idempotent on the interaction’s identity.</p>
+<h3 id="deadline-and-budget">4.3. Deadline and Budget</h3>
+<p>Every cross-Slice <em>call</em> – an Invocation, a publish into a Stream, or an Activation at a consumer – has a deadline: a cutoff by which the call must produce one of the three outcomes (<a href="https://ritchie.dev/rite/#three-outcomes">§4.4</a>). Budget is the time remaining until the deadline.</p>
+<h3 id="three-outcomes">4.4. Three Outcomes</h3>
+<p>Every cross-Slice interaction produces exactly one of three outcomes:</p>
+<ul>
+<li><em>Succeeded</em> – the handler ran to a verdict. The verdict is either a positive result or an application-domain rejection.</li>
+<li><em>Request not completed</em> – the destination’s runtime knows the request did not run to a verdict. State at the destination is unchanged.</li>
+<li><em>Outcome unknown</em> – the originator does not know whether the request ran or what its state effect was.</li>
+</ul>
+<h2 id="invocation-mode">5. Invocation Mode</h2>
+<p>Invocation is the interaction mode in which a single Envelope is a single logical operation at the destination. The destination Slice processes the Envelope through the selected Endpoint and produces an outcome (<a href="https://ritchie.dev/rite/#three-outcomes">§4.4</a>); the originator may wait for that outcome (Sync) or not (Messaging).</p>
+<p><strong>Sync</strong> covers both state-mutating requests and reads. The distinction between commands and queries is a property of the operation, not a separate sub-mode.</p>
+<p><strong>Messaging</strong> is fire-and-deliver: the originator sends and does not wait for a processing outcome.</p>
+<h3 id="entity-invocation">5.4. Entity Invocation</h3>
+<p>An Entity invocation is the unit of atomic state change for an Entity Slice.</p>
+<p>The invocation’s writes are atomic across its participants.</p>
+<h3 id="service-invocation">5.5. Service Invocation</h3>
+<p>A Service invocation is a stateless orchestration.</p>
+<h2 id="activation-mode">6. Activation Mode</h2>
+<p>Activation is the interaction mode in which Envelopes flow continuously from a publisher into a durable Stream, and one or more consumer Slices each track their own progress through that Stream and process Envelopes individually. Each Envelope, at each consumer, is one activation – a bounded unit of processing with its own three-class outcome.</p>
+<h3 id="streams">6.1. Streams</h3>
+<p>A <strong>Stream Slice</strong> is a Slice that owns a durable, append-only sequence of Envelopes from one or more publishers to one or more consumers.</p>
+<p>A <strong>publisher</strong> is anything that emits Envelopes into a Stream. A <strong>consumer</strong> is a Slice that subscribes to a Stream and processes Envelopes from it.</p>
+<h2 id="constraints">7. Constraints</h2>
+<ul>
+<li><strong>C1 – Premise.</strong> Slices are independent failure domains.</li>
+<li><strong>C2 – Single Ownership.</strong> Every piece of durable state has exactly one owning unit at any point in time.</li>
+<li><strong>C3 – The Invariant Rule.</strong> An invariant MUST NOT span units.</li>
+<li><strong>C4 – Explicit Interaction Modes.</strong> All communication between units uses one of a small set of defined modes with known consistency and coupling properties.</li>
+<li><strong>C5 – Idempotent Mutations.</strong> All state-mutating operations MUST be idempotent.</li>
+<li><strong>C6 – Bounded Calls.</strong> Every synchronous call MUST carry a budget: an explicit, finite time allocation.</li>
+</ul>
+<p>No constraint is redundant with the others, and each addresses a distinct failure mode.</p>
 
       </article>
     </div>
@@ -166,6 +148,5 @@
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
-
 </body>
 </html>

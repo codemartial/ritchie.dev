@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <title>Ritchie Playground Is Live — Ritchie News</title>
-  <meta name="description" content="The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.">
-  <meta name="author" content="Tahir Hashmi">
+  <title>Ritchie News</title>
+  <meta name="description" content="Release notes and updates about the Ritchie language, its playground and its tooling.">
   <link rel="canonical" href="https://ritchie.dev/news/">
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ritchie">
-  <meta property="og:title" content="Ritchie Playground Is Live">
-  <meta property="og:description" content="The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.">
+  <meta property="og:title" content="Ritchie News">
+  <meta property="og:description" content="Release notes and updates about the Ritchie language, its playground and its tooling.">
   <meta property="og:url" content="https://ritchie.dev/news/">
   <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
   <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
@@ -16,10 +15,9 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
   <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta property="article:published_time" content="2026-09-09">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ritchie Playground Is Live">
-  <meta name="twitter:description" content="The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.">
+  <meta name="twitter:title" content="Ritchie News">
+  <meta name="twitter:description" content="Release notes and updates about the Ritchie language, its playground and its tooling.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
   <meta charset="utf-8">
@@ -30,11 +28,9 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site.css">
-
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
 </head>
 <body>
-
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
@@ -55,87 +51,20 @@
     <header class="page-hero">
       <div class="shell">
         <p class="eyebrow">News</p>
-        <h1>Ritchie Playground Is Live</h1>
-        <p class="lede">It’s the morning of 9/9 here in Melbourne and 9/9 is as fine a date as any to share a bit of Ritchie news.</p>
-        <p class="document-meta">Tahir Hashmi · 09 September 2026</p>
+        <h1>News</h1>
+        <p class="lede">Releases and updates about the Ritchie language, its playground and its tooling.</p>
       </div>
     </header>
 
-    <div class="shell doc-layout">
-      <aside class="toc" aria-label="On this page">
-        <strong>On this page</strong>
-        <ol>
-          <li><a href="#what-you-didnt-ask-for"><span class="toc-index" aria-hidden="true">01.</span>Gli Antipasti</a></li>
-          <li><a href="#release-highlights"><span class="toc-index" aria-hidden="true">02.</span>Highlights of What’s Released</a></li>
-          <li><a href="#language-architecture"><span class="toc-index" aria-hidden="true">03.</span>Language Architecture</a></li>
-          <li><a href="#try-it-now"><span class="toc-index" aria-hidden="true">04.</span>Try It Now</a></li>
-        </ol>
-      </aside>
-
+    <div class="shell rite-layout">
       <article class="article rite-document">
-        <p><a href="/playground/">Ritchie Playground</a> is now live for you to try out the Ritchie syntax and features currently available.</p>
-
-        <section id="what-you-didnt-ask-for">
-          <h2>Gli Antipasti</h2>
-		  <p>On the appetizer menu today is the core structure of the language. We have the usual built-in scalar data types, strings, arrays, dictionaries and a <code>Decimal</code> data type. User-defined types and methods on them are supported.</p>
-		  <p>We also have key language semantics like scope and visibility management, mutability, function calling and control flow. There are also nullable types and some Ritchie-special error handling that's detailed below.</p>
-          <p>You’re here because you want to see how a 20-line program turns into a distributed system with auto-scaling and persistence. All you get so far is some array flipping capability? Why?</p>
-          <p>Well, I have two good reasons:</p>
-          <p>One, the distributed system bit, I know fairly well. That’s pretty much all I’ve done for a quarter of a century :o What I haven’t done is build a language of any strength (other than some toys) before. So I needed to convince myself that it’s something that I can do.</p>
-          <p>Second, if you’re going to write all your business logic in Ritchie — because that’s the whole point of it<sup><a href="#footnote-1" id="footnote-1-reference">1</a></sup> — then the language needs to have the strength to support a wide range of business requirements.</p>
-		  <p>The best thing is, you can now see the language evolving over the coming weeks and months. Next on the cards for me is tackling effects, I/O and <em>dataflow-driven concurrency</em>, which paves the way towards <code>@Service</code> types. Exciting!</p>
-        </section>
-
-        <section id="release-highlights">
-          <h2>Highlights of What’s Released</h2>
-          <p>If Ritchie were a culinary dish, it wouldn’t claim to be authentic this-or-that cuisine. It’s a fusion dish with (I hope you’ll agree) a tasteful blend of elements from different programming styles and languages, rooted in C-like syntax and imperative logic.</p>
-
-          <h3>Type Declarations Are Back!</h3>
-          <p>When you see something like <code>_, data := json.Marshal(payload)</code>, how do you know what you’re getting back in <code>data</code>? Unless you’re familiar with conventions and lore, or you look up the docs, you wouldn’t know that you just discarded the marshalled output and you should have instead written <code>data, _ :=</code>. This is a problem that I’ve faced many times while reading code and now that writing code is near-zero cost, the burden of effort is on reading — whether the reader is human or AI. Neither would want to look up the docs to figure out the data types that a function returns.</p>
-
-          <h3>Lexically Significant ASCII Source</h3>
-          <p>Another thing that I’ve always found to hamper readability is the littering of code with qualifiers like <code>type</code>, <code>fn</code>, <code>const</code>, <code>public static void</code>… They’re like little speed-bumps that you have to bounce over to get to the point. In Ritchie, the lexical conventions take care of most of it.</p>
-          <p>A <code>Typename</code> is capitalised. <code>CONSTANT</code> is ALL_CAPS. A <code>function()</code> starts with lowercase but has parentheses. A variable (we call it binding) is lowercase without parentheses. Methods are <code>Typename.function(...)</code>. Function result types are denoted by <code>-&gt;</code>. Oh, and we have errors that look like <code>This!</code>. Yes, with a bang at the end because… error!</p>
-
-          <h3>Error Handling</h3>
-          <p>Speaking of errors, Ritchie has implicit error handling, which is literally Go’s <code>if err != nil { return err }</code> stuck <em>everywhere</em> an error can materialise. Of course, we do a bit more than just return the error. The default handling is “bubbling” the error up, which captures local context and attaches it to the prior context before passing it back to the caller. There’s also some control-flow acrobatics that the compiler does in order to make error handling behaviour intuitive but powerful. Here’s an example you can try in the playground:</p>
-
-          <div class="code-window">
-            <div class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></div>
-            <pre><code data-highlighted="ritchie"><span style="color: #e45649">DebitFailed!</span> {<br>  <span style="color: #c18401">Int</span> balance<br>  <span style="color: #c18401">Int</span> attempted<br>}<br><br><span style="color: #c18401">Wallet</span> {<br>  <span style="color: #c18401">Int</span> balance<br>}<br><br><span style="color: #c18401">Wallet</span>.<span style="color: #4078f2">debit</span>(<span style="color: #c18401">Int</span> amt) {<br>  <span style="color: #a626a4">if</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">balance</span> <span style="color: #0184bc">&lt;</span> amt {<br>    <span style="color: #a626a4">return</span> <span style="color: #e45649">DebitFailed!</span>{<span style="color: #a626a4">self</span>.<span style="color: #9a5050">balance</span>, amt}<br>  }<br>  <span style="color: #a626a4">self</span>.<span style="color: #9a5050">balance</span> <span style="color: #0184bc">=</span> <span style="color: #a626a4">self</span>.<span style="color: #9a5050">balance</span> <span style="color: #0184bc">-</span> amt<br>}<br><br><span style="color: #c18401">OrderId</span> <span style="color: #0184bc">=</span> <span style="color: #c18401">Int</span> <em><span style="color: #a0a1a7">// type alias</span></em><br><br><span style="color: #c18401">Logistics</span> {}<br><span style="color: #c18401">Logistics</span>.<span style="color: #4078f2">ship</span>(<span style="color: #c18401">OrderId</span> o_id) {<br>  <span style="color: #4078f2">log</span>(f"<span style="color: #50a14f">Shipped Order: </span>{<span style="color: #50a14f">o_id</span>}")<br>}<br><br><span style="color: #4078f2">checkout</span>(<span style="color: #c18401">Wallet</span> w, <span style="color: #c18401">Int</span> bill_amt) <span style="color: #0184bc">-></span> <span style="color: #c18401">OrderId</span> {<br>  w.<span style="color: #4078f2">debit</span>(bill_amt)<br>  <span style="color: #a626a4">return</span> <span style="color: #986801">909</span><br>}<br><br><span style="color: #4078f2">main</span>() {<br>  <span style="color: #c18401">Wallet</span> w <span style="color: #0184bc">=</span> <span style="color: #c18401">Wallet</span>{<span style="color: #986801">20</span>}<br>  <span style="color: #c18401">OrderId</span> o_id <span style="color: #0184bc">=</span> <span style="color: #4078f2">checkout</span>(w, <span style="color: #986801">22</span>)<br>  <span style="color: #c18401">Logistics</span>.<span style="color: #4078f2">ship</span>(o_id)<br>}</code></pre>
-          </div>
-
-          <p>Here <code>main()</code> calls <code>checkout()</code>, which in turn calls <code>Wallet.debit()</code>, unfortunately with a bill that’s greater than the balance in the wallet. So <code>Wallet.debit()</code> raises a <code>DebitFailed!</code>, which <em>nobody</em> remembers to check or handle. Will we end up shipping a digi-bomb with a bogus Order ID? Nope. When you run the program, you should see something like:</p>
-
-          <div class="code-window">
-            <div class="code-window-bar"><span>terminal</span><span>run</span></div>
-            <pre><code>DebitFailed! { balance: 20, attempted: 22 }
-  at main
-  raised by Wallet.debit(amt: 22)</code></pre>
-          </div>
-
-          <h3>Immutable Value Semantics</h3>
-          <p>You can freely change any Ritchie variable any time because Ritchie values are immutable. If you didn’t blink, you’re a programming languages nerd. Otherwise, I’ll join you in being surprised by that statement. I designed Ritchie variables to be like “C without pointers”. C without pointers is all pass-by-value semantics. The interesting property of that is, if you hold a variable, you can pass it around to ordinary functions willy-nilly. Those functions can assign to it or pass it on to other functions. No matter how much they modify the variable you passed to a function, when the function returns, your variable remains <em>unchanged</em>. It is <strong>immutable</strong> by such operations. You can only assign other values to it.</p>
-          <p>And so, ordinary function calls don’t require you to worry about lifetimes, <code>const</code>, <code>mut</code>, borrow, etc. etc. Methods are the exception: a value’s own methods are permitted to mutate it. That’s what <code>Wallet.debit()</code> does in the preceding example, through <code>self</code>. <code>self</code> is the <em>only</em> <strong>reference</strong> in Ritchie and it can <em>only</em> exist within a method body and <em>only</em> point to the instance on which the method is called. Assigning a new value to <code>self</code> actually modifies the receiver itself. You can’t return <code>self</code> either. The language won’t stop you from writing <code>return self</code>, but it will actually return a <em>copy</em> of the instance to the caller rather than a reference to the instance.</p>
-
-          <h3>Decimal Type</h3>
-          <p>Ritchie also contains a built-in 128-bit <code>Decimal</code> type. <code>Decimal</code> is special in that it doesn’t behave like traditional <code>Int</code> or <code>Float</code> types. They have their quirks, like integer arithmetic eventually going from a very large positive value to a very large negative value all of a sudden while you’re repeatedly adding to it. Binary floating-point cannot exactly represent many decimal fractions and can sometimes result in unexpected values like <code>0.1 + 0.2</code> becoming <code>0.30000000000000004</code> when you expect <code>0.3</code>. Decimal behaves nicely in all these situations. It raises errors such as <code>OutOfRange!</code> or <code>DivisionByZero!</code> when challenged with weird calculations instead of flipping its sign or becoming something unnatural like <code>NaN</code>.</p>
-        </section>
-
-        <section id="language-architecture">
-          <h2>Language Architecture</h2>
-          <p>Ritchie is implemented as a custom-built recursive-descent parser that emits Go intermediate code which then is compiled by the Go compiler to native code. A lot of the Ritchie tricks are actually calls into a <code>rlr</code> package (Ritchie Language Runtime) that allows me to define Ritchie semantics as Go logic and keep the size of the generated Go code down. It also allows me to leverage the immense, highly mature Go standard library and avoid third party dependencies in Ritchie compiler toolchain.</p>
-          <p>In terms of performance, Ritchie is within a few percentage points of Go and faster than Python or JS (NodeJS). In a small suite of equivalent programs, Ritchie revision <code>e115792c9648</code> ran every measured workload faster than Node.js 22.22.2 and CPython 3.14.0. Median workload times were 1.4–3.1× faster than Node and 2.9–82× faster than CPython on my Linux/amd64 Intel NUC, with compilation excluded and startup approximately subtracted. If we include startup times, Ritchie is even faster.</p>
-        </section>
-
-        <section id="try-it-now">
-          <h2>Try It Now</h2>
-          <p>You’ve heard enough about the language — now try it. Download the <a href="/skill/">Ritchie Skill</a> for your coding agent, then have it teach Ritchie to you — or put it straight to work.</p>
-        </section>
-
-        <footer id="footnote-1">
-          <p><sup>1</sup> See <a href="https://tahirhashmi.com/posts/ritchie-distributed-programming/">Ritchie — Distributed Programming</a>. <a href="#footnote-1-reference" aria-label="Back to reference 1">↩</a></p>
-        </footer>
+        <ul class="news-list">
+          <li>
+            <h2><a href="https://ritchie.dev/news/playground-is-live/">Ritchie Playground Is Live</a></h2>
+            <p class="document-meta">Tahir Hashmi · 09 September 2026</p>
+            <p>The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.</p>
+          </li>
+        </ul>
       </article>
     </div>
   </main>
@@ -146,6 +75,5 @@
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>
-
 </body>
 </html>

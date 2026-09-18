@@ -17,11 +17,7 @@ const examples = [
   {
     name: "Fibonacci",
     source: `Fibonacci {
-  Int[] memo
-}
-
-Fibonacci.new() -> Fibonacci {
-  return Fibonacci{ [0, 1] }
+  Int[] memo = [0, 1]
 }
 
 Fibonacci.get(Int n) -> Int {
@@ -35,7 +31,7 @@ Fibonacci.get(Int n) -> Int {
 }
 
 main() {
-  Fibonacci f = Fibonacci.new()
+  Fibonacci f = Fibonacci{}
   log(f.get(42))
 }
 `,
