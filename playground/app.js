@@ -21,20 +21,17 @@ const examples = [
 }
 
 Fibonacci.get(Int n) -> Int {
-  if n < count(self.memo) {
-    return self.memo[n]
+  return self.memo[n] handle OutOfRange! => {
+    Int r = self.get(n-1) + self.get(n-2)
+    self.memo = append(self.memo, r)
+    return r
   }
-
-  Int r = self.get(n-1) + self.get(n-2)
-  self.memo = append(self.memo, r)
-  return r
 }
 
 main() {
   Fibonacci f = Fibonacci{}
   log(f.get(42))
-}
-`,
+}`,
   },
   {
     name: "Implicit Errors",
