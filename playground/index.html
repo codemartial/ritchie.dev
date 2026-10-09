@@ -29,9 +29,9 @@
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
-  <link rel="stylesheet" href="https://ritchie.dev/assets/playground.css?h=5e68a985c5dcc36e9476">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/playground.css?h=c1c76ea61c167e5bb23e">
   <script src="https://ritchie.dev/playground/config.js?h=3b407fa53e09807850b2"></script>
-  <script src="https://ritchie.dev/playground/app.js?h=834c6b4f7eac55712852" defer></script>
+  <script src="https://ritchie.dev/playground/app.js?h=da131cfe721b6db5bb89" defer></script>
 </head>
 <body class="playground-page">
   <a class="skip-link" href="#content">Skip to content</a>
@@ -93,6 +93,17 @@
 <p id="revision" class="revision"></p>
 </section>
 </div>
+<section id="topology-panel" class="shell playground-topology" aria-labelledby="topology-title" hidden>
+<div class="playground-panel-heading topology-heading">
+<div>
+<p class="topology-kicker">Compiler-derived</p>
+<h2 id="topology-title">Program topology</h2>
+</div>
+<p id="topology-summary" class="topology-summary"></p>
+</div>
+<div id="topology-canvas" class="topology-canvas"></div>
+<p class="topology-note">Arrows point from caller to callee across service endpoints. The playground runs services as independent goroutines on the local monolith target.</p>
+</section>
 </main>
 
 

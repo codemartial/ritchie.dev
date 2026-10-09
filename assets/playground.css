@@ -297,6 +297,122 @@
   padding: 0.65rem 1rem;
 }
 
+.playground-topology {
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow);
+}
+
+.playground-topology[hidden] {
+  display: none;
+}
+
+.playground-topology .topology-heading {
+  align-items: flex-end;
+}
+
+.playground-topology .topology-kicker {
+  margin: 0 0 0.18rem;
+  color: var(--rust-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.playground-topology .topology-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-align: right;
+}
+
+.topology-canvas {
+  min-height: 10rem;
+  max-height: 38rem;
+  overflow: auto;
+  padding: 1rem;
+  background:
+    linear-gradient(90deg, rgb(117 101 157 / 4%) 1px, transparent 1px),
+    linear-gradient(rgb(117 101 157 / 4%) 1px, transparent 1px),
+    var(--code);
+  background-size: 24px 24px;
+}
+
+.topology-svg {
+  width: auto;
+  max-width: none;
+  margin: 0 auto;
+  color: var(--ink);
+}
+
+.topology-edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-linecap: round;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.topology-arrow {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.topology-node rect {
+  fill: var(--paper-raised);
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+
+.topology-node.entry rect {
+  fill: var(--teal-soft);
+  stroke: var(--teal);
+}
+
+.topology-node.service rect {
+  fill: #f4edf8;
+  stroke: var(--lavender);
+}
+
+.topology-node .node-kind,
+.topology-node .node-name,
+.topology-node .node-detail {
+  font-family: "Iosevka Term", ui-monospace, monospace;
+  font-weight: 400;
+}
+
+.topology-node .node-kind {
+  fill: var(--rust-dark);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+}
+
+.topology-node .node-name {
+  fill: var(--ink);
+  font-size: 15px;
+}
+
+.topology-node .node-detail {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.topology-note {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .playground-page .visually-hidden {
   position: absolute;
   width: 1px;
@@ -335,5 +451,15 @@
   .playground-result-panel .diagnostic {
     grid-template-columns: 1fr;
     gap: 0.2rem;
+  }
+
+  .playground-topology .topology-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .playground-topology .topology-summary {
+    text-align: left;
   }
 }

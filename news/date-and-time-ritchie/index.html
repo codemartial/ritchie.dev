@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <title>Date and Time in Ritchie, and More... — Ritchie News</title>
+  <meta name="description" content="Ritchie aims for greater cross-application compatibility with built-in temporal types">
+  <meta name="author" content="Tahir Hashmi">
+  <link rel="canonical" href="https://ritchie.dev/news/date-and-time-ritchie/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Date and Time in Ritchie, and More...">
+  <meta property="og:description" content="Ritchie aims for greater cross-application compatibility with built-in temporal types">
+  <meta property="og:url" content="https://ritchie.dev/news/date-and-time-ritchie/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta property="article:published_time" content="2026-09-24">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Date and Time in Ritchie, and More...">
+  <meta name="twitter:description" content="Ritchie aims for greater cross-application compatibility with built-in temporal types">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/">About</a>
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/rite/">RITE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">News</p>
+        <h1>Date and Time in Ritchie, and More...</h1>
+        <p class="lede">Ritchie now has temporal types built in, because integrations should not break on incompatibility around date and time. Also, clocks, random numbers and bit sets now available.</p>
+        <p class="document-meta">Tahir Hashmi · 24 September 2026</p>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol>
+          <li><a href="#instants-civil-dates-and-times-of-day"><span class="toc-index" aria-hidden="true">01.</span>Instants, Civil Dates and Times of Day</a></li>
+          <li><a href="#adaptive-duration-precision"><span class="toc-index" aria-hidden="true">02.</span>Adaptive Duration Precision</a></li>
+          <li><a href="#temporal-safety-features"><span class="toc-index" aria-hidden="true">03.</span>Temporal Safety Features</a></li>
+          <li><a href="#reading-the-clock"><span class="toc-index" aria-hidden="true">04.</span>Reading the Clock</a></li>
+          <li><a href="#random-numbers"><span class="toc-index" aria-hidden="true">05.</span>Random Numbers</a></li>
+        </ol>
+
+      </aside>
+
+      <article class="article rite-document">
+<p>This update adds seven types to Ritchie. Four of them are built-in temporal types, each for one idea:</p>
+<ul>
+<li><code>Date</code> is a calendar day, with no time or offset.</li>
+<li><code>Time</code> is a time of day, with no date.</li>
+<li><code>DateTime</code> is an instant, kept with the UTC offset it was written in.</li>
+<li><code>Duration</code> is elapsed time, such as <code>45m</code> or <code>1h30m</code>.</li>
+</ul>
+<p>Each has its own literal form, and there are no implicit conversions between them. The other three are:</p>
+<ul>
+<li><code>r::Clock</code>, the standard library's clock, which reads the current time.</li>
+<li><code>r::Random</code>, the standard library's pseudorandom number generator.</li>
+<li><code>BitSet</code>, a 64-bit pattern, which is what <code>r::Random</code> returns for random bits.</li>
+</ul>
+<h2 id="instants-civil-dates-and-times-of-day">Instants, Civil Dates and Times of Day</h2>
+<p>A quick tour:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>time.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">  DateTime</span><span> promised =</span><span style="color: #986801;"> 2026-10-09T09:00:00+05:30</span></span>
+<span class="giallo-l"><span style="color: #C18401;">  DateTime</span><span> received =</span><span style="color: #C18401;"> DateTime</span><span>.</span><span style="color: #4078F2;">fromUnix</span><span>(</span><span style="color: #986801;">1791516600</span><span>)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(received)                  </span><span style="color: #A0A1A7;font-style: italic;">// 2026-10-09T03:30:00Z</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(received == promised)      </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(received.</span><span style="color: #4078F2;">withOffset</span><span>(</span><span style="color: #986801;">10h</span><span>))  </span><span style="color: #A0A1A7;font-style: italic;">// 2026-10-09T13:30:00+10:00</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(promised +</span><span style="color: #986801;"> 36h</span><span>)            </span><span style="color: #A0A1A7;font-style: italic;">// 2026-10-10T21:00:00+05:30</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  [</span><span style="color: #C18401;">DateTime</span><span>: </span><span style="color: #C18401;">String</span><span>] events = [</span></span>
+<span class="giallo-l"><span style="color: #986801;">    2026-10-09T01:15:00Z</span><span>: </span><span style="color: #50A14F;">&quot;packed&quot;</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #986801;">    2026-10-09T02:40:00Z</span><span>: </span><span style="color: #50A14F;">&quot;shipped&quot;</span><span>,</span></span>
+<span class="giallo-l"><span>    promised: </span><span style="color: #50A14F;">&quot;due&quot;</span></span>
+<span class="giallo-l"><span>  ]</span></span>
+<span class="giallo-l"><span>  events[received] =</span><span style="color: #50A14F;"> &quot;delivered&quot;</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(</span><span style="color: #4078F2;">count</span><span>(events))             </span><span style="color: #A0A1A7;font-style: italic;">// 3</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(events[promised])          </span><span style="color: #A0A1A7;font-style: italic;">// delivered</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Date</span><span> start =</span><span style="color: #986801;"> d2026-01-31</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(start.</span><span style="color: #4078F2;">addMonths</span><span>(</span><span style="color: #986801;">2</span><span>))              </span><span style="color: #A0A1A7;font-style: italic;">// d2026-03-31</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(start.</span><span style="color: #4078F2;">addMonths</span><span>(</span><span style="color: #986801;">1</span><span>).</span><span style="color: #4078F2;">addMonths</span><span>(</span><span style="color: #986801;">1</span><span>)) </span><span style="color: #A0A1A7;font-style: italic;">// d2026-03-28</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Time</span><span> standup =</span><span style="color: #986801;"> t23:30:00</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(standup +</span><span style="color: #986801;"> 45m</span><span>)             </span><span style="color: #A0A1A7;font-style: italic;">// t00:15:00</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(standup.</span><span style="color: #4078F2;">until</span><span>(</span><span style="color: #986801;">t09:00:00</span><span>))  </span><span style="color: #A0A1A7;font-style: italic;">// 9h30m</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p><code>promised</code> and <code>received</code> arrive in different forms, one as text with a <code>+05:30</code> offset and one as Unix seconds, but they are the same instant. <code>DateTime</code> compares and orders by instant, and the offset only affects display. So the two values are equal, <code>withOffset</code> changes how a value prints without changing what it equals, and writing to <code>events[received]</code> updates the entry for <code>promised</code>, leaving the dictionary with three entries. <code>unix()</code> converts back to seconds and nanoseconds.</p>
+<p><code>Time</code> essentially represents the 24-hour clock that wraps around midnight. <code>Time.since</code> measures the <code>Duration</code> since a previous occurrence of another time and <code>Time.until</code> measures forward to the next occurrence of the other time.</p>
+<p><code>Date</code> supports the methods <code>addDays</code>, <code>addWeeks</code>, <code>addMonths</code>, <code>addYears</code> and <code>daysUntil</code>. When the target month is shorter, <code>addMonths</code> stops at its last day. So one step of two months from 31 January lands on 31 March, but two steps of one month land on 28 March. <code>addYears</code> follows the same rule, while <code>addDays</code> and <code>addWeeks</code> move by an exact number of days. All four <code>add</code> methods take negative numbers and move backwards, so <code>d2026-03-31.addMonths(-1)</code> gives <code>d2026-02-28</code>. <code>since</code> is not yet implemented for <code>Date</code>, but <code>daysUntil</code> with an earlier date returns a negative value.</p>
+<p>A <code>DateTime</code> carries a numeric offset. Zone rules change over time, so Ritchie keeps named zones such as <code>Australia/Melbourne</code> out of the value and records the offset that was actually used.</p>
+<h2 id="adaptive-duration-precision">Adaptive Duration Precision</h2>
+<p>A <code>Duration</code> is always eight bytes, and it picks its precision from its size. Up to about 146 years it counts nanoseconds. Beyond that it counts milliseconds, which extends its range to about 146 million years. <code>highRes()</code> and <code>lowRes()</code> report which precision a value is using.</p>
+<div class="code-window">
+<div class="code-window-bar"><span>duration.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">  Duration</span><span> third =</span><span style="color: #986801;"> 1ms</span><span> /</span><span style="color: #986801;"> 3</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(third)                      </span><span style="color: #A0A1A7;font-style: italic;">// 333us333ns</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(third.</span><span style="color: #4078F2;">highRes</span><span>())            </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Duration</span><span> lifetime =</span><span style="color: #986801;"> 53375d</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(lifetime.</span><span style="color: #4078F2;">highRes</span><span>())         </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>((lifetime +</span><span style="color: #986801;"> 1d</span><span>).</span><span style="color: #4078F2;">highRes</span><span>())  </span><span style="color: #A0A1A7;font-style: italic;">// false</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Duration</span><span> era =</span><span style="color: #986801;"> 60000000d</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(era +</span><span style="color: #986801;"> 1ns</span><span> == era)           </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(</span><span style="color: #986801;">1h</span><span> ==</span><span style="color: #986801;"> 60m</span><span>)                  </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(</span><span style="color: #986801;">90m</span><span> /</span><span style="color: #986801;"> 1h</span><span>)                   </span><span style="color: #A0A1A7;font-style: italic;">// 1.5</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>The switch is automatic, so a program never has to pick a unit for a span of time. The trade-off is at the far end of the range: a nanosecond added to sixty million days is lost, because a value that large keeps only milliseconds. Precision doesn't affect comparison, so <code>1h == 60m</code> holds whichever precision each side uses, and dividing one <code>Duration</code> by another gives a <code>Float</code>.</p>
+<h2 id="temporal-safety-features">Temporal Safety Features</h2>
+<p>Date and time bugs tend to show up late, on the last day of a month or on 29 February. Ritchie catches as many of them as it can before the program runs. A literal must be a real calendar date, time or offset, and arithmetic must make sense for the types involved, so these lines don't compile:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>mistakes.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">  Date</span><span> due =</span><span style="color: #986801;"> d2026-02-30</span></span>
+<span class="giallo-l"><span style="color: #A0A1A7;font-style: italic;">  // &quot;d2026-02-30&quot; is not a well-formed Date literal</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Date</span><span> next =</span><span style="color: #986801;"> d2026-10-09</span><span> +</span><span style="color: #986801;"> 24h</span></span>
+<span class="giallo-l"><span style="color: #A0A1A7;font-style: italic;">  // &quot;+&quot; does not apply to a Date and a Duration value</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p>When a failure depends on runtime values, such as moving a <code>DateTime</code> past year 9999, the operation raises <code>OutOfRange!</code> for the program to handle.</p>
+<h2 id="reading-the-clock">Reading the Clock</h2>
+<p>The standard library's <code>r::Clock</code> reads the current time:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>clock.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">openedAt</span><span>(r::</span><span style="color: #C18401;">Clock</span><span> clock) -&gt;</span><span style="color: #C18401;"> DateTime</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  return</span><span> clock.</span><span style="color: #4078F2;">time</span><span>()</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(r::</span><span style="color: #C18401;">Clock</span><span>.</span><span style="color: #4078F2;">time</span><span>())       </span><span style="color: #A0A1A7;font-style: italic;">// 2026-09-24T02:00:00.418273516Z</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  r::</span><span style="color: #C18401;">Clock</span><span> local = r::</span><span style="color: #C18401;">Clock</span><span>.</span><span style="color: #4078F2;">withOffset</span><span>(</span><span style="color: #986801;">10h</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(local)                 </span><span style="color: #A0A1A7;font-style: italic;">// r::Clock { offset: +10:00 }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(local.</span><span style="color: #4078F2;">offset</span><span>())        </span><span style="color: #A0A1A7;font-style: italic;">// 10h</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(</span><span style="color: #4078F2;">openedAt</span><span>(local))       </span><span style="color: #A0A1A7;font-style: italic;">// 2026-09-24T12:00:00.418301942+10:00</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p><code>r::Clock.time()</code> returns UTC with nanosecond precision. It is a wall-clock reading, so it can jump if the host's clock is adjusted, and it is not a reliable way to measure elapsed time.</p>
+<p><code>r::Clock.withOffset</code> makes a clock value that reads the same instant and presents it at a fixed offset. The offset stays fixed, so it won't follow daylight saving. A clock value can be stored in a field or passed as a parameter, as <code>openedAt</code> does, so code that needs the time can be handed the clock it should use.</p>
+<p>There is no <code>r::Clock.sleep()</code> yet, which is an embarrassing omission. It will be available in a future update.</p>
+<h2 id="random-numbers">Random Numbers</h2>
+<p>The same release adds <code>r::Random</code>, a pseudorandom generator in the standard library:</p>
+<div class="code-window">
+<div class="code-window-bar"><span>random.ri</span><span>Ritchie</span></div>
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span>  r::</span><span style="color: #C18401;">Random</span><span> dice = r::</span><span style="color: #C18401;">Random</span><span>.</span><span style="color: #4078F2;">new</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(dice.</span><span style="color: #4078F2;">range</span><span>(</span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">7</span><span>))   </span><span style="color: #A0A1A7;font-style: italic;">// 6</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(dice.</span><span style="color: #4078F2;">ratio</span><span>())       </span><span style="color: #A0A1A7;font-style: italic;">// 0.6130648292654095</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(dice.</span><span style="color: #4078F2;">bits</span><span>())        </span><span style="color: #A0A1A7;font-style: italic;">// 0x1ba193ee66884427</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">  Byte</span><span>[</span><span style="color: #986801;">32</span><span>] seed =</span><span style="color: #4078F2;"> fill</span><span>(</span><span style="color: #C18401;">Byte</span><span>.</span><span style="color: #4078F2;">fromInt</span><span>(</span><span style="color: #986801;">7</span><span>), </span><span style="color: #986801;">32</span><span>)</span></span>
+<span class="giallo-l"><span>  r::</span><span style="color: #C18401;">Random</span><span> a = r::</span><span style="color: #C18401;">Random</span><span>.</span><span style="color: #4078F2;">seed</span><span>(seed)</span></span>
+<span class="giallo-l"><span>  r::</span><span style="color: #C18401;">Random</span><span> b = r::</span><span style="color: #C18401;">Random</span><span>.</span><span style="color: #4078F2;">seed</span><span>(seed)</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(a.</span><span style="color: #4078F2;">range</span><span>(</span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">7</span><span>) == b.</span><span style="color: #4078F2;">range</span><span>(</span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">7</span><span>))  </span><span style="color: #A0A1A7;font-style: italic;">// true</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(a.</span><span style="color: #4078F2;">range</span><span>(</span><span style="color: #986801;">10</span><span>, </span><span style="color: #986801;">0</span><span>))     </span><span style="color: #A0A1A7;font-style: italic;">// 6</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre></div>
+<p><code>r::Random.new()</code> starts a generator from the environment's entropy. <code>range(from, to)</code> includes <code>from</code> and excludes <code>to</code>, so <code>range(1, 7)</code> rolls a die, and it counts down when <code>to</code> is below <code>from</code>. <code>ratio()</code> returns a <code>Float</code> from <code>0.0</code> up to but excluding <code>1.0</code>, and <code>bits()</code> returns 64 random bits as a <code>BitSet</code>.</p>
+<p><code>r::Random.seed</code> takes 32 bytes and gives a reproducible generator. The same seed and the same calls give the same results, which is useful in tests. That holds within one compiler release, and the numbers may change between releases.</p>
+<p>Like a clock, a generator is a value that can be passed to the code that needs it.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/rite/">RITE</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>

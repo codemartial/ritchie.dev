@@ -6,7 +6,21 @@
     <description>Ritchie — distributed computing by default</description>
     <language>en-GB</language>
     <atom:link href="https://ritchie.dev/rss.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Wed, 09 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Services Arrive in Ritchie</title>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 +0000</pubDate>
+      <link>https://ritchie.dev/news/services-arrive-in-ritchie/</link>
+      <guid isPermaLink="true">https://ritchie.dev/news/services-arrive-in-ritchie/</guid>
+      <description>Ritchie programs can now declare and call stateless services on a local monolith target.</description>
+    </item>
+    <item>
+      <title>Date and Time in Ritchie, and More...</title>
+      <pubDate>Thu, 24 Sep 2026 00:00:00 +0000</pubDate>
+      <link>https://ritchie.dev/news/date-and-time-ritchie/</link>
+      <guid isPermaLink="true">https://ritchie.dev/news/date-and-time-ritchie/</guid>
+      <description>Ritchie aims for greater cross-application compatibility with built-in temporal types</description>
+    </item>
     <item>
       <title>Ritchie Playground Is Live</title>
       <pubDate>Wed, 09 Sep 2026 00:00:00 +0000</pubDate>

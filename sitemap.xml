@@ -7,8 +7,16 @@
         <loc>https://ritchie.dev/news/</loc>
     </url>
     <url>
+        <loc>https://ritchie.dev/news/date-and-time-ritchie/</loc>
+        <lastmod>2026-09-24</lastmod>
+    </url>
+    <url>
         <loc>https://ritchie.dev/news/playground-is-live/</loc>
         <lastmod>2026-09-09</lastmod>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/news/services-arrive-in-ritchie/</loc>
+        <lastmod>2026-10-09</lastmod>
     </url>
     <url>
         <loc>https://ritchie.dev/playground/</loc>
