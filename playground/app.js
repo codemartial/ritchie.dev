@@ -406,7 +406,7 @@ function renderTopology(topology) {
   topologyCanvas.append(svg);
   const nodeCount = nodes.length;
   const callCount = edges.length;
-  topologySummary.textContent = `${nodeCount} ${nodeCount === 1 ? "node" : "nodes"} · ${callCount} logical ${callCount === 1 ? "call" : "calls"}`;
+  topologySummary.textContent = `${nodeCount} ${nodeCount === 1 ? "node" : "nodes"} · ${callCount} service ${callCount === 1 ? "invocation" : "invocations"}`;
   topologyPanel.hidden = false;
 }
 
