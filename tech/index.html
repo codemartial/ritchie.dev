@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <title>Ritchie Technical Documents</title>
+  <meta name="description" content="Technical documents for the Ritchie language and its distributed application model.">
+  <link rel="canonical" href="https://ritchie.dev/tech/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Ritchie Technical Documents">
+  <meta property="og:description" content="Technical documents for the Ritchie language and its distributed application model.">
+  <meta property="og:url" content="https://ritchie.dev/tech/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ritchie Technical Documents">
+  <meta name="twitter:description" content="Technical documents for the Ritchie language and its distributed application model.">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=915639af6e36d852f848">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/">About</a>
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/tech/" aria-current="page">Tech</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Technical documents</p>
+        <h1>Tech</h1>
+        <p class="lede">The language, runtime model and technical foundations behind Ritchie.</p>
+      </div>
+    </header>
+
+    <div class="shell rite-layout">
+      <article class="article rite-document">
+        <ul class="news-list tech-list">
+          <li>
+            <h2><a href="https://ritchie.dev/rite/">RITE — Reliable Interaction with Typed Endpoints</a></h2>
+            <div class="tech-listing-copy"><p>RITE is an architectural style and abstract execution model for distributed applications. It combines established reliability techniques into one typed application model in which state ownership, invariant boundaries, and interaction behaviour are specified together.</p>
+<p>Each component has an explicit contract, owns its state and invariants, and communicates through well-defined interaction modes that determine consistency and failure semantics. Every interaction has a stable identity, a finite budget, and a classifiable outcome. These rules make mutations safe to retry within a defined window, keep invariants within one owner, and make effects attributable to their causes.</p>
+<p>By placing these rules in the application model, RITE enables static compatibility checks and consistent runtime behaviour across component relationships. Its semantics do not depend on process layout, placement, replication, or storage mechanisms. Version 1.0 covers one datacenter or a cluster of well-connected datacenters. Multi-region interaction is outside its scope.</p>
+</div>
+            <p class="tech-listing-action"><a href="https://ritchie.dev/rite/">Read RITE →</a></p>
+          </li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>

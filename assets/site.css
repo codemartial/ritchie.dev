@@ -39,7 +39,7 @@
 }
 
 :root {
-  color-scheme: only light;
+  color-scheme: light;
   --paper: #f3edf5;
   --paper-raised: #fcf8fb;
   --paper-soft: #e8deed;
@@ -58,9 +58,85 @@
   --code-text: #383650;
   --code-muted: #817b8b;
   --shadow: 0 18px 45px rgba(59, 43, 75, 0.11);
+  --body-wash: rgba(255, 255, 255, 0.24);
+  --surface-wash: rgba(255, 255, 255, 0.34);
+  --control-bg: rgba(255, 255, 255, 0.55);
+  --control-hover: rgba(255, 255, 255, 0.58);
+  --header-line: rgba(170, 152, 182, 0.82);
+  --header-bg: rgba(243, 237, 245, 0.94);
+  --selection: #dfb5c0;
+  --button-bg: #22233b;
+  --button-fg: #fff;
+  --button-hover-bg: #7f4552;
+  --button-hover-fg: #fff;
+  --card-shadow: 0 14px 36px rgba(59, 43, 75, 0.08);
+  --focus-ring: rgb(117 101 157 / 35%);
+  --error-band: rgb(183 110 121 / 9%);
+  --success-fg: #27613f;
+  --success-bg: #eaf6ee;
+  --error-fg: #7f4552;
+  --error-bg: #fff0f0;
+  --warning-fg: #7b5012;
+  --warning-bg: #fff6df;
+  --terminal-bg: #22233b;
+  --terminal-text: #f7f1f8;
+  --terminal-muted: #aaa4b5;
+  --diagnostic-bg: #fff7f7;
+  --grid-line: rgb(117 101 157 / 4%);
+  --service-fill: #f4edf8;
   --radius: 7px;
   --content: 1180px;
   --measure: 730px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #1f2430;
+    --paper-raised: #272d3b;
+    --paper-soft: #2d3443;
+    --ink: #cbccc6;
+    --ink-soft: #b7bbb5;
+    --muted: #8f98a3;
+    --line: #384151;
+    --line-strong: #5c6773;
+    --rust: #f29e74;
+    --rust-dark: #ffa759;
+    --lavender: #d4bfff;
+    --teal: #73d0ff;
+    --teal-soft: #283f51;
+    --code: #191e2a;
+    --code-2: #242a37;
+    --code-text: #cbccc6;
+    --code-muted: #7a8490;
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    --body-wash: rgba(255, 255, 255, 0.015);
+    --surface-wash: rgba(255, 255, 255, 0.025);
+    --control-bg: rgba(255, 255, 255, 0.055);
+    --control-hover: rgba(255, 255, 255, 0.085);
+    --header-line: rgba(92, 103, 115, 0.9);
+    --header-bg: rgba(31, 36, 48, 0.93);
+    --selection: #33415e;
+    --button-bg: #73d0ff;
+    --button-fg: #1f2430;
+    --button-hover-bg: #ffa759;
+    --button-hover-fg: #1f2430;
+    --card-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+    --focus-ring: rgb(212 191 255 / 42%);
+    --error-band: rgb(242 158 116 / 14%);
+    --success-fg: #bae67e;
+    --success-bg: #283829;
+    --error-fg: #ff8585;
+    --error-bg: #3c232b;
+    --warning-fg: #ffcc66;
+    --warning-bg: #3a3222;
+    --terminal-bg: #191e2a;
+    --terminal-text: #cbccc6;
+    --terminal-muted: #8f98a3;
+    --diagnostic-bg: #34232c;
+    --grid-line: rgb(212 191 255 / 7%);
+    --service-fill: #302d46;
+  }
 }
 
 *,
@@ -81,7 +157,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.24)),
+    linear-gradient(var(--body-wash), var(--body-wash)),
     var(--paper);
   color: var(--ink);
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -126,13 +202,13 @@ code:not(pre code) {
   padding: 0.08em 0.3em;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--control-bg);
   font-size: 0.88em;
   white-space: nowrap;
 }
 
 ::selection {
-  background: #dfb5c0;
+  background: var(--selection);
   color: var(--ink);
 }
 
@@ -143,8 +219,8 @@ code:not(pre code) {
   left: 0.75rem;
   padding: 0.65rem 0.9rem;
   border-radius: 4px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--button-bg);
+  color: var(--button-fg);
   transform: translateY(-180%);
 }
 
@@ -161,8 +237,8 @@ code:not(pre code) {
   position: sticky;
   z-index: 20;
   top: 0;
-  border-bottom: 1px solid rgba(170, 152, 182, 0.82);
-  background: rgba(243, 237, 245, 0.94);
+  border-bottom: 1px solid var(--header-line);
+  background: var(--header-bg);
   backdrop-filter: blur(14px);
 }
 
@@ -211,7 +287,7 @@ code:not(pre code) {
 
 .site-nav a:hover,
 .site-nav a[aria-current="page"] {
-  background: rgba(255, 255, 255, 0.58);
+  background: var(--control-hover);
   color: var(--ink);
 }
 
@@ -308,17 +384,18 @@ h4 {
   align-items: center;
   justify-content: center;
   padding: 0.6rem 1rem;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--button-bg);
   border-radius: 5px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--button-bg);
+  color: var(--button-fg);
   font-weight: 700;
   text-decoration: none;
 }
 
 .button:hover {
-  background: var(--rust-dark);
-  color: #fff;
+  border-color: var(--button-hover-bg);
+  background: var(--button-hover-bg);
+  color: var(--button-hover-fg);
 }
 
 .button-secondary {
@@ -329,7 +406,7 @@ h4 {
 
 .button-secondary:hover {
   border-color: var(--ink);
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--control-bg);
   color: var(--ink);
 }
 
@@ -340,7 +417,7 @@ h4 {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--code);
-  box-shadow: 0 14px 36px rgba(59, 43, 75, 0.08);
+  box-shadow: var(--card-shadow);
   color: var(--code-text);
 }
 
@@ -391,7 +468,7 @@ h4 {
 }
 
 .section-plain {
-  background: rgba(255, 255, 255, 0.34);
+  background: var(--surface-wash);
 }
 
 .section-head {
@@ -556,10 +633,6 @@ h4 {
   text-decoration: none;
 }
 
-.toc-unnumbered a {
-  display: block;
-}
-
 .toc-index {
   color: var(--rust);
   font-family: "Iosevka Term", ui-monospace, monospace;
@@ -660,6 +733,33 @@ h4 {
 
 .article p {
   margin: 0 0 1.35rem;
+}
+
+.article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2.25rem auto 0.75rem;
+}
+
+/* External SVG media queries can be cached across environment theme changes.
+   These diagrams are monochrome, so let the page palette choose their tone. */
+.rite-document img[src*="rite-diagrams/"] {
+  filter: brightness(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  .rite-document img[src*="rite-diagrams/"] {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.article img + em {
+  display: block;
+  margin-bottom: 2.25rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: center;
 }
 
 .article ul,
@@ -865,7 +965,7 @@ h4 {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper-raised);
-  box-shadow: 0 12px 30px rgba(59, 43, 75, 0.08);
+  box-shadow: var(--card-shadow);
 }
 
 .claude-installation-shots img {
@@ -1118,6 +1218,33 @@ h4 {
   background-color: transparent !important;
 }
 
+@media (prefers-color-scheme: dark) {
+  .giallo [style*="color: #A626A4"] {
+    color: #ffa759 !important;
+  }
+
+  .giallo [style*="color: #50A14F"] {
+    color: #bae67e !important;
+  }
+
+  .giallo [style*="color: #986801"] {
+    color: #ffcc66 !important;
+  }
+
+  .giallo [style*="color: #4078F2"],
+  .giallo [style*="color: #C18401"] {
+    color: #73d0ff !important;
+  }
+
+  .giallo [style*="color: #E45649"] {
+    color: #f29e74 !important;
+  }
+
+  .giallo [style*="color: #0184BC"] {
+    color: #5ccfe6 !important;
+  }
+}
+
 .news-list {
   margin: 0;
   padding: 0;
@@ -1138,6 +1265,18 @@ h4 {
 
 .news-list .document-meta {
   margin: 0 0 0.5rem;
+}
+
+.tech-listing-copy {
+  color: var(--ink-soft);
+}
+
+.tech-listing-copy p:last-child {
+  margin-bottom: 0.8rem;
+}
+
+.tech-listing-action {
+  margin-bottom: 0;
 }
 
 .article .footnote-definition {

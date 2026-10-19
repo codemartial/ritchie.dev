@@ -149,7 +149,7 @@
   background: linear-gradient(
     to bottom,
     transparent 18%,
-    rgb(183 110 121 / 9%) 18% 82%,
+    var(--error-band) 18% 82%,
     transparent 82%
   );
 }
@@ -185,7 +185,7 @@
 }
 
 .playground-editor textarea:focus {
-  box-shadow: inset 0 0 0 2px rgb(117 101 157 / 35%);
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
 }
 
 .playground-actions {
@@ -208,17 +208,18 @@
 .playground-actions button {
   min-height: 42px;
   padding: 0.55rem 1rem;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--button-bg);
   border-radius: 4px;
-  background: var(--ink);
-  color: #fff;
+  background: var(--button-bg);
+  color: var(--button-fg);
   font-weight: 700;
   cursor: pointer;
 }
 
 .playground-actions button:hover {
-  border-color: var(--rust-dark);
-  background: var(--rust-dark);
+  border-color: var(--button-hover-bg);
+  background: var(--button-hover-bg);
+  color: var(--button-hover-fg);
 }
 
 .playground-actions button:disabled {
@@ -237,22 +238,22 @@
 }
 
 .playground-result-panel .outcome.completed {
-  color: #27613f;
-  background: #eaf6ee;
+  color: var(--success-fg);
+  background: var(--success-bg);
 }
 
 .playground-result-panel .outcome.rejected,
 .playground-result-panel .outcome.runtime_error,
 .playground-result-panel .outcome.compiler_failure,
 .playground-result-panel .outcome.service_error {
-  color: #7f4552;
-  background: #fff0f0;
+  color: var(--error-fg);
+  background: var(--error-bg);
 }
 
 .playground-result-panel .outcome.timed_out,
 .playground-result-panel .outcome.output_limit {
-  color: #7b5012;
-  background: #fff6df;
+  color: var(--warning-fg);
+  background: var(--warning-bg);
 }
 
 .playground-result-panel .terminal {
@@ -261,15 +262,15 @@
   margin: 0;
   overflow: auto;
   padding: 1rem;
-  background: var(--ink);
-  color: #f7f1f8;
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
   font: 0.85rem/1.6 "Iosevka Term", ui-monospace, monospace;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .playground-result-panel .muted {
-  color: #aaa4b5;
+  color: var(--terminal-muted);
 }
 
 .playground-result-panel .diagnostics {
@@ -284,7 +285,7 @@
   grid-template-columns: minmax(7rem, auto) 1fr;
   gap: 1rem;
   padding: 0.7rem 1rem;
-  background: #fff7f7;
+  background: var(--diagnostic-bg);
   font-size: 0.9rem;
 }
 
@@ -327,8 +328,8 @@
   overflow: auto;
   padding: 1rem;
   background:
-    linear-gradient(90deg, rgb(117 101 157 / 4%) 1px, transparent 1px),
-    linear-gradient(rgb(117 101 157 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
     var(--code);
   background-size: 24px 24px;
 }
@@ -368,7 +369,7 @@
 }
 
 .topology-node.service rect {
-  fill: #f4edf8;
+  fill: var(--service-fill);
   stroke: var(--lavender);
 }
 

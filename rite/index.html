@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <title>RITE — Ritchie runtime model</title>
-  <meta name="description" content="RITE — Reliable Interaction with Typed Endpoints — is the runtime model underneath Ritchie&#39;s programming model.">
+  <title>RITE — Reliable Interaction with Typed Endpoints</title>
+  <meta name="description" content="RITE is Ritchie’s architectural style and abstract execution model for reliable distributed applications.">
+  <meta name="author" content="Tahir Hashmi">
   <link rel="canonical" href="https://ritchie.dev/rite/">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ritchie">
-  <meta property="og:title" content="RITE — Ritchie&#39;s Distributed Runtime Model">
-  <meta property="og:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie&#39;s programming model.">
+  <meta property="og:title" content="RITE — Ritchie’s Distributed Runtime Model">
+  <meta property="og:description" content="Reliable Interaction with Typed Endpoints is Ritchie’s architectural style and execution model for distributed applications.">
   <meta property="og:url" content="https://ritchie.dev/rite/">
   <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
   <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
@@ -15,20 +16,22 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
   <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta property="article:modified_time" content="2026-10-19">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RITE — Ritchie&#39;s Distributed Runtime Model">
-  <meta name="twitter:description" content="Reliable Interaction with Typed Endpoints is the runtime model underneath Ritchie&#39;s programming model.">
+  <meta name="twitter:title" content="RITE — Ritchie’s Distributed Runtime Model">
+  <meta name="twitter:description" content="Reliable Interaction with Typed Endpoints is Ritchie’s architectural style and execution model for distributed applications.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2cf53d23d171c03c32f4">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=915639af6e36d852f848">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -42,7 +45,7 @@
         <a href="/preview/">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
-        <a href="/rite/" aria-current="page">RITE</a>
+        <a href="/tech/" aria-current="page">Tech</a>
       </nav>
     </div>
   </header>
@@ -53,7 +56,7 @@
         <p class="eyebrow">Reliable Interaction with Typed Endpoints</p>
         <h1>RITE</h1>
         <p class="lede">An architectural style and execution model for distributed applications.</p>
-        <p class="document-meta">Tahir Hashmi · 03 August 2026</p>
+        <p class="document-meta">Version 1.0 · Tahir Hashmi · 19 October 2026</p>
       </div>
     </header>
 
@@ -61,82 +64,873 @@
       <aside class="toc" aria-label="On this page">
         <strong>On this page</strong>
 
-        <ol class="toc-unnumbered">
-          <li><a href="#1-reliable-interaction-with-typed-endpoints">1. Reliable Interaction with Typed Endpoints</a></li>
-          <li><a href="#slices">2. Slice</a></li>
-          <li><a href="#state">3. State</a></li>
-          <li><a href="#foundations">4. Foundations</a></li>
-          <li><a href="#invocation-mode">5. Invocation Mode</a></li>
-          <li><a href="#activation-mode">6. Activation Mode</a></li>
-          <li><a href="#constraints">7. Constraints</a></li>
+        <ol>
+          <li><a href="#1-problem-space"><span class="toc-index" aria-hidden="true">01.</span><span>Problem Space</span></a></li>
+          <li><a href="#2-foundations"><span class="toc-index" aria-hidden="true">02.</span><span>Foundations</span></a></li>
+          <li><a href="#3-state-and-streams"><span class="toc-index" aria-hidden="true">03.</span><span>State and Streams</span></a></li>
+          <li><a href="#4-common-interaction-semantics"><span class="toc-index" aria-hidden="true">04.</span><span>Common Interaction Semantics</span></a></li>
+          <li><a href="#5-invocation-mode"><span class="toc-index" aria-hidden="true">05.</span><span>Invocation Mode</span></a></li>
+          <li><a href="#6-activation-mode"><span class="toc-index" aria-hidden="true">06.</span><span>Activation Mode</span></a></li>
+          <li><a href="#7-rationale"><span class="toc-index" aria-hidden="true">07.</span><span>Rationale</span></a></li>
+          <li><a href="#8-inspiration"><span class="toc-index" aria-hidden="true">08.</span><span>Inspiration</span></a></li>
+          <li><a href="#9-vocabulary"><span class="toc-index" aria-hidden="true">09.</span><span>Vocabulary</span></a></li>
+          <li><a href="#10-references"><span class="toc-index" aria-hidden="true">10.</span><span>References</span></a></li>
         </ol>
 
       </aside>
 
       <article class="article rite-document">
-<h2 id="1-reliable-interaction-with-typed-endpoints">1. Reliable Interaction with Typed Endpoints</h2>
-<p>RITE is the architectural model underlying Ritchie and its runtimes.</p>
-<p>It defines the primitives, constraints, abstract machine, and phases for designing and executing distributed enterprise applications. The scope of this model covers applications running in a single datacenter or a cluster of well-connected datacenters. Multi-region semantics need to be explicitly designed by the developer. What follows is a condensed overview of that model.</p>
-<p><strong>Reliable.</strong> Every operation has a classifiable outcome: it succeeded, it was not attempted, or its result is unknown.</p>
-<p><strong>Interaction.</strong> Communication between units uses a small set of defined modes with known consistency and failure semantics.</p>
-<p><strong>Typed Endpoints.</strong> Every Endpoint has an explicit contract: interaction mode, schema, error types, and SLA dimensions.</p>
-<h2 id="slices">2. Slice</h2>
-<h3 id="slice">2.1. Slice</h3>
-<p>A <strong>Slice</strong> is the unit of ownership, failure isolation, and interface. An <strong>Endpoint</strong> is a typed, network-addressable interaction target exposed by a Slice. A Slice may expose multiple Endpoints.</p>
-<h3 id="locator">2.2. Locator</h3>
-<p>An Endpoint is addressed by a <strong>Locator</strong>: a stable name that survives restarts, deploys, and scaling.</p>
-<h3 id="slice-kinds">2.3. Slice Kinds</h3>
-<p>An <strong>Entity Slice</strong> owns durable state. The Entity Slice defines the schema and the invariants that hold per instance. Its methods are commands and queries.</p>
-<p>A <strong>Service Slice</strong> owns no durable state. It performs stateless computation and may invoke Entity Slices or other Service Slices. It does not own the state it reads or modifies.</p>
-<p>A <strong>Stream Slice</strong> owns a durable, append-only sequence of Envelopes.</p>
-<h3 id="invariant-rule">2.5. The Invariant Rule</h3>
-<p>A business invariant MUST NOT span across multiple Slices.</p>
-<h2 id="state">3. State</h2>
-<h3 id="structure">3.1. Structure</h3>
-<p><strong>Event.</strong> An immutable record of a fact. Events are not Entities – Entities are mutable current state, Events are immutable history.</p>
-<p><strong>Collection.</strong> A named set of Entity instances plus indexes and materialisations associated with an Entity Slice. Collections are read surfaces.</p>
-<h3 id="consistency-by-form">3.3. Consistency by Form</h3>
-<p>Consistency is determined by state form and ownership. There is no runtime negotiation.</p>
-<p><strong>Entity instance.</strong> State modifications through Entity methods MUST be atomic. Entity instance reads are strongly consistent.</p>
-<p><strong>Collection.</strong> These are used for bulk queries like search, sort and aggregation. Collection reads are eventually consistent.</p>
-<h2 id="foundations">4. Foundations</h2>
-<h3 id="envelope">4.1. Envelope</h3>
-<p>Every cross-Slice interaction carries an <strong>Envelope</strong> – a structured message conveying the interaction’s identity, source Slice, destination Endpoint, an ordering context where ordering matters, and an optional correlation handle for cross-Slice tracing.</p>
-<h3 id="identity-and-idempotency">4.2. Identity and Idempotency</h3>
-<p>All state-mutating cross-Slice interactions MUST be idempotent on the interaction’s identity.</p>
-<h3 id="deadline-and-budget">4.3. Deadline and Budget</h3>
-<p>Every cross-Slice <em>call</em> – an Invocation, a publish into a Stream, or an Activation at a consumer – has a deadline: a cutoff by which the call must produce one of the three outcomes (<a href="https://ritchie.dev/rite/#three-outcomes">§4.4</a>). Budget is the time remaining until the deadline.</p>
-<h3 id="three-outcomes">4.4. Three Outcomes</h3>
-<p>Every cross-Slice interaction produces exactly one of three outcomes:</p>
+<p>Copyright © 2026 Tahir Hashmi.</p>
+<blockquote>
+<p>This document is licensed under the
+<a href="https://creativecommons.org/licenses/by-nd/4.0/">Creative Commons Attribution-NoDerivatives 4.0 International License</a>.<br />
+This licence covers the text and presentation of this document, not
+independently written implementations of the model it describes.<br />
+No trademark or patent rights are granted.</p>
+</blockquote>
+<p>An architectural style and execution model for distributed
+applications.</p>
+<p>RITE is an architectural style and abstract execution model for
+distributed applications. It combines established reliability
+techniques into one typed application model in which state ownership,
+invariant boundaries, and interaction behaviour are specified together.</p>
+<p>Each component has an explicit contract, owns its state and invariants,
+and communicates through well-defined interaction modes that determine
+consistency and failure semantics. Every interaction has a stable
+identity, a finite budget, and a classifiable outcome. These rules make
+mutations safe to retry within a defined window, keep invariants within
+one owner, and make effects attributable to their causes.</p>
+<p>By placing these rules in the application model, RITE enables static
+compatibility checks and consistent runtime behaviour across component
+relationships. Its semantics do not depend on process layout,
+placement, replication, or storage mechanisms. Version 1.0 covers one
+datacenter or a cluster of well-connected datacenters. Multi-region
+interaction is outside its scope.</p>
+<h2 id="1-problem-space">1 Problem Space</h2>
+<h3 id="1-1-domain">1.1 Domain</h3>
+<p>Modern enterprise applications are built as collections of services,
+each owning a piece of the system's state and exposing logic to
+manipulate it or behaviour over it. Integration between these
+services, however, is invariably ad hoc, without a view of the <em>whole
+application</em> and how its pieces fit.</p>
+<p>Over the past few decades, since the rise and fall of models like
+CORBA, significant progress has been made in understanding distributed
+interaction and making it reliable. Most of these advances address a
+narrow slice of the problem. Developers and architects remain
+responsible for assembling these solutions into a coherent application
+and defining consistent integration practices for it.</p>
+<p>One of the consequences of this pattern is the need for developers to
+become "full cycle" engineers, unlike other engineering disciplines
+where design, construction and operation are typically separate
+specialisations. They spend an inordinate amount of effort
+understanding both the problem domain and the delivery environment.</p>
+<p>A coherent computing model for distributed applications would replace
+that irregularity with a uniform integration vocabulary and let
+developers reason about the whole system rather than one component at
+a time.</p>
+<p>Developing such a model would allow us to convert several runtime
+failures into code level safety checks. It also allows for more
+capable runtimes that offload reliability concerns from the
+application domain and allow cleaner separation of responsibilities
+between developers and infrastructure operators.</p>
+<h3 id="1-2-definitions">1.2 Definitions</h3>
+<p>As indicated by the title, this model is built on three concepts,
+defined next.</p>
+<p><strong>Reliable.</strong> Every operation has a classifiable outcome: it
+completed, it did not complete, or its result is unknown. No silent
+failures and no ambiguous states beyond the three classes defined in
+§4.3.</p>
+<p><strong>Interaction.</strong> Communication between units uses a small set of
+defined modes with known consistency and failure semantics. Protocols
+and consistency are not ad hoc. Both follow from the chosen
+interaction mode.</p>
+<p><strong>Typed Endpoints.</strong> The distributed system units, called Endpoints,
+are types in the application's type system. An Endpoint's contract
+consists of its methods, their request and result types, the typed
+errors each method may return, the Event types it publishes or
+emits, and the interaction mode of each method, which fixes its
+consistency and failure semantics. Contract compatibility is
+statically checkable, so integration failures are found before
+deployment rather than during deployment or at runtime.</p>
+<h3 id="1-3-properties">1.3 Properties</h3>
+<p>RITE aims to make distributed applications reliable, observable,
+evolvable, debuggable, resource bounded, and easier to reason about.
+Its constraints isolate failures and state ownership, classify
+interaction outcomes, preserve causal lineage, make mutations
+retryable within the configured duplicate suppression window, and
+bound synchronous work. Typed interfaces and explicit interaction
+modes reduce coupling and per-integration decisions. These qualities
+explain the constraints in Section 7.</p>
+<h2 id="2-foundations">2 Foundations</h2>
+<h3 id="2-1-endpoint">2.1 Endpoint</h3>
+<p>An <strong>Endpoint</strong> is an independent, replicated, network addressable
+unit with an explicit contract. It is the unit of ownership, failure
+isolation, and interface.</p>
+<p>An Endpoint is not a deployment unit, a code organisation unit, or a
+team boundary. These often align but are not definitional.</p>
+<h3 id="2-2-locator">2.2 Locator</h3>
+<p>An Endpoint is addressed by a <strong>Locator</strong>: a stable name that survives
+restarts, deploys, and scaling. How the name resolves to physical
+infrastructure is an implementation detail. The model does not
+prescribe a structural form for Locators.</p>
+<blockquote>
+<p><strong>Example.</strong> A Locator consists of a tenant, a namespace, a kind,
+and a name.</p>
+</blockquote>
+<p>A Locator is the stable part of an Endpoint's versioned address. It
+must not embed network coordinates, regions, shards, or versions.</p>
+<h3 id="2-3-kinds-of-endpoint">2.3 Kinds of Endpoint</h3>
+<p>There are three kinds of Endpoint.</p>
+<p>An <strong>Entity Endpoint</strong> owns Entities, which hold durable state. It
+defines their schema, methods, and per instance invariants. Internal
+storage structure is unconstrained.</p>
+<p>A <strong>Service Endpoint</strong> owns no durable state. It performs stateless
+computation and may invoke Entity Endpoints or other Service
+Endpoints. It does not own the state it reads or modifies. A Service
+Endpoint may enforce contract level validation (schema, auth, policy).</p>
+<p>A <strong>Stream Endpoint</strong> owns a Stream. Section 3.1 defines the state
+forms owned by Entity and Stream Endpoints.</p>
+<blockquote>
+<p><strong>Example.</strong> A payments system might consist of:</p>
 <ul>
-<li><em>Succeeded</em> – the handler ran to a verdict. The verdict is either a positive result or an application-domain rejection.</li>
-<li><em>Request not completed</em> – the destination’s runtime knows the request did not run to a verdict. State at the destination is unchanged.</li>
-<li><em>Outcome unknown</em> – the originator does not know whether the request ran or what its state effect was.</li>
+<li>
+<p><code>Account</code> – an Entity Endpoint. Each instance represents one
+account. Per instance invariant: balance must not go
+negative. Methods: <code>debit(amount)</code>, <code>credit(amount)</code>.</p>
+</li>
+<li>
+<p><code>Payment</code> – a Service Endpoint. Orchestrates transfers between
+<code>Account</code> instances. Each debit or credit is an independent atomic
+RPC on one instance. The implementation of <code>Payment</code> determines
+the order of the debit and the credit, and the recovery of a
+transfer in which one of them fails.</p>
+</li>
 </ul>
-<h2 id="invocation-mode">5. Invocation Mode</h2>
-<p>Invocation is the interaction mode in which a single Envelope is a single logical operation at the destination. The destination Slice processes the Envelope through the selected Endpoint and produces an outcome (<a href="https://ritchie.dev/rite/#three-outcomes">§4.4</a>); the originator may wait for that outcome (Sync) or not (Messaging).</p>
-<p><strong>Sync</strong> covers both state-mutating requests and reads. The distinction between commands and queries is a property of the operation, not a separate sub-mode.</p>
-<p><strong>Messaging</strong> is fire-and-deliver: the originator sends and does not wait for a processing outcome.</p>
-<h3 id="entity-invocation">5.4. Entity Invocation</h3>
-<p>An Entity invocation is the unit of atomic state change for an Entity Slice.</p>
-<p>The invocation’s writes are atomic across its participants.</p>
-<h3 id="service-invocation">5.5. Service Invocation</h3>
-<p>A Service invocation is a stateless orchestration.</p>
-<h2 id="activation-mode">6. Activation Mode</h2>
-<p>Activation is the interaction mode in which Envelopes flow continuously from a publisher into a durable Stream, and one or more consumer Slices each track their own progress through that Stream and process Envelopes individually. Each Envelope, at each consumer, is one activation – a bounded unit of processing with its own three-class outcome.</p>
-<h3 id="streams">6.1. Streams</h3>
-<p>A <strong>Stream Slice</strong> is a Slice that owns a durable, append-only sequence of Envelopes from one or more publishers to one or more consumers.</p>
-<p>A <strong>publisher</strong> is anything that emits Envelopes into a Stream. A <strong>consumer</strong> is a Slice that subscribes to a Stream and processes Envelopes from it.</p>
-<h2 id="constraints">7. Constraints</h2>
+</blockquote>
+<h3 id="2-4-interaction">2.4 Interaction</h3>
+<p>Every cross-Endpoint interaction carries an <strong>Envelope</strong> – a
+structured message conveying at least the interaction's identity,
+source Endpoint, destination Endpoint, and an ordering context where
+ordering matters. The model does not prescribe field names or
+encodings.</p>
+<p>A <strong>logical event</strong> is one application intent. The same identity
+covers the first delivery attempt and every retry. A separate
+submission is a new logical event with a new identity.</p>
+<p>The identity of an Envelope issued while processing another derives
+from the identity of its cause. A retry of the cause therefore
+reissues the same identities for the same downstream interactions, and
+the lineage of every Envelope can be reconstructed.</p>
+<p>Identity provides correlation for tracing and idempotency for
+deduplication.</p>
+<h3 id="2-5-abstract-machine">2.5 Abstract Machine</h3>
+<p>A RITE system at runtime is a population of Endpoints. Entity and
+Stream Endpoints own durable state. Service Endpoints do not. Every
+observable cross-Endpoint effect results from processing an Envelope.</p>
+<p>Each Endpoint owns its state, reads its own clock, and schedules its
+own work. Cross-Endpoint work happens only through Invocations or
+Activations.</p>
+<p>The runtime is the part of the abstract machine that carries
+interactions between Endpoints and keeps the state those interactions
+require. It is a role, which an implementation may realise in any
+form.</p>
+<p>The abstract machine has two interaction modes.</p>
 <ul>
-<li><strong>C1 – Premise.</strong> Slices are independent failure domains.</li>
-<li><strong>C2 – Single Ownership.</strong> Every piece of durable state has exactly one owning unit at any point in time.</li>
-<li><strong>C3 – The Invariant Rule.</strong> An invariant MUST NOT span units.</li>
-<li><strong>C4 – Explicit Interaction Modes.</strong> All communication between units uses one of a small set of defined modes with known consistency and coupling properties.</li>
-<li><strong>C5 – Idempotent Mutations.</strong> All state-mutating operations MUST be idempotent.</li>
-<li><strong>C6 – Bounded Calls.</strong> Every synchronous call MUST carry a budget: an explicit, finite time allocation.</li>
+<li>
+<p><strong>Invocation</strong> (§5) applies one Envelope to one destination
+Endpoint as one logical operation with one outcome. In RPC mode, the
+originator waits for the outcome. In Messaging mode, it does not.</p>
+</li>
+<li>
+<p><strong>Activation</strong> (§6) applies one Event from a Stream to one
+consumer Service Endpoint. Each activation has its own outcome, and the
+runtime records each consumer's progress separately. Publication
+into a Stream is an Invocation on the Stream Endpoint (§6.2).</p>
+</li>
 </ul>
-<p>No constraint is redundant with the others, and each addresses a distinct failure mode.</p>
+<p>Figure 1 shows how these modes connect the three kinds of Endpoint.</p>
+<p><img src="https://ritchie.dev/rite/rite-diagrams/abstract-machine.svg" alt="Endpoint kinds and the interactions between them" /></p>
+<p><em>Figure 1: Endpoint kinds and the interactions between them</em></p>
+<p>An implementation conforms to RITE when no observable behaviour that
+it lets programs exhibit is such that the abstract machine excludes it.</p>
+<h3 id="2-6-the-invariant-rule">2.6 The Invariant Rule</h3>
+<p>Each invariant must be enforced within one Endpoint over that
+Endpoint's own state. All state that one invariant relates therefore
+belongs to a single Endpoint, and each Endpoint is the consistency
+boundary for the state it owns.</p>
+<h3 id="2-7-lifecycle">2.7 Lifecycle</h3>
+<p>An Endpoint may fail at any time and later recover. After recovery,
+its durable state reflects every committed change.</p>
+<p>While an Endpoint is failed, it must keep its own state consistent. An
+invocation that arrives while the Endpoint is failed receives
+<code>ERR_REQUEST</code> (§4.3) within its inbound budget. An invocation in
+flight when the Endpoint fails receives <code>ERR_REQUEST</code> or
+<code>ERR_RESPONSE</code> under the rules of §5.2 and §5.7.</p>
+<blockquote>
+<p><strong>Example.</strong> An implementation moves an Endpoint through <strong>start</strong>
+(recover state if any, accept traffic), <strong>run</strong> (handle requests),
+<strong>fail</strong> (stop accepting traffic), <strong>recover</strong> (restart, replay),
+and <strong>scale</strong> (add capacity).</p>
+</blockquote>
+<h2 id="3-state-and-streams">3 State and Streams</h2>
+<p>This section defines the state forms, ownership, and consistency
+rules, including their behaviour under network partition.</p>
+<h3 id="3-1-state-forms">3.1 State Forms</h3>
+<p><strong>Entity instance.</strong> Each instance is a uniquely identified, mutable
+record with a version that advances on each committed write
+(§5.3). The Entity Endpoint defines the schema and methods that apply
+uniformly to all its instances.</p>
+<p><strong>Collection.</strong> A read-only view across the instances of an Entity
+Endpoint, derived from their committed state. A Collection serves
+queries that span many instances. An application can write through
+methods over Entity instances whose identities are found in the
+Collection's result set.</p>
+<p><strong>Event.</strong> An immutable typed record of a fact, with a durable
+identity. Entity instances represent mutable current state, while
+Events represent immutable history. Entity state changes become Events
+on the Endpoint's CDC Stream (§3.5), and a successful Entity mutation
+may emit further Events (§5.3). Telemetry, device measurements, and
+external system Events enter Streams through publication (§6.2).</p>
+<p><strong>Stream.</strong> A durable, ordered sequence of immutable Events. Every
+Stream has one Event type, which may be a sum type. A Stream Endpoint
+owns one Stream, addressed by the Endpoint's Locator (§2.2). The CDC
+Stream of an Entity Endpoint (§3.5) has no Stream Endpoint. Section 6
+defines publication, ordering, retention, consumption, and activation.</p>
+<h3 id="3-2-sharding">3.2 Sharding</h3>
+<p>An Entity Endpoint may shard its Entities for scale. All shards share
+the same Locator, interface, invariant rules, and contract.</p>
+<blockquote>
+<p><strong>Example.</strong> Each shard holds the instances selected by a routing
+key, such as a hash or range over Entity identity.</p>
+</blockquote>
+<p>An Entity Endpoint's transactional scope extends across all its
+shards. Cross-shard coordination within the Endpoint is internal.</p>
+<p>A Stream Endpoint may shard Event storage and processing for scale.
+Publishers and consumers address the Stream Endpoint, not its internal
+shards. Sharding must preserve the contracts for Event durability,
+opaque positions, retention, consumer progress, and acceptance order
+within each ordering context. Different ordering contexts may progress
+independently.</p>
+<h3 id="3-3-ownership">3.3 Ownership</h3>
+<ul>
+<li>
+<p>Each Entity instance must have exactly one writer at a time (C2,
+§7.2).</p>
+</li>
+<li>
+<p>All mutable business state must be recorded as Entity instances.</p>
+</li>
+</ul>
+<h3 id="3-4-consistency-by-form">3.4 Consistency by Form</h3>
+<p>Consistency is determined by state form and ownership.</p>
+<p><strong>Entity instance.</strong> State modifications through Entity methods must
+be atomic.</p>
+<p><strong>Collection.</strong> Reads are eventually consistent. A Collection is built
+from Entity state (with optional projection, indexing, or
+aggregation), and it may lag behind the latest writes to the
+underlying Entities.</p>
+<p><strong>Stream.</strong> Events are immutable. Ordering and retention follow §6.1.</p>
+<h3 id="3-5-cdc">3.5 CDC</h3>
+<p>Every Entity Endpoint has a <strong>Change Data Capture</strong> Stream. The CDC
+Stream is runtime machinery rather than a Stream Endpoint. The runtime
+publishes each committed mutation of the Endpoint's instances as an
+Event on it, in commit order for each instance. Application code does
+not publish to the CDC Stream.</p>
+<h3 id="3-6-schema-evolution">3.6 Schema Evolution</h3>
+<p>These rules apply to Invocation payloads and Events. The model
+prescribes no mechanism for Entity schema evolution.</p>
+<ul>
+<li>
+<p>Additive changes (new optional fields, new Event types) are
+safe. Existing consumers must ignore unknown fields and unknown
+Event types.</p>
+</li>
+<li>
+<p>Removing or renaming fields breaks consumers. Changing the semantics
+of existing fields may break consumers undetectably.</p>
+</li>
+<li>
+<p>A breaking change introduces a new interface version under the same
+Locator (§2.2).</p>
+</li>
+<li>
+<p>An interface version remains compatible with its predecessor for a
+configured period.</p>
+</li>
+</ul>
+<p>Interface compatibility between a consumer Endpoint and the producer
+it consumes from is statically derivable from declared schemas. A
+consumer must accept the Stream's Event type or, for a sum type, at
+least one of its variants, in which case Events of other variants do
+not activate the consumer. An incompatible pairing cannot be deployed.</p>
+<blockquote>
+<p><strong>Example.</strong> An implementation checks compatibility at build time
+and fails the build on an incompatibility. Each breaking change
+comes with a migration plan.</p>
+</blockquote>
+<h3 id="3-7-ownership-transfer">3.7 Ownership Transfer</h3>
+<p>When changing Endpoint boundaries, sharding, or ownership:</p>
+<ul>
+<li>
+<p>At all times, each Entity instance must have exactly one writer (C2,
+§7.2).</p>
+</li>
+<li>
+<p>During migration, reads may be served from old or new interfaces.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Example.</strong> A migration plan includes a reconciliation step that
+verifies completeness after the transfer.</p>
+</blockquote>
+<h3 id="3-8-behaviour-under-network-partition">3.8 Behaviour Under Network Partition</h3>
+<p>A network partition is a condition where some Endpoints cannot
+exchange Envelopes with others within the deadline budget.</p>
+<ul>
+<li>
+<p><strong>Entity invocations.</strong> During a partition, the runtime must not
+allow two sides to claim ownership of the same instance. If
+ownership cannot be unambiguously determined, the instance is
+unavailable on both sides until the partition heals. An Invocation
+against an unreachable Entity returns <code>ERR_REQUEST</code> when the
+deadline expires. State at the destination is unchanged. In CAP
+terms, Entity calls are CP: consistency is preserved at the cost of
+availability under partition.</p>
+</li>
+<li>
+<p><strong>Collection reads.</strong> Collections (§3.1) are derived from Entity
+state via projection, indexing, or aggregation. They may be served
+from any node holding a copy of the projection and may lag behind
+the latest Entity writes. Reads remain available on the partitioned
+side in exchange for the lag. In CAP terms, Collection reads are AP:
+availability is preserved at the cost of staleness. The mechanism
+for maintaining the projection (CDC consumption, replication, cache)
+is an implementation choice.</p>
+</li>
+<li>
+<p><strong>Activations and Streams.</strong> A partition between a consumer and the
+Stream pauses delivery to that consumer. When connectivity returns,
+delivery resumes from the consumer's durable position. If retention
+has removed the next Event, the runtime reports a retention gap
+(§6.1). A partition between a publisher and the Stream is handled
+as a failed publication under the three outcome model (§6.2).</p>
+</li>
+<li>
+<p><strong>Multi-Entity operations.</strong> A Service coordinating multiple
+Entities observes each call's result and follows its chosen
+coordination strategy. C3 (§7.3) prevents the unavailability of one
+Entity from violating another Entity's local invariants.</p>
+</li>
+</ul>
+<h2 id="4-common-interaction-semantics">4 Common Interaction Semantics</h2>
+<p>Invocation and Activation share the identity, deadline, and outcome
+rules defined here.</p>
+<h3 id="4-1-identity-and-idempotency">4.1 Identity and Idempotency</h3>
+<p>All state mutating cross-Endpoint interactions must be idempotent on
+the interaction's identity (C5, §7.5).</p>
+<p>The destination recognises the identity and applies the operation at
+most once per logical event. A repeat returns the same outcome as the
+first completed operation. A repeat that arrives while an earlier
+attempt is in progress does not wait for it and receives
+<code>ERR_RESPONSE</code>. Deduplication scope and retention are operational
+policies.</p>
+<p>The guarantee is bounded by the configured retention window. A retry
+whose identity has aged out of the deduplication window may no longer
+be recognisable, so re-execution may become possible.</p>
+<blockquote>
+<p><strong>Example.</strong> An operator sizes the window to exceed the longest
+tolerable network partition.</p>
+</blockquote>
+<h3 id="4-2-deadline-and-budget">4.2 Deadline and Budget</h3>
+<p>Every cross-Endpoint interaction has a deadline: a cutoff by which the
+call must produce one of the three outcomes (§4.3). Budget is the
+time remaining until the deadline.</p>
+<p>In an RPC, the destination Endpoint knows the remaining budget and
+uses it to manage its work. A Messaging Invocation's deadline covers
+enqueue, and a publication's deadline covers acceptance by the Stream
+(§6.2). In Activation mode, each attempt has its own deadline (§6.4).</p>
+<p>When processing one call causes an Endpoint to issue further calls
+downstream, the downstream deadline must not exceed the inbound one.
+An Endpoint may divide its remaining budget across multiple downstream
+calls but cannot extend the budget.</p>
+<p>Each Endpoint classifies deadlines against its own clock. An
+originator classifies an expired call from its own observations
+(§4.3), so a destination that measures the same deadline differently
+leaves that classification correct.</p>
+<blockquote>
+<p><strong>Example.</strong> The remaining budget travels with a request as a
+duration, which the destination measures from the request's arrival
+on a local monotonic clock.</p>
+</blockquote>
+<p>When the deadline expires, the call's outcome is classified per mode
+(§5, §6): <code>ERR_REQUEST</code> if no externally visible effect could have
+occurred, <code>ERR_RESPONSE</code> if any might have.</p>
+<h3 id="4-3-three-outcomes">4.3 Three Outcomes</h3>
+<p>Every cross-Endpoint interaction produces exactly one of three outcomes:</p>
+<ul>
+<li>
+<p><em>Completed</em> – a verdict reached the originator: a positive result or
+an <code>ERROR</code> (an application domain rejection). The method contract
+determines any committed state change.</p>
+</li>
+<li>
+<p><em>Request not completed</em> (<code>ERR_REQUEST</code>) – no verdict reached the
+originator, and state at the destination is unchanged. Causes vary:
+the request did not reach the destination, was rejected before
+invocation, or could not be completed by the runtime.</p>
+</li>
+<li>
+<p><em>Outcome unknown</em> (<code>ERR_RESPONSE</code>) – the originator does not know
+whether the request ran or what its state effect was.</p>
+</li>
+</ul>
+<p><code>ERROR</code> is the application domain verdict. It is typically the
+handler's typed rejection (e.g., <code>InsufficientFunds</code>,
+<code>ItemOutOfStock</code>, <code>NotFound</code>) and may also be produced by the runtime
+when it acts in the application's namespace – for example, looking up
+an entity by an identifier the application owns and finding none. The
+runtime passes <code>ERROR</code> through to the originator for resolution.</p>
+<p><code>ERR_REQUEST</code> and <code>ERR_RESPONSE</code> are runtime domain signals. The
+runtime detects and classifies them, and it may attempt recovery
+before reporting them. The application sees them only when the
+runtime's recovery cannot resolve the condition.</p>
+<blockquote>
+<p><strong>Example.</strong> Recovery uses retries, failover, reconnection, or
+circuit recovery, chosen according to the cause.</p>
+</blockquote>
+<p><strong>Classification under uncertainty.</strong> A timeout may mean the
+destination has failed, is overloaded, is partitioned, or that the
+response was lost in transit. A failed interaction is classified as
+<code>ERR_RESPONSE</code> unless there is evidence that its outcome is <code>ERROR</code> or
+<code>ERR_REQUEST</code>.</p>
+<p>Figure 2 marks the outcome of a failure at each step of RPC and
+Messaging Invocation (§5.2) and of Activation (§6.4).</p>
+<p><img src="https://ritchie.dev/rite/rite-diagrams/outcomes.svg" alt="Outcome classification in each interaction mode" /></p>
+<p><em>Figure 2: Outcome classification in each interaction mode</em></p>
+<h2 id="5-invocation-mode">5 Invocation Mode</h2>
+<h3 id="5-1-rpc-and-messaging">5.1 RPC and Messaging</h3>
+<p><strong>RPC</strong> returns the destination method's outcome to the originator
+within the deadline. It covers both state mutating requests and reads.
+The distinction between commands and queries is a property of the
+method, not a separate submode.</p>
+<p><strong>Messaging</strong> returns an acknowledgement once the runtime has accepted
+durable custody, but the processing outcome does not return in band.
+Custody lasts until the destination processes the message, and the
+message need not be retained afterwards. Capacity exhaustion rejects
+the Invocation before acceptance. Settlement and abandonment of a
+message follow the rules for activation attempts (§6.4, §6.5).</p>
+<blockquote>
+<p><strong>Example.</strong> A Service sends a message to another Service together
+with the Locator of a callback Endpoint, and the receiving Service
+reports the processing outcome by invoking that Endpoint.</p>
+</blockquote>
+<h3 id="5-2-envelope-and-outcome-specialisation">5.2 Envelope and Outcome Specialisation</h3>
+<p>In Invocation mode, the Envelope's destination is an Endpoint capable
+of handling individual invocations. The Envelope's ordering context
+constrains order only for publication (§6.1). Other invocations are
+ordered only by the originator awaiting each outcome (§5.5).</p>
+<p><code>ERR_REQUEST</code> vs <code>ERR_RESPONSE</code> classification:</p>
+<ul>
+<li>
+<p><strong>RPC.</strong> If the request was definitely not delivered to the
+destination boundary, <code>ERR_REQUEST</code>. If the request may have been
+delivered but the response was not received (timeout, connection
+lost during the response), <code>ERR_RESPONSE</code>.</p>
+</li>
+<li>
+<p><strong>Messaging.</strong> If the runtime did not accept custody, <code>ERR_REQUEST</code>.
+If custody may have been accepted but the originator received no
+acknowledgement, <code>ERR_RESPONSE</code>. Acknowledged custody is Completed
+(§5.1).</p>
+</li>
+</ul>
+<p>When classification cannot be determined, default to <code>ERR_RESPONSE</code>.</p>
+<h3 id="5-3-entity-invocation">5.3 Entity Invocation</h3>
+<p>An Entity invocation is the unit of atomic state change for an Entity
+Endpoint. Its <strong>participant set</strong> is the set of the Entity Endpoint's
+instances that the invocation reads or writes, and it may grow during
+execution.</p>
+<blockquote>
+<p><strong>Example.</strong> A language declares the initial participants in the
+method signature, as <code>self</code> together with parameters of the same
+type that hold one entity, a list, or an optional entity. Further
+participants join when the body looks up entities of the same type.</p>
+</blockquote>
+<p><strong>Atomic snapshot.</strong> The invocation observes a consistent snapshot of
+its participants. Every read of an entity in the participant set
+returns one committed version, fixed for the duration of the
+invocation, overlaid with any writes the invocation has issued so far
+(read-your-own-writes).</p>
+<p><strong>Atomic commit.</strong> The invocation's writes are atomic across its
+participants. Either every write becomes visible together, with each
+modified entity's version advancing, or none do. The runtime publishes
+the committed mutations as Events on the CDC Stream (§3.5).</p>
+<p><strong>Emission.</strong> A successful Entity mutation may emit Events to Streams,
+and the runtime publishes each emitted Event (§6.2).</p>
+<p><strong>Serialisability.</strong> Concurrent invocations whose participant sets
+overlap are serialisable. There is some serial order in which they
+could have been executed that yields the same observable result.</p>
+<p><strong>No external effects.</strong> An Entity invocation makes no outgoing
+network calls. The body manipulates only its participants' state, and
+emissions take effect only after the commit.</p>
+<p><strong>Outcomes.</strong> The invocation produces one of the three outcomes of
+§4.3. A Completed outcome carries either the body's return value, with
+writes committed, or an <code>ERROR</code> (the body's typed rejection), with no
+writes committed. Contention that ends the invocation before commit
+produces <code>ERR_REQUEST</code>. Idempotency on identity (§4.1) makes any
+retried invocation observe the same outcome as a single completed
+execution.</p>
+<h3 id="5-4-service-invocation">5.4 Service Invocation</h3>
+<p>A Service invocation is a stateless orchestration. The body issues
+outgoing requests to Entity Endpoints or other Service Endpoints and
+composes their results. Each outgoing request is itself an invocation
+on its destination, carrying its own identity and a deadline carved
+from the remaining budget (§4.2).</p>
+<p>An <code>ERROR</code> from a downstream invocation is observable to the Service
+body and may be handled or propagated.</p>
+<h3 id="5-5-concurrency">5.5 Concurrency</h3>
+<p>RITE defines no implicit ordering between invocations. A runtime may
+execute them concurrently, including invocations sent to the same
+Endpoint.</p>
+<p>Entity invocations with overlapping participant sets remain
+serialisable (§5.3).</p>
+<p>A Service can establish an order by waiting for one invocation's
+outcome before issuing the next. Activations for one consumer proceed
+sequentially within an ordering context (§6.5).</p>
+<h3 id="5-6-composition">5.6 Composition</h3>
+<p>When an operation spans multiple Entity Endpoints, coordination is
+explicitly handled by the application (C3, §7.3). Each Entity
+invocation is atomic over its participant set. A committed Entity
+invocation's effects persist regardless of what happens to the Service
+invocation that initiated it.</p>
+<p>The order of steps, the resolution of partial completion when a step
+fails, the recovery of incomplete operations after a Service Endpoint
+crash, and the choice between durable or ephemeral progress tracking
+are all application design concerns.</p>
+<h3 id="5-7-expiry">5.7 Expiry</h3>
+<p>When <code>now &gt;= deadline</code> during an invocation, the invocation has
+expired. The outcome classification follows the rule of §4.3:</p>
+<ul>
+<li>
+<p><strong>Entity invocation expiry.</strong> Entity invocations make no outgoing
+calls. Their effects (if any) are confined to a single atomic commit
+on the participant set. If no commit occurred before expiry, the
+caller receives <code>ERR_REQUEST</code> – no state changed. If a commit
+occurred but the response could not be delivered in time, the caller
+receives <code>ERR_RESPONSE</code>.</p>
+</li>
+<li>
+<p><strong>Service invocation expiry before any outgoing call.</strong> No
+downstream state could have changed. The Service returns
+<code>ERR_REQUEST</code> to its caller.</p>
+</li>
+<li>
+<p><strong>Service invocation expiry after issuing outgoing calls.</strong>
+Downstream Entity invocations may have committed. The Service cannot
+know whether calls in flight completed. The Service returns
+<code>ERR_RESPONSE</code> to its caller.</p>
+</li>
+</ul>
+<h2 id="6-activation-mode">6 Activation Mode</h2>
+<p>Activation applies one Stream Event to one consumer Service
+Endpoint. The runtime owns delivery, recovery, settlement, and
+consumer progress. No application caller waits for an activation
+outcome.</p>
+<h3 id="6-1-positions-ordering-and-retention">6.1 Positions, Ordering, and Retention</h3>
+<p>Each accepted Event receives an opaque position. Positions identify
+consumer progress and allow lag to be measured against the Stream's
+current end. Two Events in one ordering context keep the order in
+which the Stream accepted them. Independent ordering contexts have no
+relative ordering guarantee and may make progress independently.</p>
+<p>Retention is independent of consumer progress. If retention removes
+Events before a consumer processes them, the runtime reports a
+retention gap.</p>
+<h3 id="6-2-publication">6.2 Publication</h3>
+<p>Publication is an Invocation (§5) on the Stream Endpoint. The runtime
+performs the operation and produces one of the three outcomes (§4.3).</p>
+<ul>
+<li>
+<p><em>Completed</em> – the Event and its Stream position are durable.</p>
+</li>
+<li>
+<p><code>ERR_REQUEST</code> – the Stream rejected the Event before acceptance.
+Exhausted capacity produces this outcome.</p>
+</li>
+<li>
+<p><code>ERR_RESPONSE</code> – the Stream may have accepted the Event, but the
+publisher did not receive confirmation.</p>
+</li>
+</ul>
+<p>Each publication has an identity. Repeating a publication with the
+same identity within the configured duplicate suppression window adds
+at most one Event. A retry outside that window may add a duplicate.
+The publisher attaches an ordering context when ordering matters.</p>
+<h3 id="6-3-consumers">6.3 Consumers</h3>
+<p>One Stream-to-Service relationship has one durable consumer position.
+Separate Service Endpoints provide independent progress over the same
+Stream.</p>
+<p>A new consumer begins with the first Event published after the
+consumer becomes active. A restarting consumer resumes from its
+durable position. A consumer may also request that the runtime replay
+retained Events from an earlier position. Each replayed Event starts a
+new logical activation with a new identity (§2.4) and keeps its own
+durable identity.</p>
+<h3 id="6-4-activation-outcomes">6.4 Activation Outcomes</h3>
+<p>An activation attempt is accepted when consumer processing may have
+begun. Settlement records the final status and advances the consumer
+position.</p>
+<ul>
+<li>
+<p><em>Completed</em> – the consumer completed processing with a result or an
+<code>ERROR</code>. An <code>ERROR</code> is terminal.</p>
+</li>
+<li>
+<p><code>ERR_REQUEST</code> – processing did not begin.</p>
+</li>
+<li>
+<p><code>ERR_RESPONSE</code> – processing may have begun, but its result is unknown.</p>
+</li>
+</ul>
+<p>An Event that matches the consumer's declared type but whose payload
+the consumer cannot read produces <code>ERR_REQUEST</code> without reattempt, and
+settlement advances the consumer position past it.</p>
+<p>Each attempt has a deadline.</p>
+<h3 id="6-5-recovery-and-progress">6.5 Recovery and Progress</h3>
+<p>The runtime may abandon an activation whose processing may have begun.
+Abandonment settles the activation, advances the consumer position,
+and produces an operational failure.</p>
+<p>Activations within one ordering context proceed sequentially for one
+consumer. Activations in independent contexts may proceed
+concurrently.</p>
+<blockquote>
+<p><strong>Example.</strong> An implementation reattempts technical failures within
+a finite configured recovery limit and abandons the activation once
+the limit is exhausted. It quarantines an abandoned or rejected
+Event with its diagnostic context, and a quarantine failure does not
+prevent settlement or progress.</p>
+</blockquote>
+<h3 id="6-6-effects-and-repeated-processing">6.6 Effects and Repeated Processing</h3>
+<p>The runtime owns consumer position, activation attempts, recovery,
+redelivery, and settlement state. This bookkeeping is opaque to
+application logic.</p>
+<p>An activation may invoke other Endpoints through ordinary Invocation.
+Those downstream effects do not commit atomically with consumer
+progress. A failed or uncertain attempt may therefore cause the
+handler to run again after a downstream effect has committed.</p>
+<p>Retries of one logical activation retain its identity. When repeated
+mutation must be suppressed, the destination of a downstream
+invocation applies the identity and duplicate suppression rules of
+§4.1.</p>
+<h2 id="7-rationale">7 Rationale</h2>
+<p>This section gives the reason for each constraint and its cost. For
+each of C2 to C6, it also describes a design that keeps every other
+constraint and still fails, which shows that the constraint is
+necessary. The method follows
+Fielding's <em>REST</em> dissertation (Fielding 2000), which justifies each
+constraint by the effect of removing it.</p>
+<h3 id="7-1-c1-premise">7.1 C1 – Premise</h3>
+<p><strong>Endpoints are independent failure domains.</strong> The model treats each
+Endpoint as a unit that can fail while other Endpoints continue to
+run. Deployment determines which Endpoints a single process or
+hardware fault affects.</p>
+<p>C1 alone permits designs in which a component reads or writes
+another's state, an invariant spans components, interaction semantics
+are ad hoc, a mutation is not idempotent, and a call waits without
+limit. Each of C2 to C6 excludes one of these designs.</p>
+<h3 id="7-2-c2-single-ownership">7.2 C2 – Single Ownership</h3>
+<p>Every piece of durable state has exactly one owning unit at a time and
+is not shared. Another unit acts on it by invoking the owner's
+behaviour, not by accessing state directly. C2 provides Debuggability,
+because every state change has one responsible unit, and Evolvability,
+because no unit depends on another's storage.</p>
+<p>Each cross-unit access may require a network round trip. A unit may
+cache responses or replicate datasets to reduce read latency or
+load. The owner is not responsible for the validity of those copies. A
+consumer may build a replica from the owner's Collections (§3.1). The
+consumer owns the replica's validity requirements.</p>
+<p>A design without C2 lets services write a shared database. The schemas
+of the services are then coupled, a schema change needs coordination
+across services, and ownership and incident attribution become
+ambiguous.</p>
+<h3 id="7-3-c3-the-invariant-rule">7.3 C3 – The Invariant Rule</h3>
+<p>Each invariant must be enforced within one unit over that unit's own
+state. A need for a transaction that spans Endpoints indicates that an
+invariant crosses the chosen unit boundary. C2 makes local enforcement
+possible, and the rule removes coordination from invariant
+enforcement. C3 provides Debuggability, because a violated invariant
+has one responsible unit, and Reasoning simplicity, because developers
+reason about an invariant within one unit.</p>
+<p>This rule excludes some natural decompositions, in which each domain
+noun becomes its own unit. Separate <code>Account</code> and <code>Ledger</code> units, for
+example, cannot enforce the invariant that each balance equals the sum
+of its ledger entries. The designer must merge the units or accept and
+design for eventual consistency, making the boundary a design
+commitment.</p>
+<p>A design without C3 enforces an invariant across two units with
+two-phase commit. An unavailable participant can then prevent commit,
+and prepared participants can block while the coordinator is
+unavailable. Transaction latency includes the coordination rounds.</p>
+<h3 id="7-4-c4-explicit-interaction-modes">7.4 C4 – Explicit Interaction Modes</h3>
+<p>All communication between units uses a small set of defined modes with
+known consistency and coupling properties. The visible mode determines
+consistency instead of negotiating it at runtime. C4 provides
+Reasoning simplicity, because the mode determines consistency and
+failure semantics, and Observability, because every interaction has
+common semantics.</p>
+<p>Independent failure domains make each interaction cross a failure
+boundary, so the modes account for partial failure. They offer no
+custom consistency levels. A mismatch requires restructuring the
+design rather than extending the interaction model.</p>
+<p>A design without C4 gives each call site its own protocol, with its
+own timeout, retry, and consistency behaviour. The behaviour of the
+application under partial failure then differs from one interaction to
+the next. Reasoning about the application requires study of every
+integration, and the developer attention involved grows with the
+number of integrations rather than staying bounded by a small, fixed
+set of modes.</p>
+<h3 id="7-5-c5-idempotent-mutations">7.5 C5 – Idempotent Mutations</h3>
+<p>Every state mutating operation must be idempotent on its identity.
+Calls across independent failure domains can fail, and C4 identifies
+unknown outcomes. C5 provides Reliability, because a retry after
+<code>ERR_RESPONSE</code> is safe, and Debuggability, because a mutation can be
+replayed. It also gives every mutation one retry strategy.</p>
+<p>Some operations are naturally idempotent, such as "set balance to
+100." "Increment balance by 10" is not. The latter needs conditional
+writes or key based deduplication. For key based deduplication, the
+owner stores request IDs and cached responses with a TTL. Both
+approaches add storage and implementation complexity.</p>
+<p>A design without C5 applies "increment balance by 10" on every
+delivery. A retry after <code>ERR_RESPONSE</code> can then duplicate a payment or
+an inventory decrement, and manual intervention is the only safe
+response.</p>
+<h3 id="7-6-c6-bounded-calls">7.6 C6 – Bounded Calls</h3>
+<p>Every cross-Endpoint interaction must carry an explicit, finite budget
+for its synchronous part. The budget propagates and subdivides through
+a call chain, and a caller must not allocate more than what remains.
+Budget exhaustion fails the operation with a classified outcome. C4
+identifies which interactions carry budgets. C6 provides Resource
+boundedness, because no call holds caller resources indefinitely, and
+Reliability, because a slow Endpoint cannot stall the Endpoints that
+call it.</p>
+<p>Callers must allocate time, and long running work must use
+asynchronous messaging or streaming.</p>
+<p>A design without C6 lets a call wait without limit. A slow C then
+blocks B, then A, then A's caller, so one callee can block every
+caller in a chain of arbitrary depth. Per site timeouts added later do
+not provide budget accounting across the chain. Caller resources then
+remain dependent on the callee despite the separate failure domains.</p>
+<h3 id="7-7-conclusion">7.7 Conclusion</h3>
+<p>Sections 7.2 to 7.6 each describe a design that keeps every other
+constraint and still fails. None of C2 to C6 is therefore redundant,
+and removing any one of them weakens the model.</p>
+<p>Together, the constraints confine an Endpoint's failure to that
+Endpoint. Other Endpoints observe the failure only as classified
+outcomes (§4.3). C2 prevents one Endpoint from corrupting another's
+state, and each Endpoint keeps its own state consistent through
+failure (§2.7). C5 makes an <code>ERR_RESPONSE</code> safely retryable, and C6
+bounds how long a slow callee can hold a caller.</p>
+<h2 id="8-inspiration">8 Inspiration</h2>
+<p>RITE draws on decades of field experience in building and operating
+large scale distributed backends for consumer facing online products,
+such as social media, e-commerce, and gaming. The following sources
+inspired its foundations.</p>
+<p>RITE is designed for service oriented architecture, which Amazon
+adopted and popularised in the early 2000s (Gray 2006), and for
+microservices (Lewis and Fowler 2014). Both decompose an application
+into independently owned services, each with its own data and an
+explicit interface. An Endpoint is such a unit, and C1 and C2 (§7.1,
+§7.2) make its failure isolation and its ownership of state explicit.
+Both styles, however, leave interaction semantics to each integration
+(§1.1), while RITE defines them once for every integration (§4 to §6).</p>
+<p>RPC Invocation keeps the call model of the <em>RPC</em> lineage (White 1976;
+Birrell and Nelson 1984) without its location transparency. The
+outcome classes of §4.3 keep partial failure visible to the
+originator, as Waldo et al. (1994) argue a distributed system
+must. <em>gRPC</em>'s initial design included per call deadlines, and some
+implementations propagate them through call chains.</p>
+<p>The runtime role (§2.5) is inspired by service meshes, in particular
+<em>Linkerd</em> (Buoyant 2016), which separate operational concerns from
+application code. RITE does not, however, require a service mesh to
+fulfil the role.</p>
+<p>An Entity Endpoint follows the key-value store, as popularised by
+<em>memcached</em> (Fitzpatrick 2004) and later <em>NoSQL</em> systems, with RITE
+giving each value a user defined type. A type with methods owns its
+mutation, as an abstract data type does (Liskov and Zilles 1974), so
+the method becomes the boundary of each transaction (§5.3). Entity
+methods resemble the commands of <em>Redis</em> (Sanfilippo 2009), which
+mutate a typed value atomically on the server, except that the
+application defines them.</p>
+<p>Collections follow materialised views and the read models of <em>CQRS</em>
+(§3.1). CDC Streams follow the change data capture pattern (Das et
+al. 2012) and carry the committed writes from which such derived views
+can be maintained (§3.5).</p>
+<p>Activation uses the durable log consumer model exemplified by <em>Kafka</em>
+(Kreps, Narkhede, Rao 2011).</p>
+<p>RITE leaves the coordination of multistep operations to the
+application (§5.6), where established patterns apply and RITE's
+guarantees simplify their use. The transactional outbox commits a
+state change together with the message that announces it, and Entity
+emission provides that guarantee within the model (§5.3).
+Orchestrators built on state machines with durable states, such as
+<em>Flux</em> (Flipkart 2017), record each operation's progress so that it
+survives a crash of the coordinating Service.</p>
+<h2 id="9-vocabulary">9 Vocabulary</h2>
+<h3 id="9-1-structural-terms">9.1 Structural Terms</h3>
+<table><thead><tr><th>Term</th><th>RITE meaning</th></tr></thead><tbody>
+<tr><td>Endpoint</td><td>An independent, replicated, network addressable unit of ownership, failure isolation, and interface.</td></tr>
+<tr><td>Entity Endpoint</td><td>An Endpoint that owns Entity instances and their per instance invariants.</td></tr>
+<tr><td>Service Endpoint</td><td>An Endpoint with no durable state that performs computation and orchestration.</td></tr>
+<tr><td>Stream Endpoint</td><td>An Endpoint that owns one Stream.</td></tr>
+<tr><td>Method</td><td>A member of an Endpoint's contract, with its request and result types, its typed <code>ERROR</code>s, and its interaction mode.</td></tr>
+<tr><td>Locator</td><td>The stable logical name of an Endpoint, independent of network location, sharding, placement, and interface version.</td></tr>
+<tr><td>Envelope</td><td>A structured message that conveys at least a cross-Endpoint interaction's identity, source, destination, and optional ordering context.</td></tr>
+<tr><td>Runtime</td><td>The role in the abstract machine that carries interactions between Endpoints and keeps the state those interactions require.</td></tr>
+<tr><td>Entity instance</td><td>An identified mutable record whose version advances on each committed write.</td></tr>
+<tr><td>Collection</td><td>A read-only view across an Entity Endpoint's committed instances.</td></tr>
+<tr><td>Event</td><td>An immutable typed record of a fact, with a durable identity.</td></tr>
+<tr><td>Stream</td><td>A durable, ordered sequence of immutable Events of one type.</td></tr>
+<tr><td>CDC Stream</td><td>A Stream without a Stream Endpoint that records committed Entity mutations in per instance commit order.</td></tr>
+</tbody></table>
+<h3 id="9-2-interaction-terms">9.2 Interaction Terms</h3>
+<table><thead><tr><th>Term</th><th>RITE meaning</th></tr></thead><tbody>
+<tr><td>Logical event</td><td>One application intent, covering the first attempt and every retry.</td></tr>
+<tr><td>Identity</td><td>The identifier of a logical event, reused for retries and used to derive downstream interaction identities.</td></tr>
+<tr><td>Invocation</td><td>One Envelope applied to one destination Endpoint as one logical operation with one outcome.</td></tr>
+<tr><td>RPC</td><td>An Invocation whose originator waits for the outcome.</td></tr>
+<tr><td>Messaging</td><td>An Invocation for which the runtime accepts durable custody and returns an acknowledgement to the originator.</td></tr>
+<tr><td>Publication</td><td>An Invocation that submits one Event to a Stream Endpoint.</td></tr>
+<tr><td>Activation</td><td>The application of one Stream Event to one consumer Service Endpoint, with an outcome that controls consumer progress.</td></tr>
+<tr><td>Participant set</td><td>The Entity instances read or written by one Entity invocation.</td></tr>
+<tr><td>Deadline</td><td>The cutoff by which a cross-Endpoint interaction must produce one of the three outcomes.</td></tr>
+<tr><td>Budget</td><td>The time remaining until a deadline.</td></tr>
+<tr><td>Ordering context</td><td>The scope within which a Stream preserves Event acceptance order and a consumer processes Activations sequentially.</td></tr>
+<tr><td>Consumer</td><td>A Stream-to-Service relationship with one durable consumer position.</td></tr>
+<tr><td>Consumer position</td><td>The durable position recording a consumer's progress through a Stream.</td></tr>
+<tr><td>Settlement</td><td>The end of processing for an Activation or a message, together with the record of its final status. Settling an Activation advances the consumer position.</td></tr>
+<tr><td>Retention gap</td><td>The condition where retention removes Events before a consumer processes them.</td></tr>
+</tbody></table>
+<h3 id="9-3-outcome-terms">9.3 Outcome Terms</h3>
+<table><thead><tr><th>Term</th><th>RITE meaning</th></tr></thead><tbody>
+<tr><td>Completed</td><td>An outcome stating that a verdict, a result or <code>ERROR</code>, reached the originator.</td></tr>
+<tr><td><code>ERROR</code></td><td>An application domain rejection returned by a completed interaction, whether produced by the handler or the runtime in the application namespace.</td></tr>
+<tr><td><code>ERR_REQUEST</code></td><td>A runtime outcome stating that no verdict reached the originator and destination state is unchanged.</td></tr>
+<tr><td><code>ERR_RESPONSE</code></td><td>A runtime outcome stating that the originator does not know whether the request ran or what state effect it had.</td></tr>
+</tbody></table>
+<h2 id="10-references">10 References</h2>
+<ul>
+<li>Fielding, Roy Thomas. 2000. "Architectural Styles and the Design of Network-based Software Architectures." Doctoral dissertation, University of California, Irvine.</li>
+<li>Gray, Jim. 2006. "A Conversation with Werner Vogels." <em>ACM Queue</em>, May 2006. https://doi.org/10.1145/1142055.1142065</li>
+<li>Lewis, James, and Martin Fowler. 2014. "Microservices." https://martinfowler.com/articles/microservices.html</li>
+<li>White, James E. 1976. "A High-Level Framework for Network-Based Resource Sharing." In <em>Proceedings of the AFIPS National Computer Conference</em>, 561-570. Also RFC 707.</li>
+<li>Birrell, Andrew D., and Bruce Jay Nelson. 1984. "Implementing Remote Procedure Calls." <em>ACM Transactions on Computer Systems</em> 2 (1): 39-59.</li>
+<li>Waldo, Jim, Geoff Wyant, Ann Wollrath, and Sam Kendall. 1994. "A Note on Distributed Computing." Technical Report SMLI TR-94-29, Sun Microsystems Laboratories, November 1994.</li>
+<li>Buoyant. 2016. <em>Linkerd</em>. https://linkerd.io</li>
+<li>Fitzpatrick, Brad. 2004. "Distributed Caching with Memcached." <em>Linux Journal</em> 124 (August 2004).</li>
+<li>Liskov, Barbara, and Stephen Zilles. 1974. "Programming with Abstract Data Types." <em>ACM SIGPLAN Notices</em> 9 (4): 50-59.</li>
+<li>Sanfilippo, Salvatore. 2009. <em>Redis</em>. https://redis.io</li>
+<li>Das, Shirshanka, et al. 2012. "All Aboard the Databus!: LinkedIn's Scalable Consistent Change Data Capture Platform." In <em>Proceedings of the Third ACM Symposium on Cloud Computing (SoCC '12)</em>.</li>
+<li>Kreps, Jay, Neha Narkhede, and Jun Rao. 2011. "Kafka: A Distributed Messaging System for Log Processing." In <em>NetDB '11</em>, Athens.</li>
+<li>Flipkart. 2017. <em>Flux</em>. https://github.com/flipkart-incubator/flux</li>
+</ul>
 
       </article>
     </div>
@@ -144,7 +938,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/rite/">RITE</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

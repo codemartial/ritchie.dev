@@ -16,7 +16,7 @@
     </url>
     <url>
         <loc>https://ritchie.dev/news/services-arrive-in-ritchie/</loc>
-        <lastmod>2026-10-09</lastmod>
+        <lastmod>2026-10-10</lastmod>
     </url>
     <url>
         <loc>https://ritchie.dev/playground/</loc>
@@ -26,8 +26,12 @@
     </url>
     <url>
         <loc>https://ritchie.dev/rite/</loc>
+        <lastmod>2026-10-19</lastmod>
     </url>
     <url>
         <loc>https://ritchie.dev/skill/</loc>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/tech/</loc>
     </url>
 </urlset>
