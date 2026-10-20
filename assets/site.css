@@ -742,16 +742,11 @@ h4 {
   margin: 2.25rem auto 0.75rem;
 }
 
-/* External SVG media queries can be cached across environment theme changes.
-   These diagrams are monochrome, so let the page palette choose their tone. */
-.rite-document img[src*="rite-diagrams/"] {
-  filter: brightness(0);
-}
-
-@media (prefers-color-scheme: dark) {
-  .rite-document img[src*="rite-diagrams/"] {
-    filter: brightness(0) invert(1);
-  }
+.rite-document svg.rite-diagram {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2.25rem auto 0.75rem;
 }
 
 .article img + em {
