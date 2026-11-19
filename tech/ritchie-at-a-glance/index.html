@@ -128,7 +128,7 @@ all uppercase with at least two characters, such as <code>MAX_N</code>.</li>
 <li>Every variable and constant is declared with its type, as in
 <code>String DIGITS = "0123"</code>, not <code>DIGITS = "0123"</code>. Module level declares
 constants of any type, such as <code>[String: Int] RANK</code>, but no variables, so
-a lowercase name there is rejected with <code>syntax.unexpected-token</code>.</li>
+a lowercase name there is rejected with <code>name.unexpected-class</code>.</li>
 <li>Boolean operators are <code>and</code>, <code>or</code>, and <code>not</code>, and <code>and</code> and <code>or</code> skip
 the right operand when the left decides, as in <code>i &lt; n and xs[i] &gt; 0</code>.
 <code>&amp;&amp;</code>, <code>||</code>, <code>!x</code>, <code>++</code>, and <code>--</code> do not exist; write <code>n += 1</code>.</li>
@@ -306,28 +306,20 @@ its slice <code>k[0:3]</code> is. A module constant <code>Int[] MISS = [-1]</cod
 indexing out of range raises <code>OutOfRange!</code>. <code>map</code>, <code>filter</code>, <code>reduce</code>,
 <code>sum</code>, <code>find</code>, and <code>sortBy</code> do not exist, and <code>+</code> and <code>+=</code> do not apply to
 arrays.</p>
-<p>Bind an index or key to a variable first unless it is a variable or its
-field, a literal, or <code>+</code>, <code>-</code>, or <code>*</code> of them. Any other, such as an element
-or its field, a slice, <code>/</code>, <code>%</code>, an f-string, or a call such as
-<code>toLower(w)</code>, copies the whole array or dictionary in a read, also by <code>get</code>
-or <code>has</code>, and in an assignment target, as in <code>d[f[0]] = 1</code>, it is rejected
-with <code>assignment.fallible-operand</code>.</p>
+<p>An index or key in an assignment target is a variable or its field, a
+literal, or <code>+</code>, <code>-</code>, or <code>*</code> of them. Any other, such as an element or its
+field, a slice, <code>/</code>, <code>%</code>, an f-string, or a call such as <code>toLower(w)</code>, as in
+<code>d[f[0]] = 1</code>, is rejected with <code>assignment.fallible-operand</code>, so bind it to
+a variable first. A read takes any index or key.</p>
 <p>Assigning an element or entry, also through <code>self</code>, and assigning the result
-of <code>append</code>, <code>concat</code>, <code>insert</code>, or <code>removeAt</code> to the same variable, field,
-or element change the value in place, and <code>for i in range(n)</code> builds no
-array. The second form copies the array when another argument reads the
-same variable (<code>self</code> for a field), as in <code>xs = removeAt(xs, count(xs) - 1)</code>,
-so bind that value first, and it always copies a dictionary entry, as in
-<code>d[k] = append(d[k], v)</code>, so grow lists in an <code>Int[][]</code> or through a <code>self</code>
-method, as in <code>d[k].add(v)</code>. A function copies an array or dictionary
-parameter at each call only when it assigns to it, and the caller sees the
-change only through a returned value. <code>d = remove(d, k)</code>, a slice, and
-<code>s = f"{s}..."</code> copy the whole value, so repeating them on a large value
-takes quadratic time: overwrite or mark an entry instead of removing it, and
-collect strings in an array for <code>join</code>. <code>rcc</code> builds <code>fill(v, n)</code> with a
-constant <code>n</code>, such as <code>2 * MAX_N</code>, at seconds per million elements, and
-can reject <code>Byte.fromInt(0)</code> as <code>v</code> there with <code>limit.unsupported-syntax</code>,
-so bind a large <code>n</code> and such a <code>v</code> first.</p>
+of <code>append</code>, <code>concat</code>, <code>insert</code>, <code>removeAt</code>, or <code>remove</code> to the same
+variable, field, element, or entry change the value in place, as in
+<code>xs = removeAt(xs, count(xs) - 1)</code> and <code>d[k] = append(d[k], v)</code>, and
+<code>for i in range(n)</code> builds no array. A function copies an array or
+dictionary parameter at each call only when it assigns to it, and the caller
+sees the change only through a returned value. A slice and <code>s = f"{s}..."</code>
+copy the whole value, so repeating them on a large value takes quadratic
+time: collect strings in an array for <code>join</code>.</p>
 <h2 id="strings">Strings</h2>
 <figure class="code-window">
 
@@ -458,9 +450,11 @@ the default behavior instead.</p>
 <h2 id="services">Services</h2>
 <p>A service is declared as <code>@Name {}</code>, and its methods have no <code>self</code>, take
 defaults and list errors like a function, and are called as
-<code>@Name.method(...)</code>. Their parameters and results are built-in types and
-arrays and dictionaries of them, so a struct or enum is passed as separate
-values.</p>
+<code>@Name.method(...)</code>. Their parameters and results are built-in types,
+structs and enums that have a method whose name does not start with <code>_</code>, and
+arrays and dictionaries of them; any other type is rejected with
+<code>service.boundary-type</code>. Over HTTP a struct is a JSON object of its fields
+and an enum the name of its member, as in <code>"GREEN"</code>.</p>
 <h2 id="clock-durations-and-random-numbers">Clock, durations, and random numbers</h2>
 <p>A <code>Duration</code> literal is an integer with a unit, <code>ns</code>, <code>us</code>, <code>ms</code>, <code>s</code>, <code>m</code>,
 <code>h</code>, or <code>d</code>, such as <code>1500ms</code>; <code>1.5s</code> is rejected.</p>
@@ -490,8 +484,7 @@ prints as <code>0x</code> and 16 lowercase hexadecimal digits and can key a
 dictionary. A literal such as <code>0</code> is a <code>BitSet</code> where one is required.
 Assigning or passing a generator copies it, so a helper that draws returns
 it, as in <code>-&gt; (Int, r::Random)</code>, or draws through a struct field as
-<code>self.g</code>. After <code>Byte zero = Byte.fromInt(0)</code>,
-<code>Byte[32] s = fill(zero, 32)</code> makes a seed.</p>
+<code>self.g</code>. <code>Byte[32] s = fill(Byte.fromInt(0), 32)</code> makes a seed.</p>
 <h2 id="remote-failures-and-the-time-budget">Remote failures and the time budget</h2>
 <p>The runtime can fail a service call with a catalog error:
 <code>Unavailable!</code>, <code>Rejected!</code>, <code>Conflict!</code>, <code>Unmodified!</code>, and <code>Cancelled!</code> mean
@@ -529,11 +522,9 @@ waits for its result at the first use of the value.</p>
 <ul>
 <li>Storing a result in a variable or an array element, or appending it to an
 array, does not wait when the target has the result's type, but a <code>T?</code>
-target for a <code>T</code> result waits, and so does an array result stored in a
-variable, so append the call itself, as in <code>xs = append(xs, f(n))</code>.
-Every other use waits, such as a dictionary entry, a field, arithmetic,
-<code>if</code>, an argument of another call, <code>print</code>, and <code>count(xs)</code> of an array
-of results, which waits for all of them.</li>
+target for a <code>T</code> result waits. <code>count(xs)</code> of an array of results does
+not wait either. Every other use waits, such as a dictionary entry, a
+field, arithmetic, <code>if</code>, an argument of another call, and <code>print</code>.</li>
 <li>A use waits for its call and every call started before it, and so does a
 call of a function value. So of two failed calls the program sees the
 earlier one, and a loop whose body starts a call and also uses its result
@@ -605,10 +596,9 @@ alternative.</p>
 <ul>
 <li>An enum that gives values to some members only crashes <code>rcc</code>, so give
 values to every member or to none.</li>
-<li>A struct whose field holds a struct, or an array of structs, with a
-function-type field fails to build, so keep such structs in variables,
-arrays, or dictionaries. A call of a field, as in <code>r.f(9)</code>, is rejected, so
-bind it first, as in <code>Apply f = r.f</code>.</li>
+<li>A struct field cannot hold a function, but <code>rcc</code> accepts one and can fail
+to build the program, so pass a function as a parameter or keep it in a
+variable, an array, or a dictionary.</li>
 </ul>
 
       </article>
