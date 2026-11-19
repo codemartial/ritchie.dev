@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magically Thriving with Evolving Requirements</title>
+  <meta name="description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
+  <meta name="author" content="Tahir Hashmi">
+  <link rel="canonical" href="https://ritchie.dev/tech/magic-of-automatic-concurrency/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Magically Thriving with Evolving Requirements">
+  <meta property="og:description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
+  <meta property="og:url" content="https://ritchie.dev/tech/magic-of-automatic-concurrency/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta property="article:published_time" content="2026-11-18">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Magically Thriving with Evolving Requirements">
+  <meta name="twitter:description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tech",
+        "item": "https://ritchie.dev/tech/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Magically Thriving with Evolving Requirements",
+        "item": "https://ritchie.dev/tech/magic-of-automatic-concurrency/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://ritchie.dev/tech/magic-of-automatic-concurrency/#article",
+    "url": "https://ritchie.dev/tech/magic-of-automatic-concurrency/",
+    "mainEntityOfPage": "https://ritchie.dev/tech/magic-of-automatic-concurrency/",
+    "headline": "Magically Thriving with Evolving Requirements",
+    "description": "This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.",
+    "image": "https://ritchie.dev/assets/social-card.png",
+    "datePublished": "2026-11-18",
+    "dateModified": "2026-11-18",
+    "author": {
+      "@type": "Person",
+      "name": "Tahir Hashmi"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://tahirhashmi.com/#person",
+      "url": "https://tahirhashmi.com/",
+      "name": "Tahir Hashmi"
+    },
+    "isPartOf": { "@id": "https://ritchie.dev/#website" },
+    "inLanguage": "en-GB"
+  }
+  </script>
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Technical documents</p>
+        <h1>Magically Thriving with Evolving Requirements</h1>
+        <p class="lede"></p>
+        <p class="document-meta">Tahir Hashmi · 18 November 2026</p>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol>
+          <li><a href="#let-s-go-online-shopping"><span class="toc-index" aria-hidden="true">01.</span><span>Let&#39;s Go Online Shopping!</span></a></li>
+          <li><a href="#the-sres-have-a-say"><span class="toc-index" aria-hidden="true">02.</span><span>The SREs Have a Say</span></a></li>
+          <li><a href="#customers-want-to-buy-multiple-items"><span class="toc-index" aria-hidden="true">03.</span><span>Customers Want to Buy Multiple Items</span></a></li>
+          <li><a href="#time-for-a-reckoning"><span class="toc-index" aria-hidden="true">04.</span><span>Time for a Reckoning</span></a></li>
+          <li><a href="#the-prestige"><span class="toc-index" aria-hidden="true">05.</span><span>The Prestige</span></a></li>
+          <li><a href="#erm-actually"><span class="toc-index" aria-hidden="true">06.</span><span>Erm, Actually...</span></a></li>
+        </ol>
+
+      </aside>
+
+      <article class="article">
+<p>Ritchie's features look conventional on the surface, but they have slight twists that combine with each other to yield a smoother development process. That gets you to "done correctly" faster. The <a href="/rite/">not so secret sauce</a> is that Ritchie is designed for an abstract machine that is a distributed system rather than one computer.</p>
+<p>Let's take a short trip with Ritchie against the reigning productivity champion, TypeScript, to see what that buys.</p>
+<h2 id="let-s-go-online-shopping">Let's Go Online Shopping!</h2>
+<p>Say you're building an online shopping checkout flow. You have three APIs as building blocks.</p>
+<table><thead><tr><th>API</th><th>Purpose</th><th>Latency</th></tr></thead><tbody>
+<tr><td><code>Pricing.quote(sku)</code></td><td>returns the price, given an SKU</td><td>300 ms</td></tr>
+<tr><td><code>Inventory.check(sku)</code></td><td>returns the stock, given an SKU</td><td>200 ms</td></tr>
+<tr><td><code>Ledger.record(sku, price)</code></td><td>records a sale</td><td>100 ms</td></tr>
+</tbody></table>
+<p>We'll keep things simple, for obvious reasons...</p>
+<h3 id="the-happy-path">The Happy Path</h3>
+<p>The product manager says: check the item's price and, if it is in stock, record the sale. Out of stock items return an error.</p>
+<p>Here's the little TypeScript for it.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>TypeScript</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="typescript" data-file="checkout.ts"><span class="giallo-l"><span style="color: #A626A4;">export async function</span><span style="color: #4078F2;"> checkout</span><span>(sku</span><span style="color: #0184BC;">: string</span><span>)</span><span style="color: #0184BC;">:</span><span style="color: #C18401;"> Promise</span><span>&lt;string&gt; {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> price</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> await</span><span> pricing.</span><span style="color: #4078F2;">quote</span><span>(sku);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> stock</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> await</span><span> inventory.</span><span style="color: #4078F2;">check</span><span>(sku);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  if</span><span> (stock</span><span style="color: #0184BC;"> ===</span><span style="color: #986801;"> 0</span><span>)</span><span style="color: #A626A4;"> throw new</span><span style="color: #4078F2;"> SoldOut</span><span>(sku);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  await</span><span> ledger.</span><span style="color: #4078F2;">record</span><span>(sku, price);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  return</span><span style="color: #50A14F;"> `sold at $</span><span style="color: #CA1243;">${</span><span>price</span><span style="color: #CA1243;">}</span><span style="color: #50A14F;">`</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Here's the Ritchie equivalent. Note that Ritchie has network APIs as a first class feature, signified by the <code>@</code> sigil on the type name. So, <code>@Pricing</code> is the pricing service, which has a <code>quote</code> endpoint. Wherever you see <code>@</code>, you know it's a remote call, like <code>@Inventory.check(...)</code> or <code>@Ledger.record(...)</code>.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="checkout.ri"><span class="giallo-l"><span style="color: #4078F2;">checkout</span><span>(</span><span style="color: #C18401;">String</span><span> sku) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Decimal</span><span> price =</span><span style="color: #C18401;"> @Pricing</span><span>.</span><span style="color: #4078F2;">quote</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> stock =</span><span style="color: #C18401;"> @Inventory</span><span>.</span><span style="color: #4078F2;">check</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> stock ==</span><span style="color: #986801;"> 0</span><span> { </span><span style="color: #A626A4;">return</span><span> SoldOut! { sku: sku } }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    @Ledger</span><span>.</span><span style="color: #4078F2;">record</span><span>(sku, price)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;sold at ${price}&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Both of these snippets look line-for-line identical, except for syntactic differences. Note that we use the <code>Decimal</code> type for money, which behaves better than floating point.</p>
+<h3 id="the-unhappiness-guards">The Unhappiness Guards</h3>
+<p>Good product design always pays attention to unhappy situations and failures as much as successes. We add the following safeguards:</p>
+<ol>
+<li><strong>Pricing goes down.</strong> When Pricing has an outage, we charge the list price. Anything else Pricing complains about is the caller's problem.</li>
+<li><strong>Products get discontinued.</strong> Pricing or Inventory can report that a product is gone, and the customer should hear about it either way.</li>
+<li><strong>The Ledger fails.</strong> The connection to the Ledger can drop after the write has gone out. The sale may have happened, and a blind retry could charge the customer twice, so the response is "reconcile" and something has to reconcile it later.</li>
+</ol>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ts"><span class="giallo-l"><span>  export async function checkout(sku: string): Promise&lt;string&gt; {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   try {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-   const price = await pricing.quote(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     const price = await pricing.quote(sku).catch((e) =&gt; {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       if (!(e instanceof HttpError &amp;&amp; e.status === 503)) throw e;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       return listPrice(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     });</span></span>
+<span class="giallo-l"><span>      const stock = await inventory.check(sku);</span></span>
+<span class="giallo-l"><span>      if (stock === 0) throw new SoldOut(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     try {</span></span>
+<span class="giallo-l"><span>        await ledger.record(sku, price);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     } catch (e) {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       if (e instanceof HttpError) throw e;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       throw new Reconcile(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     }</span></span>
+<span class="giallo-l"><span>      return `sold at $${price}`;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   } catch (e) {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     if (e instanceof HttpError &amp;&amp; e.status === 410) throw new Discontinued(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     throw e;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   }</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure>
+<p>TypeScript needs nested <code>try</code> blocks because once an error is raised, there is no reaching back into the code that raised it. There are now twice as many lines for error checking as for successful functionality. So much for a simple checkout!</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ri"><span class="giallo-l"><span>  checkout(String sku) -&gt; String {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     Decimal price = @Pricing.quote(sku)</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Decimal price = @Pricing.quote(sku) handle Unavailable! =&gt; listPrice(sku)</span></span>
+<span class="giallo-l"><span>          Int stock = @Inventory.check(sku)</span></span>
+<span class="giallo-l"><span>          if stock == 0 { return SoldOut! { sku: sku } }</span></span>
+<span class="giallo-l"><span>          @Ledger.record(sku, price)</span></span>
+<span class="giallo-l"><span>          return f&quot;sold at ${price}&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     } handle {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Unverified! =&gt; return Reconcile! { sku: sku }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     }</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure>
+<p>Ritchie only goes from 7 to 11 lines. Crucially, the happy path is still clearly consolidated, so it's a lot easier to follow the business logic while reading Ritchie compared to TypeScript.</p>
+<p>Ritchie handles the pricing fallback inline. An unhandled error bubbles up to the caller, so for "anything else" there's nothing more to write. That includes <code>Discontinued!</code>, which reaches the caller without us writing a line for it. The runtime reports the lost ledger write as its own error, <code>Unverified!</code>.</p>
+<p>This is one step ahead of TypeScript already, because the Ritchie runtime tracks how far a write got, even inside the Ledger. If the call failed before the Ledger reached the point where it actually writes, the error is <code>Unmodified!</code> instead of <code>Unverified!</code>. So the Ritchie program starts a (definitely slow, potentially manual) reconciliation only when it really can't be sure.</p>
+<h2 id="the-sres-have-a-say">The SREs Have a Say</h2>
+<p>Things were going swimmingly for a month, until last week a stuck dependency took checkout down. The SREs now have a rule: every call runs under a time budget, and a checkout that runs out of it responds instead of hanging.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ts"><span class="giallo-l"><span style="color: #50A14F;">+ const BUDGET_MS = Number(process.env.CHECKOUT_BUDGET_MS);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+ </span></span>
+<span class="giallo-l"><span>  export async function checkout(sku: string): Promise&lt;string&gt; {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   const signal = AbortSignal.timeout(BUDGET_MS);</span></span>
+<span class="giallo-l"><span>    try {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     const price = await pricing.quote(sku).catch((e) =&gt; {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     const price = await pricing.quote(sku, { signal }).catch((e) =&gt; {</span></span>
+<span class="giallo-l"><span>        if (!(e instanceof HttpError &amp;&amp; e.status === 503)) throw e;</span></span>
+<span class="giallo-l"><span>        return listPrice(sku);</span></span>
+<span class="giallo-l"><span>      });</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     const stock = await inventory.check(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     const stock = await inventory.check(sku, { signal });</span></span>
+<span class="giallo-l"><span>      if (stock === 0) throw new SoldOut(sku);</span></span>
+<span class="giallo-l"><span>      try {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-       await ledger.record(sku, price);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       await ledger.record(sku, price, { signal });</span></span>
+<span class="giallo-l"><span>      } catch (e) {</span></span>
+<span class="giallo-l"><span>        if (e instanceof HttpError) throw e;</span></span>
+<span class="giallo-l"><span>        throw new Reconcile(sku);</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>      return `sold at $${price}`;</span></span>
+<span class="giallo-l"><span>    } catch (e) {</span></span>
+<span class="giallo-l"><span>      if (e instanceof HttpError &amp;&amp; e.status === 410) throw new Discontinued(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     if (e === signal.reason) throw new OutOfTime();</span></span>
+<span class="giallo-l"><span>      throw e;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure>
+<p>Ritchie's change is a grand total of one line vs. 6 for TypeScript.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ri"><span class="giallo-l"><span>  checkout(String sku) -&gt; String {</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span>          Decimal price = @Pricing.quote(sku) handle Unavailable! =&gt; listPrice(sku)</span></span>
+<span class="giallo-l"><span>          Int stock = @Inventory.check(sku)</span></span>
+<span class="giallo-l"><span>          if stock == 0 { return SoldOut! { sku: sku } }</span></span>
+<span class="giallo-l"><span>          @Ledger.record(sku, price)</span></span>
+<span class="giallo-l"><span>          return f&quot;sold at ${price}&quot;</span></span>
+<span class="giallo-l"><span>      } handle {</span></span>
+<span class="giallo-l"><span>          Unverified! =&gt; return Reconcile! { sku: sku }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Cancelled! =&gt; return OutOfTime!</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure>
+<p>Deadlines are built into the runtime, so there is nothing to thread through your code. Every entry already runs its calls under a budget, 1400 ms unless configured, and holds back an extra buffer to deliver the response. Every remote call inherits what is left of it. Honestly, this would've been a zero-code change if we hadn't decided to rename the error from <code>Cancelled!</code> to <code>OutOfTime!</code>.</p>
+<p>TypeScript has to thread the deadline by hand, and every call must remember to carry it. Leave <code>{ signal }</code> off one of them and that call ignores the budget, and the compiler has no opinion on the matter. A deadline that lapses while the Ledger write is in flight falls into the same <code>catch</code> as a dropped connection, so it raises <code>Reconcile</code>, which is the answer for an issued write that may or may not have completed.</p>
+<h2 id="customers-want-to-buy-multiple-items">Customers Want to Buy Multiple Items</h2>
+<p>Product has noticed that people would be happier to buy multiple things in one checkout. So checkout now takes a whole cart. An SKU that is sold out or discontinued gets skipped and counted, and the rest of the cart carries on. So we do what anyone would do — we add a loop.<sup class="footnote-reference"><a href="#1">1</a></sup></p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ts"><span class="giallo-l"><span>  const BUDGET_MS = Number(process.env.CHECKOUT_BUDGET_MS);</span></span>
+<span class="giallo-l"><span>  </span></span>
+<span class="giallo-l"><span style="color: #E45649;">- export async function checkout(sku: string): Promise&lt;string&gt; {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+ export async function checkout(skus: string[]): Promise&lt;string&gt; {</span></span>
+<span class="giallo-l"><span>    const signal = AbortSignal.timeout(BUDGET_MS);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   let total = 0, skipped = 0, reconcile = 0;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   for (const sku of skus) {</span></span>
+<span class="giallo-l"><span>      try {</span></span>
+<span class="giallo-l"><span>        const price = await pricing.quote(sku, { signal }).catch((e) =&gt; {</span></span>
+<span class="giallo-l"><span>          if (!(e instanceof HttpError &amp;&amp; e.status === 503)) throw e;</span></span>
+<span class="giallo-l"><span>          return listPrice(sku);</span></span>
+<span class="giallo-l"><span>        });</span></span>
+<span class="giallo-l"><span>        const stock = await inventory.check(sku, { signal });</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     if (stock === 0) throw new SoldOut(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       if (stock === 0) { skipped += 1; continue; }</span></span>
+<span class="giallo-l"><span>        try {</span></span>
+<span class="giallo-l"><span>          await ledger.record(sku, price, { signal });</span></span>
+<span class="giallo-l"><span>        } catch (e) {</span></span>
+<span class="giallo-l"><span>          if (e instanceof HttpError) throw e;</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-       throw new Reconcile(sku);</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         reconcile += 1; continue;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     return `sold at $${price}`;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       total += price;</span></span>
+<span class="giallo-l"><span>      } catch (e) {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     if (e instanceof HttpError &amp;&amp; e.status === 410) throw new Discontinued(sku);</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     if (e === signal.reason) throw new OutOfTime();</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       if (e instanceof HttpError &amp;&amp; e.status === 410) { skipped += 1; continue; }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+       if (e === signal.reason) throw new OutOfTime(total);</span></span>
+<span class="giallo-l"><span>        throw e;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+   return `total $${total}, skipped ${skipped}, reconcile ${reconcile}`;</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure><figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Diff</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="diff" data-file="checkout.ri"><span class="giallo-l"><span style="color: #E45649;">- checkout(String sku) -&gt; String {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+ checkout(String[] skus) -&gt; String {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     Decimal total = 0.00</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     Int skipped, reconcile = 0, 0</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-     {</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     for sku in skus {</span></span>
+<span class="giallo-l"><span>          Decimal price = @Pricing.quote(sku) handle Unavailable! =&gt; listPrice(sku)</span></span>
+<span class="giallo-l"><span>          Int stock = @Inventory.check(sku)</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-         if stock == 0 { return SoldOut! { sku: sku } }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         if stock == 0 { skipped += 1; continue }</span></span>
+<span class="giallo-l"><span>          @Ledger.record(sku, price)</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-         return f&quot;sold at ${price}&quot;</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         total += price</span></span>
+<span class="giallo-l"><span>      } handle {</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-         Unverified! =&gt; return Reconcile! { sku: sku }</span></span>
+<span class="giallo-l"><span style="color: #E45649;">-         Cancelled! =&gt; return OutOfTime!</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Discontinued! =&gt; { skipped += 1; continue }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Unverified! =&gt; { reconcile += 1; continue }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+         Cancelled! =&gt; return OutOfTime! { recorded: total }</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span style="color: #50A14F;">+     return f&quot;total ${total}, skipped {skipped}, reconcile {reconcile}&quot;</span></span>
+<span class="giallo-l"><span>  }</span></span></code></pre>
+
+</figure>
+<p>In Ritchie, the loop neatly slots over the existing <code>handle</code> block. The handler arms now keep count instead of returning. 16 lines of Ritchie, 27 of TypeScript, and both give the same responses. Here is the Ritchie snippet as it stands.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="checkout.ri"><span class="giallo-l"><span style="color: #4078F2;">checkout</span><span>(</span><span style="color: #C18401;">String</span><span>[] skus) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Decimal</span><span> total =</span><span style="color: #986801;"> 0.00</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> skipped, reconcile =</span><span style="color: #986801;"> 0</span><span>, </span><span style="color: #986801;">0</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> sku </span><span style="color: #A626A4;">in</span><span> skus {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        Decimal</span><span> price =</span><span style="color: #C18401;"> @Pricing</span><span>.</span><span style="color: #4078F2;">quote</span><span>(sku) </span><span style="color: #A626A4;">handle</span><span> Unavailable! =&gt;</span><span style="color: #4078F2;"> listPrice</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        Int</span><span> stock =</span><span style="color: #C18401;"> @Inventory</span><span>.</span><span style="color: #4078F2;">check</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span> stock ==</span><span style="color: #986801;"> 0</span><span> { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        @Ledger</span><span>.</span><span style="color: #4078F2;">record</span><span>(sku, price)</span></span>
+<span class="giallo-l"><span>        total += price</span></span>
+<span class="giallo-l"><span>    } </span><span style="color: #A626A4;">handle</span><span> {</span></span>
+<span class="giallo-l"><span>        Discontinued! =&gt; { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span>        Unverified! =&gt; { reconcile +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span>        Cancelled! =&gt;</span><span style="color: #A626A4;"> return</span><span> OutOfTime! { recorded: total }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;total ${total}, skipped {skipped}, reconcile {reconcile}&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Ship it.</p>
+<h2 id="time-for-a-reckoning">Time for a Reckoning</h2>
+<p>A customer buys four things. We run the TypeScript first, with a 1400 ms budget.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>run</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="plain" data-file="terminal" data-title="run"><span class="giallo-l"><span>$ CHECKOUT_BUDGET_MS=1400 node checkout.ts</span></span>
+<span class="giallo-l"><span>OutOfTime: out of time, $2 recorded</span></span></code></pre>
+
+</figure>
+<p>Half a cart. No service failed. Every one responded on time, and every handler did its job, including the one that had to give up. Here is where the 1400 ms went.</p>
+<div class="inline-svg"><svg class="article-diagram" role="img" aria-label="TypeScript timeline: every call waits for the one before it, and the deadline cuts off the third item" xmlns="http://www.w3.org/2000/svg" version="1.1"    width="688" height="410"    viewBox="0 0 688 410">  <style type="text/css" source-text-origin="source-independent defaults: shared by ASCII and UTF-8">    svg {        color-scheme: light dark; /* this becomes necessary if not inherited from parent elements */        font-family: monospace;        font-size: 15px;    }    text {        stroke: none;        text-anchor: middle;    }    .path {        fill: none;    }    circle.filled {        fill: inherit;    }    circle.hollow {         fill: none;    }    svg {        color: #000;  /* set value of 'currentColor' */    }    @media (prefers-color-scheme: dark) {        svg {            color: #FFF;  /* set value of 'currentColor' */        }    }    svg {        fill: currentColor;        stroke: currentColor;    }  </style>  <style type="text/css" source-text-origin="font.css">svg { font-family: "TX-02", "Iosevka Term", monospace; font-size: 14px; }  </style><g transform='translate(8,12)'>  <g id='lines'>    <polyline class="path" points="112,32 208,32"/>    <polyline class="path" points="208,64 272,64"/>    <polyline class="path" points="272,96 304,96"/>    <polyline class="path" points="304,128 400,128"/>    <polyline class="path" points="400,160 464,160"/>    <polyline class="path" points="464,192 496,192"/>    <polyline class="path" points="496,224 560,224"/>    <polyline class="path" points="560,32 560,224"/>    <polyline class="path" points="560,224 560,384"/>  </g>  <g id='triangles'>  </g>  <g id='roundedCorners'>  </g>  <g id='circles'>  </g>  <g id='bridges'>  </g>  <g id='text'>    <text x="112" y="4">0</text>    <text x="264" y="4">5</text>    <text x="272" y="4">0</text>    <text x="280" y="4">0</text>    <text x="424" y="4">1</text>    <text x="432" y="4">0</text>    <text x="440" y="4">0</text>    <text x="448" y="4">0</text>    <text x="552" y="4">1</text>    <text x="560" y="4">4</text>    <text x="568" y="4">0</text>    <text x="576" y="4">0</text>    <text x="592" y="4">m</text>    <text x="600" y="4">s</text>    <text x="616" y="4">d</text>    <text x="624" y="4">e</text>    <text x="632" y="4">a</text>    <text x="640" y="4">d</text>    <text x="648" y="4">l</text>    <text x="656" y="4">i</text>    <text x="664" y="4">n</text>    <text x="672" y="4">e</text>    <text x="0" y="36">P</text>    <text x="8" y="36">r</text>    <text x="16" y="36">i</text>    <text x="24" y="36">c</text>    <text x="32" y="36">i</text>    <text x="40" y="36">n</text>    <text x="48" y="36">g</text>    <text x="64" y="36">a</text>    <text x="0" y="68">I</text>    <text x="8" y="68">n</text>    <text x="16" y="68">v</text>    <text x="24" y="68">e</text>    <text x="32" y="68">n</text>    <text x="40" y="68">t</text>    <text x="48" y="68">o</text>    <text x="56" y="68">r</text>    <text x="64" y="68">y</text>    <text x="80" y="68">a</text>    <text x="0" y="100">L</text>    <text x="8" y="100">e</text>    <text x="16" y="100">d</text>    <text x="24" y="100">g</text>    <text x="32" y="100">e</text>    <text x="40" y="100">r</text>    <text x="56" y="100">a</text>    <text x="0" y="132">P</text>    <text x="8" y="132">r</text>    <text x="16" y="132">i</text>    <text x="24" y="132">c</text>    <text x="32" y="132">i</text>    <text x="40" y="132">n</text>    <text x="48" y="132">g</text>    <text x="64" y="132">b</text>    <text x="0" y="164">I</text>    <text x="8" y="164">n</text>    <text x="16" y="164">v</text>    <text x="24" y="164">e</text>    <text x="32" y="164">n</text>    <text x="40" y="164">t</text>    <text x="48" y="164">o</text>    <text x="56" y="164">r</text>    <text x="64" y="164">y</text>    <text x="80" y="164">b</text>    <text x="0" y="196">L</text>    <text x="8" y="196">e</text>    <text x="16" y="196">d</text>    <text x="24" y="196">g</text>    <text x="32" y="196">e</text>    <text x="40" y="196">r</text>    <text x="56" y="196">b</text>    <text x="0" y="228">P</text>    <text x="8" y="228">r</text>    <text x="16" y="228">i</text>    <text x="24" y="228">c</text>    <text x="32" y="228">i</text>    <text x="40" y="228">n</text>    <text x="48" y="228">g</text>    <text x="64" y="228">c</text>    <text x="576" y="228">c</text>    <text x="584" y="228">u</text>    <text x="592" y="228">t</text>    <text x="608" y="228">o</text>    <text x="616" y="228">f</text>    <text x="624" y="228">f</text>    <text x="0" y="260">I</text>    <text x="8" y="260">n</text>    <text x="16" y="260">v</text>    <text x="24" y="260">e</text>    <text x="32" y="260">n</text>    <text x="40" y="260">t</text>    <text x="48" y="260">o</text>    <text x="56" y="260">r</text>    <text x="64" y="260">y</text>    <text x="80" y="260">c</text>    <text x="576" y="260">n</text>    <text x="584" y="260">o</text>    <text x="592" y="260">t</text>    <text x="608" y="260">s</text>    <text x="616" y="260">e</text>    <text x="624" y="260">n</text>    <text x="632" y="260">t</text>    <text x="0" y="292">L</text>    <text x="8" y="292">e</text>    <text x="16" y="292">d</text>    <text x="24" y="292">g</text>    <text x="32" y="292">e</text>    <text x="40" y="292">r</text>    <text x="56" y="292">c</text>    <text x="576" y="292">n</text>    <text x="584" y="292">o</text>    <text x="592" y="292">t</text>    <text x="608" y="292">s</text>    <text x="616" y="292">e</text>    <text x="624" y="292">n</text>    <text x="632" y="292">t</text>    <text x="0" y="324">P</text>    <text x="8" y="324">r</text>    <text x="16" y="324">i</text>    <text x="24" y="324">c</text>    <text x="32" y="324">i</text>    <text x="40" y="324">n</text>    <text x="48" y="324">g</text>    <text x="64" y="324">d</text>    <text x="576" y="324">n</text>    <text x="584" y="324">o</text>    <text x="592" y="324">t</text>    <text x="608" y="324">s</text>    <text x="616" y="324">e</text>    <text x="624" y="324">n</text>    <text x="632" y="324">t</text>    <text x="0" y="356">I</text>    <text x="8" y="356">n</text>    <text x="16" y="356">v</text>    <text x="24" y="356">e</text>    <text x="32" y="356">n</text>    <text x="40" y="356">t</text>    <text x="48" y="356">o</text>    <text x="56" y="356">r</text>    <text x="64" y="356">y</text>    <text x="80" y="356">d</text>    <text x="576" y="356">n</text>    <text x="584" y="356">o</text>    <text x="592" y="356">t</text>    <text x="608" y="356">s</text>    <text x="616" y="356">e</text>    <text x="624" y="356">n</text>    <text x="632" y="356">t</text>    <text x="0" y="388">L</text>    <text x="8" y="388">e</text>    <text x="16" y="388">d</text>    <text x="24" y="388">g</text>    <text x="32" y="388">e</text>    <text x="40" y="388">r</text>    <text x="56" y="388">d</text>    <text x="576" y="388">n</text>    <text x="584" y="388">o</text>    <text x="592" y="388">t</text>    <text x="608" y="388">s</text>    <text x="616" y="388">e</text>    <text x="624" y="388">n</text>    <text x="632" y="388">t</text></g></g></svg></div>
+<p>The price of <code>b</code> has nothing to do with the price of <code>a</code>, and neither has anything to do with how many are left on the shelf, yet each read stood in line behind the last one, because every <code>await</code> stops the function until its response arrives. This cart needs 2400 ms of calls, and a twenty-item cart would need twelve seconds. Most of that time is spent waiting for responses that the next call had no use for. The Ledger is the only thing here that has to stay in line.</p>
+<p>So the reads have to go out together.</p>
+<h3 id="rewiring-the-typescript">Rewiring the TypeScript</h3>
+<p>We know how to do this. It is what <code>async</code> was for. Our list of demands is short:</p>
+<ol>
+<li>Every read starts at once.</li>
+<li>Writes still happen one at a time, in cart order.</li>
+<li>Every failure rule from before keeps its meaning.</li>
+<li>Nothing is left running after the function has responded.</li>
+</ol>
+<p>A good TypeScript programmer reaches for <code>Promise.all</code> first, wrapping each line so that a discontinued product becomes a value and only a real surprise rejects. It is tidy, and it is fine until one read is slow, because nothing can be written until the slowest read in the cart has responded. Give line 4 a Pricing call of 1000 ms, and line 1, which had everything it needed at 300 ms, does not write until after 1000 ms. The budget runs out and the response is <code>total $3, reconcile 1</code>.</p>
+<p>So each line has to write as soon as it is ready, in cart order. That means starting reads in one place and awaiting them in another, and <code>Promise.all</code> cannot do that. We build it by hand.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>TypeScript</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="typescript" data-file="checkout.ts"><span class="giallo-l"><span style="color: #A626A4;">const</span><span style="color: #986801;"> BUDGET_MS</span><span style="color: #0184BC;"> =</span><span style="color: #4078F2;"> Number</span><span>(process.</span><span style="color: #E45649;">env</span><span>.</span><span style="color: #986801;">CHECKOUT_BUDGET_MS</span><span>);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A626A4;">export async function</span><span style="color: #4078F2;"> checkout</span><span>(skus</span><span style="color: #0184BC;">: string</span><span>[])</span><span style="color: #0184BC;">:</span><span style="color: #C18401;"> Promise</span><span>&lt;string&gt; {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> done</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> new</span><span style="color: #4078F2;"> AbortController</span><span>();</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> signal</span><span style="color: #0184BC;"> =</span><span> AbortSignal.</span><span style="color: #4078F2;">any</span><span>([done.</span><span style="color: #C18401;">signal</span><span>, AbortSignal.</span><span style="color: #4078F2;">timeout</span><span>(</span><span style="color: #986801;">BUDGET_MS</span><span>)]);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  let</span><span> total</span><span style="color: #0184BC;"> =</span><span style="color: #986801;"> 0</span><span>, skipped</span><span style="color: #0184BC;"> =</span><span style="color: #986801;"> 0</span><span>, reconcile</span><span style="color: #0184BC;"> =</span><span style="color: #986801;"> 0</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #A0A1A7;font-style: italic;">  // Start every read now. Await them below, in cart order.</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> reads</span><span style="color: #0184BC;"> =</span><span> skus.</span><span style="color: #4078F2;">map</span><span>((sku)</span><span style="color: #A626A4;"> =&gt;</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    const</span><span style="color: #986801;"> price</span><span style="color: #0184BC;"> =</span><span> pricing.</span><span style="color: #4078F2;">quote</span><span>(sku, { signal }).</span><span style="color: #4078F2;">catch</span><span>((e)</span><span style="color: #A626A4;"> =&gt;</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">      if</span><span> (</span><span style="color: #0184BC;">!</span><span>(e</span><span style="color: #A626A4;"> instanceof</span><span style="color: #C18401;"> HttpError</span><span style="color: #0184BC;"> &amp;&amp;</span><span> e.</span><span style="color: #E45649;">status</span><span style="color: #0184BC;"> ===</span><span style="color: #986801;"> 503</span><span>))</span><span style="color: #A626A4;"> throw</span><span> e;</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">      return</span><span style="color: #4078F2;"> listPrice</span><span>(sku);</span></span>
+<span class="giallo-l"><span>    });</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    const</span><span style="color: #986801;"> stock</span><span style="color: #0184BC;"> =</span><span> inventory.</span><span style="color: #4078F2;">check</span><span>(sku, { signal });</span></span>
+<span class="giallo-l"><span>    price.</span><span style="color: #4078F2;">catch</span><span>(()</span><span style="color: #A626A4;"> =&gt;</span><span> {});</span><span style="color: #A0A1A7;font-style: italic;"> // either can reject while nothing awaits it,</span></span>
+<span class="giallo-l"><span>    stock.</span><span style="color: #4078F2;">catch</span><span>(()</span><span style="color: #A626A4;"> =&gt;</span><span> {});</span><span style="color: #A0A1A7;font-style: italic;"> // which would end the process</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span> { price, stock };</span></span>
+<span class="giallo-l"><span>  });</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  try</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> (</span><span style="color: #A626A4;">const</span><span> [</span><span style="color: #986801;">i</span><span>,</span><span style="color: #986801;"> sku</span><span>]</span><span style="color: #A626A4;"> of</span><span> skus.</span><span style="color: #4078F2;">entries</span><span>()) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">      try</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        const</span><span style="color: #986801;"> price</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> await</span><span> reads[i]</span><span style="color: #0184BC;">!</span><span>.</span><span style="color: #E45649;">price</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        const</span><span style="color: #986801;"> stock</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> await</span><span> reads[i]</span><span style="color: #0184BC;">!</span><span>.</span><span style="color: #E45649;">stock</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span> (stock</span><span style="color: #0184BC;"> ===</span><span style="color: #986801;"> 0</span><span>) { skipped</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>;</span><span style="color: #A626A4;"> continue</span><span>; }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        try</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">          await</span><span> ledger.</span><span style="color: #4078F2;">record</span><span>(sku, price, { signal });</span></span>
+<span class="giallo-l"><span>        }</span><span style="color: #A626A4;"> catch</span><span> (e) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">          if</span><span> (e</span><span style="color: #A626A4;"> instanceof</span><span style="color: #C18401;"> HttpError</span><span>)</span><span style="color: #A626A4;"> throw</span><span> e;</span></span>
+<span class="giallo-l"><span>          reconcile</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>;</span><span style="color: #A626A4;"> continue</span><span>;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>        total</span><span style="color: #0184BC;"> +=</span><span> price;</span></span>
+<span class="giallo-l"><span>      }</span><span style="color: #A626A4;"> catch</span><span> (e) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span> (e</span><span style="color: #A626A4;"> instanceof</span><span style="color: #C18401;"> HttpError</span><span style="color: #0184BC;"> &amp;&amp;</span><span> e.</span><span style="color: #E45649;">status</span><span style="color: #0184BC;"> ===</span><span style="color: #986801;"> 410</span><span>) { skipped</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>;</span><span style="color: #A626A4;"> continue</span><span>; }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span> (e</span><span style="color: #0184BC;"> ===</span><span> signal.</span><span style="color: #E45649;">reason</span><span>)</span><span style="color: #A626A4;"> throw new</span><span style="color: #4078F2;"> OutOfTime</span><span>(total);</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        throw</span><span> e;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>  }</span><span style="color: #A626A4;"> finally</span><span> {</span></span>
+<span class="giallo-l"><span>    done.</span><span style="color: #4078F2;">abort</span><span>();</span><span style="color: #A0A1A7;font-style: italic;"> // an early exit leaves reads in flight</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  return</span><span style="color: #50A14F;"> `total $</span><span style="color: #CA1243;">${</span><span>total</span><span style="color: #CA1243;">}</span><span style="color: #50A14F;">, skipped </span><span style="color: #CA1243;">${</span><span>skipped</span><span style="color: #CA1243;">}</span><span style="color: #50A14F;">, reconcile </span><span style="color: #CA1243;">${</span><span>reconcile</span><span style="color: #CA1243;">}</span><span style="color: #50A14F;">`</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>It works. It responds in 700 ms, and outages, lost responses and deadlines all come out as promised. However, the code has almost 50% additional line-count without any new logic about shopping.</p>
+<p><strong>Function Colouring.</strong> <code>async</code> has been on this function since line one, and every caller of it has been paying the same tax. Now the colour has reached the data. <code>price</code> used to be a <code>number</code>, and it is now a <code>Promise&lt;number&gt;</code> until someone awaits it, so it goes in <code>reads[i]!.price</code> and its type has to be kept in mind wherever it is needed. It has reached the callbacks as well, because the reads now start inside a <code>map</code>, each with a <code>.catch</code> of its own.</p>
+<p><strong>The handlers moved.</strong> A <code>try</code> around a call used to protect that call. A promise fails where it is awaited, so the fallback for a 503 had to leave the loop and go to a <code>.catch</code> inside a <code>map</code>, while the check for a 410 stayed behind in a second loop. One loop became two, one to start things and one to wait for them, and the rule for a single item of the cart is now spread across both.</p>
+<p><strong>Two lines you'd better not miss.</strong> Look at <code>price.catch(() =&gt; {})</code> and <code>stock.catch(() =&gt; {})</code>. They do nothing, and they are there because a promise that rejects while nothing is awaiting it ends the process. Delete them and a <em>discontinued product on line 3 takes the server down</em>, along with every other customer on it. <code>tsc --strict</code> accepts the program either way.</p>
+<p><strong>We wrote the cleanup.</strong> An <code>AbortController</code>, a merged signal and a <code>finally</code> now exist only to stop reads that a line further down might no longer want.</p>
+<p>That is the state of the art.</p>
+<h2 id="the-prestige">The Prestige</h2>
+<p>Here is the Ritchie <code>checkout</code> from before the loop optimisation.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="checkout.ri"><span class="giallo-l"><span style="color: #4078F2;">checkout</span><span>(</span><span style="color: #C18401;">String</span><span>[] skus) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Decimal</span><span> total =</span><span style="color: #986801;"> 0.00</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> skipped, reconcile =</span><span style="color: #986801;"> 0</span><span>, </span><span style="color: #986801;">0</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> sku </span><span style="color: #A626A4;">in</span><span> skus {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        Decimal</span><span> price =</span><span style="color: #C18401;"> @Pricing</span><span>.</span><span style="color: #4078F2;">quote</span><span>(sku) </span><span style="color: #A626A4;">handle</span><span> Unavailable! =&gt;</span><span style="color: #4078F2;"> listPrice</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        Int</span><span> stock =</span><span style="color: #C18401;"> @Inventory</span><span>.</span><span style="color: #4078F2;">check</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        if</span><span> stock ==</span><span style="color: #986801;"> 0</span><span> { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        @Ledger</span><span>.</span><span style="color: #4078F2;">record</span><span>(sku, price)</span></span>
+<span class="giallo-l"><span>        total += price</span></span>
+<span class="giallo-l"><span>    } </span><span style="color: #A626A4;">handle</span><span> {</span></span>
+<span class="giallo-l"><span>        Discontinued! =&gt; { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span>        Unverified! =&gt; { reconcile +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span>        Cancelled! =&gt;</span><span style="color: #A626A4;"> return</span><span> OutOfTime! { recorded: total }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;total ${total}, skipped {skipped}, reconcile {reconcile}&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Here is everything we are going to do to optimise it.</p>
+<p><strong>Nothing.</strong></p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>run</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="plain" data-file="terminal" data-title="run"><span class="giallo-l"><span>$ rcrun checkout.ri</span></span>
+<span class="giallo-l"><span>total $4.00, skipped 0, reconcile 0</span></span></code></pre>
+
+</figure>
+<p>The full cart, in half the time TypeScript spent failing.</p>
+<div class="inline-svg"><svg class="article-diagram" role="img" aria-label="Ritchie timeline: all eight reads start at once, the writes follow one at a time, and the cart finishes at 700 ms" xmlns="http://www.w3.org/2000/svg" version="1.1"    width="688" height="410"    viewBox="0 0 688 410">  <style type="text/css" source-text-origin="source-independent defaults: shared by ASCII and UTF-8">    svg {        color-scheme: light dark; /* this becomes necessary if not inherited from parent elements */        font-family: monospace;        font-size: 15px;    }    text {        stroke: none;        text-anchor: middle;    }    .path {        fill: none;    }    circle.filled {        fill: inherit;    }    circle.hollow {         fill: none;    }    svg {        color: #000;  /* set value of 'currentColor' */    }    @media (prefers-color-scheme: dark) {        svg {            color: #FFF;  /* set value of 'currentColor' */        }    }    svg {        fill: currentColor;        stroke: currentColor;    }  </style>  <style type="text/css" source-text-origin="font.css">svg { font-family: "TX-02", "Iosevka Term", monospace; font-size: 14px; }  </style><g transform='translate(8,12)'>  <g id='lines'>    <polyline class="path" points="112,32 208,32"/>    <polyline class="path" points="112,64 176,64"/>    <polyline class="path" points="208,96 240,96"/>    <polyline class="path" points="112,128 208,128"/>    <polyline class="path" points="112,160 176,160"/>    <polyline class="path" points="240,192 272,192"/>    <polyline class="path" points="112,224 208,224"/>    <polyline class="path" points="112,256 176,256"/>    <polyline class="path" points="272,288 304,288"/>    <polyline class="path" points="112,320 208,320"/>    <polyline class="path" points="112,352 176,352"/>    <polyline class="path" points="304,384 336,384"/>    <polyline class="path" points="560,32 560,384"/>  </g>  <g id='triangles'>  </g>  <g id='roundedCorners'>  </g>  <g id='circles'>  </g>  <g id='bridges'>  </g>  <g id='text'>    <text x="112" y="4">0</text>    <text x="264" y="4">5</text>    <text x="272" y="4">0</text>    <text x="280" y="4">0</text>    <text x="424" y="4">1</text>    <text x="432" y="4">0</text>    <text x="440" y="4">0</text>    <text x="448" y="4">0</text>    <text x="552" y="4">1</text>    <text x="560" y="4">4</text>    <text x="568" y="4">0</text>    <text x="576" y="4">0</text>    <text x="592" y="4">m</text>    <text x="600" y="4">s</text>    <text x="616" y="4">d</text>    <text x="624" y="4">e</text>    <text x="632" y="4">a</text>    <text x="640" y="4">d</text>    <text x="648" y="4">l</text>    <text x="656" y="4">i</text>    <text x="664" y="4">n</text>    <text x="672" y="4">e</text>    <text x="0" y="36">P</text>    <text x="8" y="36">r</text>    <text x="16" y="36">i</text>    <text x="24" y="36">c</text>    <text x="32" y="36">i</text>    <text x="40" y="36">n</text>    <text x="48" y="36">g</text>    <text x="64" y="36">a</text>    <text x="0" y="68">I</text>    <text x="8" y="68">n</text>    <text x="16" y="68">v</text>    <text x="24" y="68">e</text>    <text x="32" y="68">n</text>    <text x="40" y="68">t</text>    <text x="48" y="68">o</text>    <text x="56" y="68">r</text>    <text x="64" y="68">y</text>    <text x="80" y="68">a</text>    <text x="0" y="100">L</text>    <text x="8" y="100">e</text>    <text x="16" y="100">d</text>    <text x="24" y="100">g</text>    <text x="32" y="100">e</text>    <text x="40" y="100">r</text>    <text x="56" y="100">a</text>    <text x="0" y="132">P</text>    <text x="8" y="132">r</text>    <text x="16" y="132">i</text>    <text x="24" y="132">c</text>    <text x="32" y="132">i</text>    <text x="40" y="132">n</text>    <text x="48" y="132">g</text>    <text x="64" y="132">b</text>    <text x="0" y="164">I</text>    <text x="8" y="164">n</text>    <text x="16" y="164">v</text>    <text x="24" y="164">e</text>    <text x="32" y="164">n</text>    <text x="40" y="164">t</text>    <text x="48" y="164">o</text>    <text x="56" y="164">r</text>    <text x="64" y="164">y</text>    <text x="80" y="164">b</text>    <text x="0" y="196">L</text>    <text x="8" y="196">e</text>    <text x="16" y="196">d</text>    <text x="24" y="196">g</text>    <text x="32" y="196">e</text>    <text x="40" y="196">r</text>    <text x="56" y="196">b</text>    <text x="0" y="228">P</text>    <text x="8" y="228">r</text>    <text x="16" y="228">i</text>    <text x="24" y="228">c</text>    <text x="32" y="228">i</text>    <text x="40" y="228">n</text>    <text x="48" y="228">g</text>    <text x="64" y="228">c</text>    <text x="0" y="260">I</text>    <text x="8" y="260">n</text>    <text x="16" y="260">v</text>    <text x="24" y="260">e</text>    <text x="32" y="260">n</text>    <text x="40" y="260">t</text>    <text x="48" y="260">o</text>    <text x="56" y="260">r</text>    <text x="64" y="260">y</text>    <text x="80" y="260">c</text>    <text x="0" y="292">L</text>    <text x="8" y="292">e</text>    <text x="16" y="292">d</text>    <text x="24" y="292">g</text>    <text x="32" y="292">e</text>    <text x="40" y="292">r</text>    <text x="56" y="292">c</text>    <text x="0" y="324">P</text>    <text x="8" y="324">r</text>    <text x="16" y="324">i</text>    <text x="24" y="324">c</text>    <text x="32" y="324">i</text>    <text x="40" y="324">n</text>    <text x="48" y="324">g</text>    <text x="64" y="324">d</text>    <text x="0" y="356">I</text>    <text x="8" y="356">n</text>    <text x="16" y="356">v</text>    <text x="24" y="356">e</text>    <text x="32" y="356">n</text>    <text x="40" y="356">t</text>    <text x="48" y="356">o</text>    <text x="56" y="356">r</text>    <text x="64" y="356">y</text>    <text x="80" y="356">d</text>    <text x="0" y="388">L</text>    <text x="8" y="388">e</text>    <text x="16" y="388">d</text>    <text x="24" y="388">g</text>    <text x="32" y="388">e</text>    <text x="40" y="388">r</text>    <text x="56" y="388">d</text></g></g></svg></div>
+<p>Eight reads leave at 0 ms. The writes follow at 300, 400, 500 and 600 ms, one at a time, in cart order, and the cart responds at 700 ms. That is the same trace our 39 lines of TypeScript produce, line for line.</p>
+<p>Remember the slow line 4? <code>total $4.00</code>, at 1100 ms.</p>
+<p>But wait. How does Ritchie know that it can send every price and stock read right away, yet has to send the ledger writes one at a time? That's the Automatic Concurrency feature of Ritchie in action. It does two things that we had to do manually in TypeScript:</p>
+<p><strong>Dataflow.</strong> A remote call is sent where it is written, and the program waits for its response at the first place that needs to look inside it. <code>@Pricing.quote(sku)</code> and <code>@Inventory.check(sku)</code> need only a <code>sku</code>, and nothing that an earlier line of the cart computes, so the loop sends them ahead for every iteration and eight reads get dispatched at once. <code>@Ledger.record(sku, price)</code> needs a <code>price</code>, so it has to wait for that response. And <code>price</code> is still a <code>Decimal</code> in the source instead of some futuristic template with a promise.</p>
+<p><strong>Effect Tracking.</strong> The compiler marks every method that has externally observable effects, such as changing remote state, and every method that calls such a method, all the way up. An unmarked call is a read, and a read can be thrown away: if the program turns out not to need it, it is cancelled and nothing has changed. A marked call cannot be taken back. So it starts only after everything written above it that could stop it has responded, and marked calls go one at a time, in written order.<sup class="footnote-reference"><a href="#2">2</a></sup> That is why the Ledger stays in line, and why a sold-out item does not reach it.</p>
+<p>Your handlers did not move either, because a failure takes effect at the statement that made the call, whatever time its response turns up.</p>
+<p>To go fast, TypeScript had to change almost half the code. Ritchie did not change at all. It was never slow.</p>
+<p><em>Thank you. You have been a wonderful audience.</em></p>
+<h2 id="erm-actually">Erm, Actually...</h2>
+<p>This is where someone says, "try language X instead", or "use framework Y".</p>
+<p>So, we also wrote the fast checkout in Kotlin and Go, in case TypeScript was the problem. It wasn't. Kotlin took 47 lines and Go took 54, and each one had lines that break the program if you leave them out, but that the compiler won't miss.</p>
+<p>Yes, we know about Effect, and we know about Encore. It is the best TypeScript has, so let us judge it on what is left: reading it and trusting it.</p>
+<p>Here is one iteration of checkout in Encore and Effect, from the point where stock is checked to the point where it is counted.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ts</span><span>Encore+Effect</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="typescript" data-file="checkout.ts" data-title="Encore+Effect"><span class="giallo-l"><span>Effect.</span><span style="color: #4078F2;">gen</span><span>(</span><span style="color: #A626A4;">function*</span><span> () {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span> {</span><span style="color: #986801;"> sku</span><span>,</span><span style="color: #986801;"> price</span><span>,</span><span style="color: #986801;"> stock</span><span> }</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> yield*</span><span> line;</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  if</span><span> (stock</span><span style="color: #0184BC;"> ===</span><span style="color: #986801;"> 0</span><span>) { skipped</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>;</span><span style="color: #A626A4;"> return</span><span>; }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  const</span><span style="color: #986801;"> answered</span><span style="color: #0184BC;"> =</span><span style="color: #A626A4;"> yield*</span><span style="color: #4078F2;"> call</span><span>(()</span><span style="color: #A626A4;"> =&gt;</span><span> ledger.</span><span style="color: #4078F2;">record</span><span>({ sku, price })).</span><span style="color: #4078F2;">pipe</span><span>(</span></span>
+<span class="giallo-l"><span>    Effect.</span><span style="color: #4078F2;">as</span><span>(</span><span style="color: #986801;">true</span><span>),</span></span>
+<span class="giallo-l"><span>    Effect.</span><span style="color: #4078F2;">catchTag</span><span>([</span><span style="color: #50A14F;">&quot;Unavailable&quot;</span><span>,</span><span style="color: #50A14F;"> &quot;TimeoutError&quot;</span><span>], ()</span><span style="color: #A626A4;"> =&gt;</span><span> Effect.</span><span style="color: #4078F2;">succeed</span><span>(</span><span style="color: #986801;">false</span><span>)),</span></span>
+<span class="giallo-l"><span>  );</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  if</span><span> (answered) total</span><span style="color: #0184BC;"> +=</span><span> price;</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">  else</span><span> reconcile</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>;</span></span>
+<span class="giallo-l"><span>}).</span><span style="color: #4078F2;">pipe</span><span>(Effect.</span><span style="color: #4078F2;">catchTag</span><span>(</span><span style="color: #50A14F;">&quot;Discontinued&quot;</span><span>, ()</span><span style="color: #A626A4;"> =&gt;</span><span> Effect.</span><span style="color: #4078F2;">sync</span><span>(()</span><span style="color: #A626A4;"> =&gt;</span><span> { skipped</span><span style="color: #0184BC;"> +=</span><span style="color: #986801;"> 1</span><span>; }))),</span></span></code></pre>
+
+</figure>
+<p>Here is the same job in Ritchie, handlers included.</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="checkout.ri"><span class="giallo-l"><span style="color: #C18401;">    Int</span><span> stock =</span><span style="color: #C18401;"> @Inventory</span><span>.</span><span style="color: #4078F2;">check</span><span>(sku)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> stock ==</span><span style="color: #986801;"> 0</span><span> { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    @Ledger</span><span>.</span><span style="color: #4078F2;">record</span><span>(sku, price)</span></span>
+<span class="giallo-l"><span>    total += price</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #A626A4;">handle</span><span> {</span></span>
+<span class="giallo-l"><span>    Discontinued! =&gt; { skipped +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span>
+<span class="giallo-l"><span>    Unverified! =&gt; { reconcile +=</span><span style="color: #986801;"> 1</span><span>; </span><span style="color: #A626A4;">continue</span><span> }</span></span></code></pre>
+
+</figure>
+<p>The Ritchie version neatly separates the "happy path" from the error handling. Even without knowledge of Ritchie syntax, you can still follow its logic while the TypeScript-with-frameworks example has turned into an unreadable keyword salad.</p>
+<p>Now for trust. Here is every guarantee Ritchie gave us along the way, held up against Encore and Effect.</p>
+<table><thead><tr><th>Guarantee</th><th>Ritchie</th><th>Encore + Effect</th></tr></thead><tbody>
+<tr><td>An unhandled rejection cannot crash the server</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>An unhandled error reaches the caller</td><td>Yes</td><td>Explicit coding required</td></tr>
+<tr><td>The compiler knows which errors each call can raise</td><td>Yes</td><td>Explicit coding required</td></tr>
+<tr><td>Every call runs within a time budget</td><td>Yes, always</td><td>Explicit coding required</td></tr>
+<tr><td>An abandoned read receives a cancellation signal</td><td>Yes</td><td>Explicit coding required</td></tr>
+<tr><td>External effects are not observed ahead of time</td><td>Yes</td><td>Explicit coding required</td></tr>
+<tr><td>The response waits for every write</td><td>Yes</td><td>Explicit coding required</td></tr>
+<tr><td>A failed write can confirm whether nothing was modified</td><td>Yes, <code>Unmodified!</code> is built-in</td><td>Not built in</td></tr>
+</tbody></table>
+<p>Wherever the right-hand column requires explicit coding, <code>tsc --strict</code> accepts the program with that code left out, and therefore without the guarantee. Ritchie won't save you from every mistake, but its guarantees are not yours to forget.</p>
+<p>If you're going to write it in someone else's language<sup class="footnote-reference"><a href="#3">3</a></sup> anyway, try Ritchie. It means business.</p>
+<blockquote>
+<p>Try <a href="/playground/?example=concurrent-checkout">concurrent checkout in the Playground</a>.</p>
+</blockquote>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>This is where you put your foot down and say, "No, we need a batch API instead", and you'd be right. Except, I've seen three very large e-commerce stacks and one of them did the loop. I won't say which one, but I can say that if you made an educated guess, you'd be more wrong than the random sampling chances of ~67%!</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Output is written where the same statements run in strict sequence would write it, and when several reads in flight fail, the failure of the one written first is the one that takes effect. Writes currently go one at a time across all services. Further optimisations are scheduled, and they will not require changes to your code.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>By the time you're writing <code>Effect.gen</code> and <code>yield*</code>, you're no longer writing the TypeScript everyone knows. Your team has to learn it, agents have to reason through it, and most <code>npm</code> libraries need wrapping before they'll play along. While preparing this article, Opus 5.5 spent about 53,000 reasoning tokens on Effect and Encore, against 19,000 on Ritchie, a language it had never seen. The incumbency you chose TypeScript for is gone.</p>
+</div>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>

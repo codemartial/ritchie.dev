@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+    width="688" height="410"
+    viewBox="0 0 688 410">
+  <style type="text/css" source-text-origin="source-independent defaults: shared by ASCII and UTF-8">
+    svg {
+        color-scheme: light dark; /* this becomes necessary if not inherited from parent elements */
+        font-family: monospace;
+        font-size: 15px;
+    }
+    text {
+        stroke: none;
+        text-anchor: middle;
+    }
+    .path {
+        fill: none;
+    }
+    circle.filled {
+        fill: inherit;
+    }
+    circle.hollow {
+         fill: none;
+    }
+    svg {
+        color: #000;  /* set value of 'currentColor' */
+    }
+    @media (prefers-color-scheme: dark) {
+        svg {
+            color: #FFF;  /* set value of 'currentColor' */
+        }
+    }
+    svg {
+        fill: currentColor;
+        stroke: currentColor;
+    }
+  </style>
+  <style type="text/css" source-text-origin="font.css">
+svg { font-family: "TX-02", "Iosevka Term", monospace; font-size: 14px; }
+  </style>
+
+<g transform='translate(8,12)'>
+  <g id='lines'>
+    <polyline class="path" points="112,32 208,32"/>
+    <polyline class="path" points="112,64 176,64"/>
+    <polyline class="path" points="208,96 240,96"/>
+    <polyline class="path" points="112,128 208,128"/>
+    <polyline class="path" points="112,160 176,160"/>
+    <polyline class="path" points="240,192 272,192"/>
+    <polyline class="path" points="112,224 208,224"/>
+    <polyline class="path" points="112,256 176,256"/>
+    <polyline class="path" points="272,288 304,288"/>
+    <polyline class="path" points="112,320 208,320"/>
+    <polyline class="path" points="112,352 176,352"/>
+    <polyline class="path" points="304,384 336,384"/>
+    <polyline class="path" points="560,32 560,384"/>
+  </g>
+  <g id='triangles'>
+  </g>
+  <g id='roundedCorners'>
+  </g>
+  <g id='circles'>
+  </g>
+  <g id='bridges'>
+  </g>
+  <g id='text'>
+    <text x="112" y="4">0</text>
+    <text x="264" y="4">5</text>
+    <text x="272" y="4">0</text>
+    <text x="280" y="4">0</text>
+    <text x="424" y="4">1</text>
+    <text x="432" y="4">0</text>
+    <text x="440" y="4">0</text>
+    <text x="448" y="4">0</text>
+    <text x="552" y="4">1</text>
+    <text x="560" y="4">4</text>
+    <text x="568" y="4">0</text>
+    <text x="576" y="4">0</text>
+    <text x="592" y="4">m</text>
+    <text x="600" y="4">s</text>
+    <text x="616" y="4">d</text>
+    <text x="624" y="4">e</text>
+    <text x="632" y="4">a</text>
+    <text x="640" y="4">d</text>
+    <text x="648" y="4">l</text>
+    <text x="656" y="4">i</text>
+    <text x="664" y="4">n</text>
+    <text x="672" y="4">e</text>
+    <text x="0" y="36">P</text>
+    <text x="8" y="36">r</text>
+    <text x="16" y="36">i</text>
+    <text x="24" y="36">c</text>
+    <text x="32" y="36">i</text>
+    <text x="40" y="36">n</text>
+    <text x="48" y="36">g</text>
+    <text x="64" y="36">a</text>
+    <text x="0" y="68">I</text>
+    <text x="8" y="68">n</text>
+    <text x="16" y="68">v</text>
+    <text x="24" y="68">e</text>
+    <text x="32" y="68">n</text>
+    <text x="40" y="68">t</text>
+    <text x="48" y="68">o</text>
+    <text x="56" y="68">r</text>
+    <text x="64" y="68">y</text>
+    <text x="80" y="68">a</text>
+    <text x="0" y="100">L</text>
+    <text x="8" y="100">e</text>
+    <text x="16" y="100">d</text>
+    <text x="24" y="100">g</text>
+    <text x="32" y="100">e</text>
+    <text x="40" y="100">r</text>
+    <text x="56" y="100">a</text>
+    <text x="0" y="132">P</text>
+    <text x="8" y="132">r</text>
+    <text x="16" y="132">i</text>
+    <text x="24" y="132">c</text>
+    <text x="32" y="132">i</text>
+    <text x="40" y="132">n</text>
+    <text x="48" y="132">g</text>
+    <text x="64" y="132">b</text>
+    <text x="0" y="164">I</text>
+    <text x="8" y="164">n</text>
+    <text x="16" y="164">v</text>
+    <text x="24" y="164">e</text>
+    <text x="32" y="164">n</text>
+    <text x="40" y="164">t</text>
+    <text x="48" y="164">o</text>
+    <text x="56" y="164">r</text>
+    <text x="64" y="164">y</text>
+    <text x="80" y="164">b</text>
+    <text x="0" y="196">L</text>
+    <text x="8" y="196">e</text>
+    <text x="16" y="196">d</text>
+    <text x="24" y="196">g</text>
+    <text x="32" y="196">e</text>
+    <text x="40" y="196">r</text>
+    <text x="56" y="196">b</text>
+    <text x="0" y="228">P</text>
+    <text x="8" y="228">r</text>
+    <text x="16" y="228">i</text>
+    <text x="24" y="228">c</text>
+    <text x="32" y="228">i</text>
+    <text x="40" y="228">n</text>
+    <text x="48" y="228">g</text>
+    <text x="64" y="228">c</text>
+    <text x="0" y="260">I</text>
+    <text x="8" y="260">n</text>
+    <text x="16" y="260">v</text>
+    <text x="24" y="260">e</text>
+    <text x="32" y="260">n</text>
+    <text x="40" y="260">t</text>
+    <text x="48" y="260">o</text>
+    <text x="56" y="260">r</text>
+    <text x="64" y="260">y</text>
+    <text x="80" y="260">c</text>
+    <text x="0" y="292">L</text>
+    <text x="8" y="292">e</text>
+    <text x="16" y="292">d</text>
+    <text x="24" y="292">g</text>
+    <text x="32" y="292">e</text>
+    <text x="40" y="292">r</text>
+    <text x="56" y="292">c</text>
+    <text x="0" y="324">P</text>
+    <text x="8" y="324">r</text>
+    <text x="16" y="324">i</text>
+    <text x="24" y="324">c</text>
+    <text x="32" y="324">i</text>
+    <text x="40" y="324">n</text>
+    <text x="48" y="324">g</text>
+    <text x="64" y="324">d</text>
+    <text x="0" y="356">I</text>
+    <text x="8" y="356">n</text>
+    <text x="16" y="356">v</text>
+    <text x="24" y="356">e</text>
+    <text x="32" y="356">n</text>
+    <text x="40" y="356">t</text>
+    <text x="48" y="356">o</text>
+    <text x="56" y="356">r</text>
+    <text x="64" y="356">y</text>
+    <text x="80" y="356">d</text>
+    <text x="0" y="388">L</text>
+    <text x="8" y="388">e</text>
+    <text x="16" y="388">d</text>
+    <text x="24" y="388">g</text>
+    <text x="32" y="388">e</text>
+    <text x="40" y="388">r</text>
+    <text x="56" y="388">d</text>
+</g>
+</g>
+</svg>

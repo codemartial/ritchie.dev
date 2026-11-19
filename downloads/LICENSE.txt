@@ -1,0 +1,124 @@
+Ritchie Evaluation Licence, version 1.0
+
+Copyright 2026 Tahir Hashmi. All rights reserved.
+
+This licence covers the Ritchie compiler binaries and the files distributed
+with them (the "Software"). By installing or using the Software you accept
+this licence. If you do not accept it, do not install or use the Software.
+
+1. Grant
+
+Tahir Hashmi (the "Licensor") grants you a personal, non-exclusive,
+non-transferable, non-sublicensable, revocable, royalty-free licence to
+install and use the Software for the sole purpose of evaluating the Ritchie
+language: learning it, trying it out, and judging whether it suits your
+needs. You may make only the copies of the Software that this use needs.
+
+2. Programs you build
+
+Programs, generated source code and executables that the Software produces
+("Output") may be used only for the evaluation described in section 1. You
+may not deploy Output to production, use it to process real customer or
+business data, distribute it, sell it, or offer it to others as a hosted
+service. Ritchie source code that you write yourself remains yours.
+
+3. Restrictions
+
+You may not, and may not allow anyone else to:
+
+  a. use the Software or Output for any commercial or production purpose;
+  b. copy, distribute, sell, lease, lend, publish or otherwise make the
+     Software available to anyone else, including by offering it as a
+     hosted or online service;
+  c. modify, adapt, translate or create derivative works of the Software;
+  d. reverse engineer, decompile or disassemble the Software, except to the
+     extent that applicable law expressly permits it despite this
+     limitation;
+  e. use the Software, or knowledge gained from its internals, to build a
+     compiler, interpreter, runtime or other implementation of the Ritchie
+     language, or a product that competes with Ritchie;
+  f. remove or alter any notice of ownership or licence in the Software.
+
+4. Ownership
+
+The Software is licensed, not sold. The Licensor keeps all right, title and
+interest in the Software, including all intellectual property rights. All
+rights not expressly granted in this licence are reserved.
+
+5. Feedback
+
+If you send the Licensor suggestions, bug reports or other feedback, the
+Licensor may use them for any purpose without obligation to you.
+
+6. Term and termination
+
+This licence lasts until it is terminated. It terminates automatically if
+you breach any of its terms, and the Licensor may terminate it at any time
+by notice, including by publishing a replacement licence for a newer
+release. On termination you must stop using the Software and Output and
+delete every copy of the Software. Sections 4, 5, 7, 8 and 9 survive
+termination.
+
+7. No warranty
+
+The Software is provided "as is", without warranty of any kind, express or
+implied, including the implied warranties of merchantability, fitness for a
+particular purpose and non-infringement. The Software is pre-release and may
+contain defects, change incompatibly, or stop working.
+
+8. Limitation of liability
+
+To the maximum extent permitted by law, the Licensor is not liable for any
+direct, indirect, incidental, special, consequential or exemplary damages,
+or for any loss of data, profit or business, arising out of or in
+connection with the Software, Output or this licence, however caused and on
+any theory of liability, even if advised of the possibility of such damage.
+
+9. Third-party components
+
+The Software contains third-party components, whose notices are reproduced
+in the appendix below. They are licensed to you under their own terms, and
+nothing in this licence limits your rights under those terms.
+
+10. Other licences
+
+If the Licensor has given you the Ritchie source code or the Software under
+a separate written licence, that licence governs your use of that copy
+instead of this one.
+
+Questions about this licence or about other uses of Ritchie:
+queries@ritchie.dev
+
+
+Appendix: third-party notices
+
+The Software contains the Go standard library and runtime, which are
+licensed as follows:
+
+Copyright 2009 The Go Authors.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google LLC nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ritchie Playground Is Live — Ritchie News</title>
   <meta name="description" content="The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.">
   <meta name="author" content="Tahir Hashmi">
@@ -22,16 +24,66 @@
   <meta name="twitter:description" content="The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "News",
+        "item": "https://ritchie.dev/news/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Ritchie Playground Is Live",
+        "item": "https://ritchie.dev/news/playground-is-live/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://ritchie.dev/news/playground-is-live/#article",
+    "url": "https://ritchie.dev/news/playground-is-live/",
+    "mainEntityOfPage": "https://ritchie.dev/news/playground-is-live/",
+    "headline": "Ritchie Playground Is Live",
+    "description": "The Ritchie Playground is live, with an early look at the language architecture, syntax and implicit error handling.",
+    "image": "https://ritchie.dev/assets/social-card.png",
+    "datePublished": "2026-09-09",
+    "dateModified": "2026-09-09",
+    "author": {
+      "@type": "Person",
+      "name": "Tahir Hashmi"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://tahirhashmi.com/#person",
+      "url": "https://tahirhashmi.com/",
+      "name": "Tahir Hashmi"
+    },
+    "isPartOf": { "@id": "https://ritchie.dev/#website" },
+    "inLanguage": "en-GB"
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -41,11 +93,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -95,9 +147,10 @@
 <p>A <code>Typename</code> is capitalised. <code>CONSTANT</code> is ALL_CAPS. A <code>function()</code> starts with lowercase but has parentheses. A variable (we call it binding) is lowercase without parentheses. Methods are <code>Typename.function(...)</code>. Function result types are denoted by <code>-&gt;</code>. Oh, and we have errors that look like <code>This!</code>. Yes, with a bang at the end because… error!</p>
 <h3 id="error-handling">Error Handling</h3>
 <p>Speaking of errors, Ritchie has implicit error handling, which is literally Go’s <code>if err != nil { return err }</code> stuck <em>everywhere</em> an error can materialise. Of course, we do a bit more than just return the error. The default handling is “bubbling” the error up, which captures local context and attaches it to the prior context before passing it back to the caller. There’s also some control-flow acrobatics that the compiler does in order to make error handling behaviour intuitive but powerful. Here’s an example you can try in the playground:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span>DebitFailed! {</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>checkout.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="checkout.ri"><span class="giallo-l"><span>DebitFailed! {</span></span>
 <span class="giallo-l"><span style="color: #C18401;">  Int</span><span> balance</span></span>
 <span class="giallo-l"><span style="color: #C18401;">  Int</span><span> attempted</span></span>
 <span class="giallo-l"><span>}</span></span>
@@ -129,14 +182,17 @@
 <span class="giallo-l"><span style="color: #C18401;">  Wallet</span><span> w =</span><span style="color: #C18401;"> Wallet</span><span>{</span><span style="color: #986801;">20</span><span>}</span></span>
 <span class="giallo-l"><span style="color: #C18401;">  OrderId</span><span> o_id =</span><span style="color: #4078F2;"> checkout</span><span>(w, </span><span style="color: #986801;">22</span><span>)</span></span>
 <span class="giallo-l"><span style="color: #C18401;">  Logistics</span><span>.</span><span style="color: #4078F2;">ship</span><span>(o_id)</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<p>Here <code>main()</code> calls <code>checkout()</code>, which in turn calls <code>Wallet.debit()</code>, unfortunately with a bill that’s greater than the balance in the wallet. So <code>Wallet.debit()</code> raises a <code>DebitFailed!</code>, which <em>nobody</em> remembers to check or handle. Will we end up shipping a digi-bomb with a bogus Order ID? Nope. When you run the program, you should see something like:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>terminal</span><span>run</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="plain"><span class="giallo-l"><span>DebitFailed! { balance: 20, attempted: 22 }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><p>Here <code>main()</code> calls <code>checkout()</code>, which in turn calls <code>Wallet.debit()</code>, unfortunately with a bill that’s greater than the balance in the wallet. So <code>Wallet.debit()</code> raises a <code>DebitFailed!</code>, which <em>nobody</em> remembers to check or handle. Will we end up shipping a digi-bomb with a bogus Order ID? Nope. When you run the program, you should see something like:</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>run</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="plain" data-file="terminal" data-title="run"><span class="giallo-l"><span>DebitFailed! { balance: 20, attempted: 22 }</span></span>
 <span class="giallo-l"><span>  at main</span></span>
-<span class="giallo-l"><span>  raised by Wallet.debit(amt: 22)</span></span></code></pre></div>
-<h3 id="immutable-value-semantics">Immutable Value Semantics</h3>
+<span class="giallo-l"><span>  raised by Wallet.debit(amt: 22)</span></span></code></pre>
+
+</figure><h3 id="immutable-value-semantics">Immutable Value Semantics</h3>
 <p>You can freely change any Ritchie variable any time because Ritchie values are immutable. If you didn’t blink, you’re a programming languages nerd. Otherwise, I’ll join you in being surprised by that statement. I designed Ritchie variables to be like “C without pointers”. C without pointers is all pass-by-value semantics. The interesting property of that is, if you hold a variable, you can pass it around to ordinary functions willy-nilly. Those functions can assign to it or pass it on to other functions. No matter how much they modify the variable you passed to a function, when the function returns, your variable remains <em>unchanged</em>. It is <strong>immutable</strong> by such operations. You can only assign other values to it.</p>
 <p>And so, ordinary function calls don’t require you to worry about lifetimes, <code>const</code>, <code>mut</code>, borrow, etc. etc. Methods are the exception: a value’s own methods are permitted to mutate it. That’s what <code>Wallet.debit()</code> does in the preceding example, through <code>self</code>. <code>self</code> is the <em>only</em> <strong>reference</strong> in Ritchie and it can <em>only</em> exist within a method body and <em>only</em> point to the instance on which the method is called. Assigning a new value to <code>self</code> actually modifies the receiver itself. You can’t return <code>self</code> either. The language won’t stop you from writing <code>return self</code>, but it will actually return a <em>copy</em> of the instance to the caller rather than a reference to the instance.</p>
 <h3 id="decimal-type">Decimal Type</h3>
@@ -161,7 +217,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

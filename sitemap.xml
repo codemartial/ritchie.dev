@@ -4,7 +4,17 @@
         <loc>https://ritchie.dev/</loc>
     </url>
     <url>
+        <loc>https://ritchie.dev/downloads/</loc>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/downloads/releases/</loc>
+    </url>
+    <url>
         <loc>https://ritchie.dev/news/</loc>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/</loc>
+        <lastmod>2026-11-19</lastmod>
     </url>
     <url>
         <loc>https://ritchie.dev/news/date-and-time-ritchie/</loc>
@@ -33,5 +43,9 @@
     </url>
     <url>
         <loc>https://ritchie.dev/tech/</loc>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/tech/magic-of-automatic-concurrency/</loc>
+        <lastmod>2026-11-18</lastmod>
     </url>
 </urlset>

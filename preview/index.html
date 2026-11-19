@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Distributed Hello World — Ritchie preview</title>
   <meta name="description" content="Build a distributed Hello World application and see how Ritchie makes persistence, concurrency and network boundaries part of the program.">
   <link rel="canonical" href="https://ritchie.dev/preview/">
@@ -20,16 +22,34 @@
   <meta name="twitter:description" content="Build a distributed Hello World application and see how Ritchie makes persistence, concurrency and network boundaries part of the program.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Hello World, Enterprise Grade.",
+        "item": "https://ritchie.dev/preview/"
+      }
+    ]
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -39,11 +59,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/" aria-current="page">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -80,9 +100,10 @@
 <h2 id="local">Greeting, in a Box</h2>
 </div>
 <p>How hard is it to say Hello World? It shouldn't be much trouble. Let’s try with Go.</p>
-<div class="code-window">
-<div class="code-window-bar"><span>hello.go</span><span>Go</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>hello.go</span><span>Go</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go" data-file="hello.go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #A626A4;">import</span><span style="color: #50A14F;"> &quot;fmt&quot;</span></span>
 <span class="giallo-l"></span>
@@ -92,8 +113,9 @@
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> main</span><span>() {</span></span>
 <span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<p>That was not too hard – about five lines of code to the eye.</p>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><p>That was not too hard – about five lines of code to the eye.</p>
 </section>
 <section>
 <div class="section-heading">
@@ -101,9 +123,10 @@
 <h2 id="memory">Remember a User</h2>
 </div>
 <p>How about remembering whom we've already greeted? That's not so easy but not too tough either:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>hello-memory.go</span><span>Go</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>hello-memory.go</span><span>Go</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go" data-file="hello-memory.go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #A626A4;">import</span><span style="color: #50A14F;"> &quot;fmt&quot;</span></span>
 <span class="giallo-l"></span>
@@ -120,8 +143,9 @@
 <span class="giallo-l"><span style="color: #A626A4;">func</span><span style="color: #4078F2;"> main</span><span>() {</span></span>
 <span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
 <span class="giallo-l"><span style="color: #E45649;">    fmt</span><span>.</span><span style="color: #4078F2;">Println</span><span>(</span><span style="color: #4078F2;">sayHello</span><span>(</span><span style="color: #50A14F;">&quot;World&quot;</span><span>))</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<p>That looks a bit more involved but still not too difficult to follow, even if you don't know Go. It is, however, still a single process with temporary memory.</p>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><p>That looks a bit more involved but still not too difficult to follow, even if you don't know Go. It is, however, still a single process with temporary memory.</p>
 </section>
 <section>
 <div class="section-heading">
@@ -134,9 +158,10 @@
 <li><span>02</span><div><strong>Network API.</strong> Other processes must be able to ask for a greeting.</div></li>
 <li><span>03</span><div><strong>Concurrent requests.</strong> Registration must remain correct while calls overlap.</div></li>
 </ol>
-<div class="code-window">
-<div class="code-window-bar"><span>hello-network.go</span><span>Go</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>hello-network.go</span><span>Go</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="go" data-file="hello-network.go"><span class="giallo-l"><span style="color: #A626A4;">package</span><span style="color: #C18401;"> main</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #A626A4;">import</span><span> (</span></span>
 <span class="giallo-l"><span style="color: #50A14F;">    &quot;bufio&quot;</span></span>
@@ -219,8 +244,9 @@
 <span class="giallo-l"><span>    }</span></span>
 <span class="giallo-l"><span style="color: #E45649;">    http</span><span>.</span><span style="color: #4078F2;">HandleFunc</span><span>(</span><span style="color: #50A14F;">&quot;/hello&quot;</span><span>,</span><span style="color: #4078F2;"> hello</span><span>(</span><span style="color: #E45649;">registry</span><span>))</span></span>
 <span class="giallo-l"><span style="color: #E45649;">    log</span><span>.</span><span style="color: #4078F2;">Fatal</span><span>(</span><span style="color: #E45649;">http</span><span>.</span><span style="color: #4078F2;">ListenAndServe</span><span>(</span><span style="color: #50A14F;">&quot;:8080&quot;</span><span>,</span><span style="color: #986801;"> nil</span><span>))</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<p>You know what, don’t bother reading the code above. It’s okay. While I wrote the first two Go snippets by hand, I got an LLM to write this one and I didn’t bother reading it myself!</p>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><p>You know what, don’t bother reading the code above. It’s okay. While I wrote the first two Go snippets by hand, I got an LLM to write this one and I didn’t bother reading it myself!</p>
 </section>
 <section>
 <div class="section-heading">
@@ -242,9 +268,10 @@
 </div>
 <p>RITE — Reliable Interaction with Typed Endpoints — distils what we have collectively learned into a small model built around single ownership, bounded calls, idempotent retries and invariants that do not cross boundaries. Ritchie is the language that enforces that model.</p>
 <p>Ritchie makes durable identity and the network boundary visible in the program. The entity owns persistence and transactional state. The service publishes the operation.</p>
-<div class="code-window">
-<div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">$User</span><span> {</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="hello.ri"><span class="giallo-l"><span style="color: #C18401;">$User</span><span> {</span></span>
 <span class="giallo-l"><span style="color: #A626A4;">    unique</span><span style="color: #C18401;"> String</span><span> name</span></span>
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
@@ -260,8 +287,9 @@
 <span class="giallo-l"><span style="color: #A626A4;">            return</span><span style="color: #50A14F;"> f&quot;Hello new user {u.name()}&quot;</span></span>
 <span class="giallo-l"><span>        }</span></span>
 <span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;Hello registered user {u.name()}&quot;</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<table class="exhibit">
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><table class="exhibit">
 <thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
 <tbody>
 <tr><td><code>$User</code></td><td>Persistent state with durable identity.</td></tr>
@@ -279,19 +307,23 @@
 <h2 id="deploy">Build and deploy</h2>
 </div>
 <p>With the current Ritchie toolchain installed, check the source and compile it into an immutable, environment-neutral release:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>terminal</span><span>build</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">rcc</span><span style="color: #50A14F;"> check hello.ri</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>build</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript" data-file="terminal" data-title="build"><span class="giallo-l"><span style="color: #4078F2;">rcc</span><span style="color: #50A14F;"> check hello.ri</span></span>
 <span class="giallo-l"><span style="color: #4078F2;">rcc</span><span style="color: #50A14F;"> build</span><span style="color: #0184BC;"> \</span></span>
 <span class="giallo-l"><span style="color: #986801;">    --application</span><span style="color: #50A14F;"> ritchie.dev.hello</span><span style="color: #0184BC;"> \</span></span>
 <span class="giallo-l"><span style="color: #986801;">    --output</span><span style="color: #50A14F;"> hello.run</span><span style="color: #0184BC;"> \</span></span>
-<span class="giallo-l"><span style="color: #50A14F;">    hello.ri</span></span></code></pre></div>
-<p>Create an environment on a configured runtime site and deploy the same release:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>terminal</span><span>deploy</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> environment create hello-dev</span><span style="color: #986801;"> --site</span><span style="color: #50A14F;"> nswcloud</span></span>
-<span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> deploy</span><span style="color: #986801;"> --environment</span><span style="color: #50A14F;"> hello-dev hello.run</span></span></code></pre></div>
-<p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
+<span class="giallo-l"><span style="color: #50A14F;">    hello.ri</span></span></code></pre>
+
+</figure><p>Create an environment on a configured runtime site and deploy the same release:</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>deploy</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript" data-file="terminal" data-title="deploy"><span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> environment create hello-dev</span><span style="color: #986801;"> --site</span><span style="color: #50A14F;"> nswcloud</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">ritchie</span><span style="color: #50A14F;"> deploy</span><span style="color: #986801;"> --environment</span><span style="color: #50A14F;"> hello-dev hello.run</span></span></code></pre>
+
+</figure><p>The compiler has a program graph containing a service, an entity, a unique index, call edges and boundary signatures. This graph gets translated into a <a href="/rite/">RITE</a>-compliant deployment topology comprising workloads, persistence, routing, policy and recovery for the site environment.</p>
 </section>
 <section>
 <div class="section-heading">
@@ -305,9 +337,10 @@
 <li><span>03</span><div><strong>Stats!</strong> Let's find the most popular names.</div></li>
 </ol>
 <p>Here's the Ritchie Program for that:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">Email</span><span> =</span><span style="color: #C18401;"> String</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>hello.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="hello.ri"><span class="giallo-l"><span style="color: #C18401;">Email</span><span> =</span><span style="color: #C18401;"> String</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #C18401;">$User</span><span> { </span></span>
 <span class="giallo-l"><span style="color: #C18401;">	String</span><span> name</span></span>
@@ -352,8 +385,9 @@
 <span class="giallo-l"><span>}</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #C18401;">@Gateway</span><span>.</span><span style="color: #4078F2;">external</span><span>(endpoint: </span><span style="color: #C18401;">@Greeter</span><span>.sayHello, budget: </span><span style="color: #986801;">1500ms</span><span>)</span></span>
-<span class="giallo-l"><span style="color: #C18401;">@Gateway</span><span>.</span><span style="color: #4078F2;">external</span><span>(endpoint: </span><span style="color: #C18401;">@Greeter</span><span>.stats, budget: </span><span style="color: #986801;">1000ms</span><span>)</span></span></code></pre></div>
-<p>This program introduces a few more interesting Ritchie concepts.</p>
+<span class="giallo-l"><span style="color: #C18401;">@Gateway</span><span>.</span><span style="color: #4078F2;">external</span><span>(endpoint: </span><span style="color: #C18401;">@Greeter</span><span>.stats, budget: </span><span style="color: #986801;">1000ms</span><span>)</span></span></code></pre>
+
+</figure><p>This program introduces a few more interesting Ritchie concepts.</p>
 <table class="exhibit">
 <thead><tr><th>Source form</th><th>Meaning</th></tr></thead>
 <tbody>
@@ -375,9 +409,10 @@
 <li>Imported OCI images for the entry point, entity, service, collection, Gateway, and schema-management artifact.</li>
 </ul>
 <p>Here's a sample run (simplified presentation) of the program:</p>
-<div class="code-window">
-<div class="code-window-bar"><span>terminal</span><span>run</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> URL=&#39;https://127.0.0.1:32031/ritchie.dev.hello/v1/main/Greeter&#39;</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>terminal</span><span>run</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript" data-file="terminal" data-title="run"><span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> URL=&#39;https://127.0.0.1:32031/ritchie.dev.hello/v1/main/Greeter&#39;</span></span>
 <span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> OPTS=</span><span>(</span><span style="color: #4078F2;">-ksS</span><span style="color: #986801;"> -H</span><span style="color: #50A14F;"> &#39;Content-Type: application/json&#39;</span><span>)</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{&quot;toWhom&quot;:&quot;World&quot;,&quot;email&quot;:&quot;helloworld@ritchie.dev&quot;}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/sayHello&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
@@ -393,8 +428,9 @@
 <span class="giallo-l"><span style="color: #4078F2;">Hello</span><span style="color: #50A14F;"> new user Ada</span><span> &lt;</span><span style="color: #50A14F;">ada@example.co</span><span>m&gt;</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #4078F2;">$</span><span style="color: #50A14F;"> curl &quot;</span><span style="color: #E45649;">${OPTS</span><span style="color: #50A14F;">[</span><span>@</span><span style="color: #50A14F;">]</span><span style="color: #E45649;">}</span><span style="color: #50A14F;">&quot;</span><span style="color: #986801;"> -d</span><span style="color: #50A14F;"> &#39;{}&#39; &quot;</span><span style="color: #E45649;">$URL</span><span style="color: #50A14F;">/stats&quot;</span><span> |</span><span style="color: #4078F2;"> jq</span><span style="color: #986801;"> -r</span><span style="color: #50A14F;"> .</span></span>
-<span class="giallo-l"><span style="color: #4078F2;">World:</span><span style="color: #50A14F;"> 2, Ada:</span><span style="color: #986801;"> 1</span></span></code></pre></div>
-<p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.</p>
+<span class="giallo-l"><span style="color: #4078F2;">World:</span><span style="color: #50A14F;"> 2, Ada:</span><span style="color: #986801;"> 1</span></span></code></pre>
+
+</figure><p>This preview shows the power of Ritchie as a distributed application programming language. The reason why there is little else beyond a preview at the moment is that the developer experience is still not polished and there is a lot of "bulking up" of the language facilities, especially a standard library, that needs to be done.</p>
 <div class="hero-actions">
 <a class="button" href="/rite/">Continue to RITE</a>
 <a class="button button-secondary" href="/playground/">Try Ritchie</a>
@@ -407,7 +443,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

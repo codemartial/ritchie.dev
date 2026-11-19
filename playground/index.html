@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Try Ritchie — Browser playground</title>
   <meta name="description" content="Write and run a single-file Ritchie program in the browser playground.">
   <link rel="canonical" href="https://ritchie.dev/playground/">
@@ -20,19 +22,38 @@
   <meta name="twitter:description" content="Write and run a single-file Ritchie program in the browser playground.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Try Ritchie — Browser playground",
+        "item": "https://ritchie.dev/playground/"
+      }
+    ]
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
-  <link rel="stylesheet" href="https://ritchie.dev/assets/playground.css?h=a359d88a26cfc83d6980">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/playground.css?h=a33f2b26d5b2a1568a8f">
   <script src="https://ritchie.dev/playground/config.js?h=3b407fa53e09807850b2"></script>
-  <script src="https://ritchie.dev/playground/app.js?h=0b61d960cf59b523ca16" defer></script>
+  <script src="https://ritchie.dev/playground/examples.js?h=b2281785b747116efa9b" defer></script>
+  <script src="https://ritchie.dev/playground/app.js?h=2fa4b0ff545776ba4076" defer></script>
 </head>
 <body class="playground-page">
   <a class="skip-link" href="#content">Skip to content</a>
@@ -42,11 +63,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/">Preview</a>
         <a href="/playground/" aria-current="page">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -107,7 +128,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

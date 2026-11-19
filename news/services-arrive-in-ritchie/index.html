@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services Arrive in Ritchie — Ritchie News</title>
   <meta name="description" content="Ritchie programs can now declare and call stateless services on a local monolith target.">
   <meta name="author" content="Tahir Hashmi">
@@ -22,16 +24,66 @@
   <meta name="twitter:description" content="Ritchie programs can now declare and call stateless services on a local monolith target.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "News",
+        "item": "https://ritchie.dev/news/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Services Arrive in Ritchie",
+        "item": "https://ritchie.dev/news/services-arrive-in-ritchie/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://ritchie.dev/news/services-arrive-in-ritchie/#article",
+    "url": "https://ritchie.dev/news/services-arrive-in-ritchie/",
+    "mainEntityOfPage": "https://ritchie.dev/news/services-arrive-in-ritchie/",
+    "headline": "Services Arrive in Ritchie",
+    "description": "Ritchie programs can now declare and call stateless services on a local monolith target.",
+    "image": "https://ritchie.dev/assets/social-card.png",
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10",
+    "author": {
+      "@type": "Person",
+      "name": "Tahir Hashmi"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://tahirhashmi.com/#person",
+      "url": "https://tahirhashmi.com/",
+      "name": "Tahir Hashmi"
+    },
+    "isPartOf": { "@id": "https://ritchie.dev/#website" },
+    "inLanguage": "en-GB"
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -41,11 +93,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -76,9 +128,10 @@
       <article class="article rite-document">
 <p>Ritchie programs can now declare stateless services and call them on the local monolith target. Service methods cross a checked value boundary and return a typed result, a declared domain error, <code>Unavailable!</code> or <code>Rejected!</code>.</p>
 <p>Services give orchestration a first-class home. An ordinary function call is local implementation detail; a service call names a logical destination in the program. Source code says <code>@Pricing.quote(...)</code>, without embedding a host, port or deployment address.</p>
-<div class="code-window">
-<div class="code-window-bar"><span>pricing.ri</span><span>Ritchie</span></div>
-<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span>UnknownSku! { </span><span style="color: #C18401;">String</span><span> sku }</span></span>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>pricing.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="pricing.ri"><span class="giallo-l"><span>UnknownSku! { </span><span style="color: #C18401;">String</span><span> sku }</span></span>
 <span class="giallo-l"></span>
 <span class="giallo-l"><span style="color: #C18401;">@Pricing</span><span> { }</span></span>
 <span class="giallo-l"></span>
@@ -96,8 +149,9 @@
 <span class="giallo-l"><span>    Rejected!    =&gt;</span><span style="color: #986801;"> 0</span></span>
 <span class="giallo-l"><span>  }</span></span>
 <span class="giallo-l"><span style="color: #4078F2;">  log</span><span>(cents)</span></span>
-<span class="giallo-l"><span>}</span></span></code></pre></div>
-<h2 id="stateless-by-declaration">Stateless by Declaration</h2>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><h2 id="stateless-by-declaration">Stateless by Declaration</h2>
 <p>A service declaration has an empty body. It owns no fields and there is no service instance to retain data between calls. Its methods live at module level on the <code>@</code> type and compute from their arguments, module code, entity operations and calls to other services.</p>
 <p>This restriction keeps two responsibilities separate. Entities own domain state and protect their invariants. Services coordinate work across entities and other services. A service method may sequence several operations, but that sequence is not presented as one transaction.</p>
 <p>This is a useful constraint. A long-lived service object with mutable fields would make a method's result depend on state that is absent from its signature and tied to one runtime instance. Stateless methods make their inputs visible and let the logical service remain independent of its eventual placement.</p>
@@ -128,7 +182,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

@@ -6,7 +6,21 @@
     <description>Ritchie — distributed computing by default</description>
     <language>en-GB</language>
     <atom:link href="https://ritchie.dev/rss.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sat, 10 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Automatic Concurrency Arrives in Ritchie</title>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 +0000</pubDate>
+      <link>https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/</link>
+      <guid isPermaLink="true">https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/</guid>
+      <description>Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements</description>
+    </item>
+    <item>
+      <title>Magically Thriving with Evolving Requirements</title>
+      <pubDate>Wed, 18 Nov 2026 00:00:00 +0000</pubDate>
+      <link>https://ritchie.dev/tech/magic-of-automatic-concurrency/</link>
+      <guid isPermaLink="true">https://ritchie.dev/tech/magic-of-automatic-concurrency/</guid>
+      <description>This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.</description>
+    </item>
     <item>
       <title>Services Arrive in Ritchie</title>
       <pubDate>Sat, 10 Oct 2026 00:00:00 +0000</pubDate>

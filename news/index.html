@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ritchie News</title>
   <meta name="description" content="Release notes and updates about the Ritchie language, its playground and its tooling.">
   <link rel="canonical" href="https://ritchie.dev/news/">
@@ -20,16 +22,34 @@
   <meta name="twitter:description" content="Release notes and updates about the Ritchie language, its playground and its tooling.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "News",
+        "item": "https://ritchie.dev/news/"
+      }
+    ]
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -39,11 +59,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/" aria-current="page">News</a>
         <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -60,6 +80,11 @@
     <div class="shell rite-layout">
       <article class="article rite-document">
         <ul class="news-list">
+          <li>
+            <h2><a href="https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/">Automatic Concurrency Arrives in Ritchie</a></h2>
+            <p class="document-meta">Tahir Hashmi · 19 November 2026</p>
+            <p>Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements</p>
+          </li>
           <li>
             <h2><a href="https://ritchie.dev/news/services-arrive-in-ritchie/">Services Arrive in Ritchie</a></h2>
             <p class="document-meta">Tahir Hashmi · 10 October 2026</p>
@@ -82,7 +107,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

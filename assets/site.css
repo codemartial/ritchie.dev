@@ -212,6 +212,19 @@ code:not(pre code) {
   color: var(--ink);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip-link {
   position: fixed;
   z-index: 100;
@@ -413,6 +426,7 @@ h4 {
 .code-window {
   container-type: inline-size;
   min-width: 0;
+  margin: 0;
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
@@ -742,6 +756,11 @@ h4 {
   margin: 2.25rem auto 0.75rem;
 }
 
+.article svg.article-diagram {
+  height: auto;
+  margin: 2.25rem 0 0.75rem;
+}
+
 .rite-document svg.rite-diagram {
   display: block;
   max-width: 100%;
@@ -922,7 +941,7 @@ h4 {
   margin-top: 1.5rem;
 }
 
-.copy-prompt-actions + .document-code {
+.article .copy-prompt-actions + .code-window {
   margin-top: 1rem;
 }
 
@@ -1294,6 +1313,23 @@ h4 {
   margin: 0;
 }
 
+/* Raise superscripts without stretching the line they sit on. */
+sup,
+sub {
+  position: relative;
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
 .article .footnote-reference a {
   color: var(--rust);
   text-decoration: none;
@@ -1311,4 +1347,344 @@ h4 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   vertical-align: middle;
+}
+
+/* Print: light palette on white paper, one column, no navigation. */
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm 18mm 22mm;
+  }
+
+  /* Sizes on screen are in rem, so shrinking the root scales code, tables,
+     notes and spacing together; body text then lands at 10pt. */
+  html {
+    font-size: 8.9pt;
+  }
+
+  :root {
+    color-scheme: light;
+    --paper: #fff;
+    --paper-raised: #fff;
+    --paper-soft: #f4f1f5;
+    --ink: #1a1b2e;
+    --ink-soft: #2f3148;
+    --muted: #5a5b74;
+    --line: #cfc3d2;
+    --line-strong: #9a8aa6;
+    --rust: #9a4f5c;
+    --rust-dark: #7f4552;
+    --lavender: #5e4f86;
+    --teal: #355a8c;
+    --teal-soft: #eef2f8;
+    --code: #faf8fb;
+    --code-2: #efe9f2;
+    --code-text: #2b2a40;
+    --code-muted: #6d6879;
+    --body-wash: transparent;
+    --surface-wash: transparent;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  body {
+    min-height: 0;
+    color: var(--ink);
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  h1,
+  .page-hero h1 {
+    font-size: 24pt;
+    line-height: 1.1;
+  }
+
+  h2,
+  .article h2 {
+    margin: 2.2em 0 0.6em;
+    font-size: 16pt;
+    line-height: 1.15;
+  }
+
+  h3,
+  .article h3 {
+    margin: 1.8em 0 0.5em;
+    font-size: 12.5pt;
+  }
+
+  h4 {
+    font-size: 11pt;
+  }
+
+  .lede,
+  .rite-document > p:first-child {
+    font-size: 12pt;
+  }
+
+  .article p {
+    margin: 0 0 0.8em;
+  }
+
+  .code-window pre {
+    font-size: 8.5pt;
+    line-height: 1.45;
+  }
+
+  .skip-link,
+  .site-header,
+  .site-footer,
+  .toc,
+  .hero-actions,
+  .button {
+    display: none !important;
+  }
+
+  .shell {
+    width: auto;
+  }
+
+  .doc-layout {
+    display: block;
+    padding: 0;
+  }
+
+  .page-hero {
+    padding: 0 0 1.2rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .page-hero h1 {
+    max-width: none;
+  }
+
+  .article {
+    max-width: none;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .article a[href^="http"]::after,
+  .article a[href^="/"]::after {
+    color: var(--muted);
+    font-size: 0.8em;
+    overflow-wrap: anywhere;
+  }
+
+  .article a[href^="http"]::after {
+    content: " (" attr(href) ")";
+  }
+
+  .article a[href^="/"]::after {
+    content: " (ritchie.dev" attr(href) ")";
+  }
+
+  /* Code prints in full: no scroll box, long lines wrap. Long blocks may
+     cross a page, but the file bar stays with the first lines. */
+  .code-window,
+  .article .code-window {
+    border: 1px solid var(--line);
+    overflow: visible;
+    container-type: normal;
+  }
+
+  main {
+    min-height: 0;
+  }
+
+  /* At print size a page holds about 55 code lines, so a code window moves
+     whole rather than leaving its file bar behind; a longer one still splits.
+     Kept unconditional: Safari counts pages and prints in separate passes,
+     and a :has() test here appeared to make the two disagree and drop the
+     last pages. */
+  .code-window {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .code-window-bar {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .code-window pre {
+    max-height: none;
+    overflow: visible;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    orphans: 4;
+    widows: 4;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .code-window code {
+    min-width: 0;
+    white-space: pre-wrap;
+    orphans: 4;
+    widows: 4;
+  }
+
+  .article table,
+  .inline-svg,
+  .article blockquote,
+  .callout {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .article thead {
+    display: table-header-group;
+  }
+
+  /* GoAT diagrams switch to white strokes in dark mode; paper needs black. */
+  svg.article-diagram,
+  svg.rite-diagram {
+    color: #000 !important;
+  }
+
+  /* A diagram wider than the column makes WebKit shrink the whole printout,
+     and Safari then cuts the pages that no longer fit its earlier count. */
+  svg.article-diagram,
+  svg.rite-diagram {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Undo the dark-mode syntax colours so highlighting keeps its light palette. */
+  .giallo [style*="color: #A626A4"] {
+    color: #a626a4 !important;
+  }
+
+  .giallo [style*="color: #50A14F"] {
+    color: #50a14f !important;
+  }
+
+  .giallo [style*="color: #986801"] {
+    color: #986801 !important;
+  }
+
+  .giallo [style*="color: #4078F2"] {
+    color: #4078f2 !important;
+  }
+
+  .giallo [style*="color: #C18401"] {
+    color: #c18401 !important;
+  }
+
+  .giallo [style*="color: #E45649"] {
+    color: #e45649 !important;
+  }
+
+  .giallo [style*="color: #0184BC"] {
+    color: #0184bc !important;
+  }
+}
+
+/* Links to related pages, under the page hero's lede. */
+.section-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+}
+
+.section-links a {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.section-links a:hover,
+.section-links a[aria-current="page"] {
+  background: var(--control-hover);
+  color: var(--ink);
+}
+
+.section-links a[aria-current="page"] {
+  border-color: var(--line-strong);
+}
+
+/* The Releases page's table of binary archives. */
+.article .release-table {
+  margin: 0;
+}
+
+.article .release-table tbody th {
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: inherit;
+}
+
+.release-table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.release-table .release-sha {
+  font-size: 0.78em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .release-table thead {
+    display: none;
+  }
+
+  .release-table tr,
+  .release-table th,
+  .release-table td {
+    display: block;
+  }
+
+  .article .release-table tbody th {
+    padding-bottom: 0.25rem;
+    border-bottom: 0;
+    font-weight: 600;
+  }
+
+  .article .release-table td {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 0;
+  }
+
+  .article .release-table tr {
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .article .release-table tr:last-child {
+    border-bottom: 0;
+  }
 }

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automatic Concurrency Arrives in Ritchie — Ritchie News</title>
+  <meta name="description" content="Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements">
+  <meta name="author" content="Tahir Hashmi">
+  <link rel="canonical" href="https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Automatic Concurrency Arrives in Ritchie">
+  <meta property="og:description" content="Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements">
+  <meta property="og:url" content="https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta property="article:published_time" content="2026-11-19">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automatic Concurrency Arrives in Ritchie">
+  <meta name="twitter:description" content="Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "News",
+        "item": "https://ritchie.dev/news/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Automatic Concurrency Arrives in Ritchie",
+        "item": "https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/#article",
+    "url": "https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/",
+    "mainEntityOfPage": "https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/",
+    "headline": "Automatic Concurrency Arrives in Ritchie",
+    "description": "Announcing Ritchie's most complex feature to date, along with fundamental compiler improvements",
+    "image": "https://ritchie.dev/assets/social-card.png",
+    "datePublished": "2026-11-19",
+    "dateModified": "2026-11-19",
+    "author": {
+      "@type": "Person",
+      "name": "Tahir Hashmi"
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://tahirhashmi.com/#person",
+      "url": "https://tahirhashmi.com/",
+      "name": "Tahir Hashmi"
+    },
+    "isPartOf": { "@id": "https://ritchie.dev/#website" },
+    "inLanguage": "en-GB"
+  }
+  </script>
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">News</p>
+        <h1>Automatic Concurrency Arrives in Ritchie</h1>
+        <p class="lede">Ritchie figures out when to overlap network calls to save time.</p>
+        <p class="document-meta">Tahir Hashmi · 19 November 2026</p>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol>
+          <li><a href="#what-s-new"><span class="toc-index" aria-hidden="true">01.</span><span>What&#39;s New</span></a></li>
+          <li><a href="#automatic-concurrency"><span class="toc-index" aria-hidden="true">02.</span><span>Automatic Concurrency</span></a></li>
+          <li><a href="#under-the-hood"><span class="toc-index" aria-hidden="true">03.</span><span>Under the Hood</span></a></li>
+          <li><a href="#the-road-ahead"><span class="toc-index" aria-hidden="true">04.</span><span>The Road Ahead</span></a></li>
+        </ol>
+
+      </aside>
+
+      <article class="article rite-document">
+<p>It's been six weeks of gruelling R&amp;D here at ritchie.dev. The headline feature that got delivered is <strong>Automatic Concurrency</strong>, but under the hood, it required so much work that we ended up rewriting the compiler from scratch — for the fourth time!</p>
+<p>Let's take a look at what it took to get here.</p>
+<h2 id="what-s-new">What's New</h2>
+<ol>
+<li><strong>Automatic Concurrency!</strong> Ritchie compiler figures out which operations can be executed concurrently to save wall time over blocked I/O. You get this benefit without having to write explicit forks, async/await, promises, futures, etc.</li>
+<li><a href="/rite">RITE</a> was thoroughly revised and rigorously checked. It is now in a shape where it can be used as an abstract machine and architecture that we can build against and match or exceed, but not fall short of.</li>
+<li>The error handling model was revised to decouple it from concurrency. Previously concurrency was enabled only inside a handled block. Now Automatic Concurrency is always on, independent of error handling syntax.</li>
+</ol>
+<h2 id="automatic-concurrency">Automatic Concurrency</h2>
+<p>When you write something like:</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>sequential.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="sequential.ri"><span class="giallo-l"><span style="color: #C18401;">Int</span><span> a =</span><span style="color: #C18401;"> @Remote</span><span>.</span><span style="color: #4078F2;">getA</span><span>() </span><span style="color: #A0A1A7;font-style: italic;">// 300ms latency</span></span>
+<span class="giallo-l"><span style="color: #C18401;">Int</span><span> c = a *</span><span style="color: #986801;"> 2</span></span>
+<span class="giallo-l"><span style="color: #C18401;">Int</span><span> b =</span><span style="color: #C18401;"> @Remote</span><span>.</span><span style="color: #4078F2;">getB</span><span>() </span><span style="color: #A0A1A7;font-style: italic;">// 200ms latency</span></span>
+<span class="giallo-l"><span style="color: #C18401;">Int</span><span> d = b + c          </span><span style="color: #A0A1A7;font-style: italic;">// 500ms sequential</span></span></code></pre>
+
+</figure>
+<p>each statement is executed one after the other in the order in which they were written. That means the final statement has to wait for the earlier ones to return before it can execute and it ends up waiting for the sum of the latencies of each call.</p>
+<p>Ritchie is able to recognise remote calls, work out the data dependencies between them and dispatch the calls concurrently whenever it can. Thus, the first and third statements of the above snippet run concurrently and the last line can execute as soon as the slowest call returns, i.e. after 300ms.</p>
+<p>This works without any additional keywords or manual bookkeeping. What's even more interesting is that Ritchie also keeps track of error handling and externally observable effects when deciding how to schedule calls. E.g. naive concurrent scheduling of the following snippet can leak confidential data:</p>
+<figure class="code-window">
+<figcaption class="code-window-bar"><span>naive.ri</span><span>Ritchie</span></figcaption>
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie" data-file="naive.ri"><span class="giallo-l"><span style="color: #C18401;">@Auth</span><span>.</span><span style="color: #4078F2;">check</span><span>(token)     </span><span style="color: #A0A1A7;font-style: italic;">// can raise an error</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">print</span><span>(</span><span style="color: #50A14F;">&quot;confidential&quot;</span><span>)  </span><span style="color: #A0A1A7;font-style: italic;">// only if auth check succeeded</span></span></code></pre>
+
+</figure>
+<p>The above snippet assumes that <code>@Auth.check()</code> raises an error if authentication fails and Ritchie's implicit error handling means that the second line must not run in case of auth check failure because the auth check error will be returned to the caller. In this scenario, Ritchie is able to work out that it must wait for the response of the auth check, ensure that it succeeded and only then proceed with printing confidential data.</p>
+<p>Fun fact: this was <em>exactly</em> the snippet that broke in the first implementation of Automatic Concurrency and triggered the whole compiler rewrite!</p>
+<p>For a more detailed walkthrough of Automatic Concurrency and our error handling model, read <a href="/tech/magic-of-automatic-concurrency/">Magically Thriving with Evolving Requirements</a>.</p>
+<h2 id="under-the-hood">Under the Hood</h2>
+<p>The compiler rewrite was undertaken with great deliberation after we started seeing a whack-a-mole pattern of errors, which pointed to a weakness in design. We were not convinced that we could build something as complicated as Automatic Concurrency on a weak base. So here's how the design was strengthened.</p>
+<p>Ritchie now has an intermediate representation (IR) that we call <em>ritchie-min</em> or <em>kernel</em>, interchangeably. Many Ritchie features were already implicitly specified as rewrites into a subset language (how <code>a += b</code> is exactly <code>a = a + b</code>, to take the simplest example). However, this subset language was only "in the head" and the implementation often short-circuited it.</p>
+<p>Coming up with a formal specification of the kernel language allowed us to:</p>
+<ul>
+<li>more rigorously specify high level features in terms of lower level behaviour</li>
+<li>verifiably prove that those features were indeed implemented as lowering rewrites</li>
+<li>design the runtime model in terms of the kernel language semantics and prove correctness over a smaller subset</li>
+</ul>
+<p>This, crucially, allows us to switch from Go to another backend language for code generation at some point. Perhaps the biggest reason for doing this would be the memory model mismatch between Ritchie and Go. However, the speed of development with the Go compiler, its extensive standard library and its concurrency and networking capabilities put that rewrite quite far into the future.</p>
+<p>Working through these changes also led us to start running "evals" for Ritchie coding with agents. While it's too early to officially publish benchmark numbers, we can reveal that:</p>
+<ul>
+<li>we have over four thousand Ritchie programs generated and saved on disk and multiples of that being written and thrown away during design and development.</li>
+<li>Ritchie code generation in terms of token usage is already competitive with mainstream languages.</li>
+</ul>
+<h2 id="the-road-ahead">The Road Ahead</h2>
+<p>Automatic Concurrency is the first of many whole-program automations that are in scope for Ritchie and its runtime. With the new architecture in place, we can aim for greater automation in resilience, resource management and runtime optimisation.</p>
+<p>The best way to see where it's headed is to try it: head over to the <a href="/playground">Playground</a>, throw your trickiest sequence of remote calls at it, and see what Ritchie does with them.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>

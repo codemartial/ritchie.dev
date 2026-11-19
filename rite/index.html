@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RITE — Reliable Interaction with Typed Endpoints</title>
   <meta name="description" content="RITE is Ritchie’s architectural style and abstract execution model for reliable distributed applications.">
   <meta name="author" content="Tahir Hashmi">
@@ -22,16 +24,40 @@
   <meta name="twitter:description" content="Reliable Interaction with Typed Endpoints is Ritchie’s architectural style and execution model for distributed applications.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f3edf5">
   <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tech",
+        "item": "https://ritchie.dev/tech/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "RITE",
+        "item": "https://ritchie.dev/rite/"
+      }
+    ]
+  }
+  </script>
   <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=a4e291858e8a4d5166cc">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -41,11 +67,11 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/">About</a>
         <a href="/preview/">Preview</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/" aria-current="page">Tech</a>
+        <a href="/downloads/">Downloads</a>
       </nav>
     </div>
   </header>
@@ -137,10 +163,10 @@ developers and infrastructure operators.</p>
 <h3 id="1-2-definitions">1.2 Definitions</h3>
 <p>As indicated by the title, this model is built on three concepts,
 defined next.</p>
-<p><strong>Reliable.</strong> Every operation has a classifiable outcome: it completed,
-it did not complete, or its result is unknown. There are no silent
-failures and no ambiguous states beyond the three classes defined in
-§4.1.</p>
+<p><strong>Reliable.</strong> Every interaction has a classifiable outcome: it completed,
+it did not complete, or its result is unknown. No interaction fails
+silently, and no interaction ends in a state beyond the three classes
+defined in §4.1.</p>
 <p><strong>Interaction.</strong> Communication between units uses a small set of defined
 modes with known consistency and failure semantics. Protocols and
 consistency follow from the chosen interaction mode, rather than being
@@ -383,8 +409,11 @@ Envelopes with others within the deadline budget.</p>
 <p><strong>Entity invocations.</strong> During a partition, the runtime must not allow
 two sides to claim ownership of the same instance. If ownership cannot
 be unambiguously determined, the instance is unavailable on both sides
-until the partition heals. An Invocation against an unreachable Entity
-returns <code>ERR_REQUEST</code>. State at the destination remains unchanged. In
+until the partition heals. An Invocation that the runtime does not
+dispatch because the Entity is unavailable returns <code>ERR_REQUEST</code>, and
+state at the destination remains unchanged. An Invocation that may have
+reached the Entity before it became unavailable is classified under
+§4.1. In
 CAP terms, Entity calls are CP: consistency is preserved at the cost
 of availability under partition.</p>
 </li>
@@ -607,27 +636,25 @@ fails, the recovery of incomplete operations after a Service crash,
 and the choice between durable or ephemeral progress tracking are all
 application design concerns.</p>
 <h3 id="5-7-expiry">5.7 Expiry</h3>
-<p>When <code>now &gt;= deadline</code> during an invocation, the invocation has expired.
-The outcome classification follows the rule of §4.1:</p>
+<p>An invocation's deadline is the end of its allowance on the
+destination's clock. The caller takes the outcome from a response that
+arrives in time, and otherwise from its own evidence under §4.1:</p>
 <ul>
 <li>
-<p><strong>Entity invocation expiry.</strong> Entity invocations make no outgoing
-calls. Their effects (if any) are confined to a single atomic commit
-on the participant set. If no commit occurred before expiry, the
-caller receives <code>ERR_REQUEST</code> – no state changed. If a commit occurred
-but the response could not be delivered in time, the caller receives
-<code>ERR_RESPONSE</code>.</p>
+<p><strong>Entity invocation.</strong> Invocations on Entity methods make no outgoing
+calls, and their effects are confined to a single atomic commit on
+the participant set. An entity method invocation does not issue its
+commit after its deadline. The caller receives <code>ERR_REQUEST</code> when it
+has evidence under §4.1 that no commit was issued, such as a response
+reporting that the deadline passed before the commit, and
+<code>ERR_RESPONSE</code> when no response arrives in time.</p>
 </li>
 <li>
-<p><strong>Service invocation expiry before any outgoing call.</strong> No downstream
-state could have changed. The Service returns <code>ERR_REQUEST</code> to its
-caller.</p>
-</li>
-<li>
-<p><strong>Service invocation expiry after issuing outgoing calls.</strong> Downstream
-Entity invocations may have committed. The Service cannot know whether
-calls in flight completed. The Service returns <code>ERR_RESPONSE</code> to its
-caller.</p>
+<p><strong>Service invocation.</strong> A Service settles each of its outgoing calls
+at its own deadline, and the Service forms its response from those outcomes. If
+the caller receives no response in time, it classifies from what it sent:
+<code>ERR_REQUEST</code> if the Service cannot mutate, <code>ERR_RESPONSE</code>
+otherwise.</p>
 </li>
 </ul>
 <h2 id="6-activation-mode">6 Activation Mode</h2>
@@ -804,9 +831,9 @@ duplicate a payment or an inventory decrement, and manual intervention
 is the only safe response.</p>
 <h3 id="7-6-c6-time-bounded-calls">7.6 C6 – Time-Bounded Calls</h3>
 <p>Every cross-Endpoint interaction must carry an explicit, finite budget
-for its synchronous part. The budget propagates and subdivides through a
-call chain, and a caller must not allocate more than what remains.
-Budget exhaustion fails the operation with a classified outcome. C4
+for its synchronous part. The budget propagates through a call chain,
+and a caller must not allocate more than what remains. Budget
+exhaustion fails the operation with a classified outcome. C4
 identifies which interactions carry budgets. C6 provides Resource
 boundedness, because no call holds caller resources indefinitely, and
 Reliability, because a slow Endpoint cannot stall the Endpoints that
@@ -933,7 +960,7 @@ Service.</p>
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

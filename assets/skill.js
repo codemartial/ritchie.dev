@@ -1,1 +1,50 @@
-(()=>{"use strict";const e=document.querySelector("#copy-skill-prompt"),t=document.querySelector("#skill-install-prompt"),n=document.querySelector("#copy-skill-prompt-status");if(!e||!t||!n)return;const o=t=>{const n=document.createElement("textarea");n.value=t,n.setAttribute("readonly",""),n.style.position="fixed",n.style.opacity="0",document.body.append(n),n.select(),n.setSelectionRange(0,n.value.length);const o=document.execCommand("copy");return n.remove(),o};e.addEventListener("click",async()=>{e.disabled=!0,n.textContent="";try{let r=!1;if(navigator.clipboard?.writeText)try{await navigator.clipboard.writeText(t.textContent),r=!0}catch{}if(r||(r=o(t.textContent)),!r)throw new Error("Copy unavailable");e.textContent="Copied",n.textContent="The prompt is ready to paste as plain text."}catch{e.textContent="Copy prompt",n.textContent="Couldn’t copy automatically. Select and copy the prompt below."}finally{e.disabled=!1}})})();
+// The Skill page's "Copy prompt" button: it sits in .copy-prompt-actions,
+// and the prompt is the code block right after it.
+(() => {
+  "use strict";
+
+  const actions = document.querySelector(".copy-prompt-actions");
+  const button = actions?.querySelector("button");
+  const status = actions?.querySelector(".copy-prompt-status");
+  const prompt = actions?.nextElementSibling?.querySelector("code");
+  if (!button || !status || !prompt) return;
+
+  // For browsers without the async clipboard, or that refuse it here.
+  const copyBySelection = (text) => {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    area.setSelectionRange(0, area.value.length);
+    const copied = document.execCommand("copy");
+    area.remove();
+    return copied;
+  };
+
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    status.textContent = "";
+    const text = prompt.textContent;
+    try {
+      let copied = false;
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } catch {}
+      }
+      if (!copied) copied = copyBySelection(text);
+      if (!copied) throw new Error("Copy unavailable");
+      button.textContent = "Copied";
+      status.textContent = "The prompt is ready to paste as plain text.";
+    } catch {
+      button.textContent = "Copy prompt";
+      status.textContent = "Couldn’t copy automatically. Select and copy the prompt below.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ritchie Releases — Install the Compiler</title>
+  <meta name="description" content="Install the Ritchie compiler with one command, or download a pre-built archive for macOS, Linux or Windows.">
+  <link rel="canonical" href="https://ritchie.dev/downloads/releases/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Ritchie Releases">
+  <meta property="og:description" content="Install the Ritchie compiler with one command, or download it for macOS, Linux or Windows.">
+  <meta property="og:url" content="https://ritchie.dev/downloads/releases/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ritchie Releases">
+  <meta name="twitter:description" content="Install the Ritchie compiler with one command, or download it for macOS, Linux or Windows.">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Downloads",
+        "item": "https://ritchie.dev/downloads/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Releases",
+        "item": "https://ritchie.dev/downloads/releases/"
+      }
+    ]
+  }
+  </script>
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/tech/">Tech</a>
+        <a href="/downloads/" aria-current="page">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Downloads</p>
+        <h1>Releases</h1>
+        <p class="lede">The Ritchie compiler for macOS, Linux and Windows.</p>
+        <nav class="section-links" aria-label="Related pages">
+          <a href="/skill/">Ritchie Skill</a>
+          <a href="/downloads/releases/" aria-current="page">Ritchie Compiler</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol>
+          <li><a href="#install"><span class="toc-index" aria-hidden="true">01.</span><span>Install</span></a></li>
+          <li><a href="#requirements"><span class="toc-index" aria-hidden="true">02.</span><span>Requirements</span></a></li>
+          <li><a href="#usage"><span class="toc-index" aria-hidden="true">03.</span><span>Usage</span></a></li>
+          <li><a href="#downloads"><span class="toc-index" aria-hidden="true">04.</span><span>Downloads</span></a></li>
+          <li><a href="#licence"><span class="toc-index" aria-hidden="true">05.</span><span>Licence</span></a></li>
+        </ol>
+
+      </aside>
+
+      <article class="article">
+<h2 id="install">Install</h2>
+<p>On macOS or Linux, run:</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">curl</span><span style="color: #986801;"> -fsSL</span><span style="color: #50A14F;"> https://ritchie.dev/install.sh</span><span> |</span><span style="color: #4078F2;"> sh</span></span></code></pre>
+
+</figure>
+<p>The installer picks the archive for your machine, checks its SHA-256 checksum and puts <code>ritchie</code>, <code>rcc</code> and <code>rcrun</code> in <code>~/.local/bin</code>. To install somewhere else, set <code>RITCHIE_BIN_DIR</code>:</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">curl</span><span style="color: #986801;"> -fsSL</span><span style="color: #50A14F;"> https://ritchie.dev/install.sh</span><span> |</span><span style="color: #E45649;"> RITCHIE_BIN_DIR</span><span>=</span><span style="color: #50A14F;">/usr/local/bin</span><span style="color: #4078F2;"> sh</span></span></code></pre>
+
+</figure>
+<p>These binaries are provided for evaluation purposes only. See <a href="https://ritchie.dev/downloads/releases/#licence">Licence</a> for details.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Ritchie compiles programs to Go and builds them with your Go toolchain, so <a href="https://go.dev/dl/">Go 1.27 or newer</a> must be on your <code>PATH</code>. The installer checks for Go and tells you if it is missing or too old.</p>
+<h2 id="usage">Usage</h2>
+<p><code>ritchie compile</code> compiles Ritchie source and <code>ritchie run</code> builds and runs a program. <code>rcc</code> and <code>rcrun</code> are short names for those two commands.</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #0184BC;">echo</span><span style="color: #50A14F;"> &#39;main() { log(&quot;hello&quot;) }&#39;</span><span> |</span><span style="color: #4078F2;"> rcrun</span><span style="color: #50A14F;"> -</span></span></code></pre>
+
+</figure><h2 id="downloads">Downloads</h2>
+<p>Version <code>2026-11-19-b84cc74b</code>, released 19 November 2026.</p>
+<p>Each archive holds a single folder with <code>bin/</code> and the licence. On Windows, unzip it and add its <code>bin</code> folder to your <code>PATH</code>. <code>rcc.cmd</code> and <code>rcrun.cmd</code> work like <code>rcc</code> and <code>rcrun</code>. Windows and Intel-Mac builds have not been tested.</p>
+<div class="table-scroll">
+<table class="release-table">
+<thead><tr><th scope="col">Platform</th><th scope="col">Download</th><th scope="col">SHA-256</th></tr></thead>
+<tbody>
+<tr><th scope="row">macOS, Apple silicon</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-darwin-arm64.tar.gz" download title="ritchie-2026-11-19-b84cc74b-darwin-arm64.tar.gz">.tar.gz</a> · 3248 KB</td><td><code class="release-sha">23db178007ff44af84e02df71e85fdcc37b6e6bbb4533aaccb7d8665a9a11841</code></td></tr>
+<tr><th scope="row">macOS, Intel</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-darwin-amd64.tar.gz" download title="ritchie-2026-11-19-b84cc74b-darwin-amd64.tar.gz">.tar.gz</a> · 3559 KB</td><td><code class="release-sha">c6872f976bda9ab2e5a0be02d223ce39dad182b2705e2611d799719d177e2f5b</code></td></tr>
+<tr><th scope="row">Linux, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-linux-amd64.tar.gz" download title="ritchie-2026-11-19-b84cc74b-linux-amd64.tar.gz">.tar.gz</a> · 3524 KB</td><td><code class="release-sha">60cd1e4f47abe4ce730fd1c2532d4112837d4b9dc9a5abb6afd76bfc20342dca</code></td></tr>
+<tr><th scope="row">Linux, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-linux-arm64.tar.gz" download title="ritchie-2026-11-19-b84cc74b-linux-arm64.tar.gz">.tar.gz</a> · 3148 KB</td><td><code class="release-sha">67bd22c1857f0b63becb242a65d8d4aea5a3fa570e4b1515f68a053e233ead96</code></td></tr>
+<tr><th scope="row">Windows, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-windows-amd64.zip" download title="ritchie-2026-11-19-b84cc74b-windows-amd64.zip">.zip</a> · 3601 KB</td><td><code class="release-sha">cfa7ce4d69c8ad4b466653cdf524e5f5745e3001596dd8d525dd157bf752dfb6</code></td></tr>
+<tr><th scope="row">Windows, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-windows-arm64.zip" download title="ritchie-2026-11-19-b84cc74b-windows-arm64.zip">.zip</a> · 3189 KB</td><td><code class="release-sha">390c892167a380c45dc754d56bb242657fda0be31964053fb7a1ec8f50056353</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>All checksums in one file: <a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-b84cc74b/ritchie-2026-11-19-b84cc74b-SHA256SUMS" download><code>ritchie-2026-11-19-b84cc74b-SHA256SUMS</code></a>.</p>
+<h2 id="licence">Licence</h2>
+<p>The binaries are licensed for evaluation only under the <a href="/downloads/LICENSE.txt">Ritchie Evaluation Licence</a>. You may install and use them to learn and try Ritchie. You may not use them, or programs built with them, commercially or in production, and you may not redistribute them. Installing or using the binaries means you accept the licence. For other uses, write to <a href="mailto:queries@ritchie.dev">queries@ritchie.dev</a>.</p>
+<p>The binaries contain the Go standard library, whose licence is reproduced in the appendix of the Ritchie Evaluation Licence.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>
