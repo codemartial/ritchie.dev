@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ritchie at a Glance</title>
+  <meta name="description" content="The whole Ritchie language on one page: syntax, types, errors, services, time and concurrency, with programs you can run.">
+  <link rel="canonical" href="https://ritchie.dev/tech/ritchie-at-a-glance/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ritchie">
+  <meta property="og:title" content="Ritchie at a Glance">
+  <meta property="og:description" content="The whole Ritchie language on one page, with programs you can run.">
+  <meta property="og:url" content="https://ritchie.dev/tech/ritchie-at-a-glance/">
+  <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:secure_url" content="https://ritchie.dev/assets/social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ritchie at a Glance">
+  <meta name="twitter:description" content="The whole Ritchie language on one page, with programs you can run.">
+  <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3edf5">
+  <meta name="theme-color" content="#1f2430" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://ritchie.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tech",
+        "item": "https://ritchie.dev/tech/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Ritchie at a Glance",
+        "item": "https://ritchie.dev/tech/ritchie-at-a-glance/"
+      }
+    ]
+  }
+  </script>
+  <link rel="alternate" type="application/rss+xml" title="Ritchie" href="/rss.xml">
+  <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=ea18d36fcdd718b93973">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Ritchie home">
+        <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/preview/">Preview</a>
+        <a href="/playground/">Playground</a>
+        <a href="/news/">News</a>
+        <a href="/tech/">Tech</a>
+        <a href="/downloads/">Downloads</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <header class="page-hero">
+      <div class="shell">
+        <p class="eyebrow">Language</p>
+        <h1>Ritchie at a Glance</h1>
+        <p class="lede">The whole language on one page, with programs you can run.</p>
+      </div>
+    </header>
+
+    <div class="shell doc-layout">
+      <aside class="toc" aria-label="On this page">
+        <strong>On this page</strong>
+
+        <ol>
+          <li><a href="#program-basics"><span class="toc-index" aria-hidden="true">01.</span><span>Program basics</span></a></li>
+          <li><a href="#variables-and-functions"><span class="toc-index" aria-hidden="true">02.</span><span>Variables and functions</span></a></li>
+          <li><a href="#numbers"><span class="toc-index" aria-hidden="true">03.</span><span>Numbers</span></a></li>
+          <li><a href="#conditions-match-and-loops"><span class="toc-index" aria-hidden="true">04.</span><span>Conditions, match, and loops</span></a></li>
+          <li><a href="#structs-methods-and-enums"><span class="toc-index" aria-hidden="true">05.</span><span>Structs, methods, and enums</span></a></li>
+          <li><a href="#arrays"><span class="toc-index" aria-hidden="true">06.</span><span>Arrays</span></a></li>
+          <li><a href="#strings"><span class="toc-index" aria-hidden="true">07.</span><span>Strings</span></a></li>
+          <li><a href="#dictionaries-and-nullable-values"><span class="toc-index" aria-hidden="true">08.</span><span>Dictionaries and nullable values</span></a></li>
+          <li><a href="#errors"><span class="toc-index" aria-hidden="true">09.</span><span>Errors</span></a></li>
+          <li><a href="#type-aliases"><span class="toc-index" aria-hidden="true">10.</span><span>Type aliases</span></a></li>
+          <li><a href="#services"><span class="toc-index" aria-hidden="true">11.</span><span>Services</span></a></li>
+          <li><a href="#clock-durations-and-random-numbers"><span class="toc-index" aria-hidden="true">12.</span><span>Clock, durations, and random numbers</span></a></li>
+          <li><a href="#remote-failures-and-the-time-budget"><span class="toc-index" aria-hidden="true">13.</span><span>Remote failures and the time budget</span></a></li>
+          <li><a href="#futures"><span class="toc-index" aria-hidden="true">14.</span><span>Futures</span></a></li>
+          <li><a href="#projects-and-modules"><span class="toc-index" aria-hidden="true">15.</span><span>Projects and modules</span></a></li>
+          <li><a href="#known-defects"><span class="toc-index" aria-hidden="true">16.</span><span>Known defects</span></a></li>
+        </ol>
+
+      </aside>
+
+      <article class="article glance-document">
+<p>This page describes Ritchie as the current compiler implements it, one topic per section. It is the language capsule of the <a href="/skill/">Ritchie Skill</a>, the description coding agents learn Ritchie from, so it is compact: every sentence is a rule you can rely on, and a rule the compiler enforces names the diagnostic it reports, such as <code>syntax.unexpected-token</code>.</p>
+<p>Every example is a complete program. To run one, <a href="/downloads/releases/">install the compiler</a>, save the example as <code>example.ri</code> and run <code>rcrun example.ri</code>, or paste it into the <a href="/playground/">Playground</a>.</p>
+<h2 id="program-basics">Program basics</h2>
+<ul>
+<li>Source files use the <code>.ri</code> extension, and comments are <code>//</code> and
+<code>/* ... */</code>. An executable has one <code>main()</code> with no parameters, no
+result, and no error list.</li>
+<li>Newlines end statements, and semicolons separate statements on one line.
+A statement continues onto the next line only inside parentheses, square
+brackets, or the braces of a construction, so a line break beside a
+binary operator needs enclosing parentheses.</li>
+<li>Values and functions start lowercase, one-letter ones too, so <code>Int N = 1</code>
+is rejected with <code>name.unexpected-class</code>. Types and services start
+uppercase and contain a lowercase letter, as in <code>@Db</code>, and constants are
+all uppercase with at least two characters, such as <code>MAX_N</code>.</li>
+<li>Every variable and constant is declared with its type, as in
+<code>String DIGITS = "0123"</code>, not <code>DIGITS = "0123"</code>. Module level declares
+constants of any type, such as <code>[String: Int] RANK</code>, but no variables, so
+a lowercase name there is rejected with <code>syntax.unexpected-token</code>.</li>
+<li>Boolean operators are <code>and</code>, <code>or</code>, and <code>not</code>, and <code>and</code> and <code>or</code> skip
+the right operand when the left decides, as in <code>i &lt; n and xs[i] &gt; 0</code>.
+<code>&amp;&amp;</code>, <code>||</code>, <code>!x</code>, <code>++</code>, and <code>--</code> do not exist; write <code>n += 1</code>.</li>
+<li>Precedence, tightest first: member access, call, index; unary <code>-</code>; <code>*</code> <code>/</code>
+<code>%</code>; <code>+</code> <code>-</code>; <code>??</code>; <code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code>; <code>==</code> <code>!=</code>; <code>not</code>; <code>and</code>; <code>or</code>;
+<code>c ? a : b</code>, which does not nest. A chain such as <code>a &lt; b &lt;= c</code> holds
+when each neighbouring pair holds, and one that mixes <code>&lt;</code> and <code>&gt;</code> forms
+is rejected.</li>
+<li><code>print(v)</code> writes <code>v</code> and a line break to standard output, and <code>log(v)</code> to
+standard error.</li>
+<li>A local variable that is not read is a compile error; a loop variable or
+a parameter may stay unread.</li>
+<li>Keywords cannot be names, locals included: <code>and any break case contract continue create else embed exhaustive false for handle if in is match none not or resume return self then true unique where</code>.</li>
+</ul>
+<h2 id="variables-and-functions">Variables and functions</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">Int</span><span style="color: #986801;"> LIMIT</span><span> =</span><span style="color: #986801;"> 42</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">double</span><span>(</span><span style="color: #C18401;">Int</span><span> value) -&gt;</span><span style="color: #C18401;"> Int</span><span> { </span><span style="color: #A626A4;">return</span><span> value *</span><span style="color: #986801;"> 2</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">pair</span><span>() -&gt; (</span><span style="color: #C18401;">Int</span><span>, </span><span style="color: #C18401;">Bool</span><span>) { </span><span style="color: #A626A4;">return</span><span style="color: #986801;"> 1</span><span>, </span><span style="color: #986801;">true</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">greet</span><span>(</span><span style="color: #C18401;">String</span><span> name, </span><span style="color: #C18401;">String</span><span> greeting =</span><span style="color: #50A14F;"> &quot;hello&quot;</span><span>) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #50A14F;"> f&quot;{greeting} {name}&quot;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> total =</span><span style="color: #4078F2;"> double</span><span>(</span><span style="color: #986801;">LIMIT</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> left, right =</span><span style="color: #986801;"> 1</span><span>, </span><span style="color: #986801;">2</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> n, </span><span style="color: #C18401;">Bool</span><span> ok =</span><span style="color: #4078F2;"> pair</span><span>()</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> later</span></span>
+<span class="giallo-l"><span>    later = left + right</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    String</span><span> who =</span><span style="color: #4078F2;"> greet</span><span>(name: </span><span style="color: #50A14F;">&quot;ada&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #50A14F;">f&quot;{total} {n} {ok} {later} {who}&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>A call written as a statement discards its results. A declaration binds every
+result, so <code>Int n = pair()</code> is rejected with <code>variable.arity</code>, and each of its
+variables, <code>_</code> too, must be read. A variable must be assigned on every path
+before it is read. Arguments are all positional or all named.</p>
+<p>Function types are written <code>(Int, Int) -&gt; Int</code>. A closure is written with
+<code>=&gt;</code> and captures copies of the variables it uses:</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">apply</span><span>(</span><span style="color: #C18401;">Int</span><span> x, (</span><span style="color: #C18401;">Int</span><span>) -&gt;</span><span style="color: #C18401;"> Int</span><span> f) -&gt;</span><span style="color: #C18401;"> Int</span><span> { </span><span style="color: #A626A4;">return</span><span style="color: #4078F2;"> f</span><span>(x) }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> offset =</span><span style="color: #986801;"> 10</span></span>
+<span class="giallo-l"><span>    (</span><span style="color: #C18401;">Int</span><span>) -&gt;</span><span style="color: #C18401;"> Int</span><span> add = x =&gt; x + offset</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">apply</span><span>(</span><span style="color: #986801;">1</span><span>, add))</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">apply</span><span>(</span><span style="color: #986801;">2</span><span>, x =&gt; x * x))</span></span>
+<span class="giallo-l"><span>    (</span><span style="color: #C18401;">Int</span><span>, </span><span style="color: #C18401;">Int</span><span>) -&gt;</span><span style="color: #C18401;"> Int</span><span> plus = (a, b) =&gt; a + b</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">plus</span><span>(</span><span style="color: #986801;">3</span><span>, </span><span style="color: #986801;">4</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><h2 id="numbers">Numbers</h2>
+<ul>
+<li><code>Int</code> is 64-bit. <code>Int8</code>, <code>Int16</code>, and <code>Int32</code> widen to wider integers.
+Integer <code>/</code> truncates toward zero, <code>%</code> takes the dividend's sign, and
+division by zero raises <code>DivisionByZero!</code>.</li>
+<li><code>Float</code> is binary64. <code>print</code> and an f-string slot write the shortest
+text that reads back as the same value, so <code>198.0</code> prints <code>198</code> and
+<code>0.1 + 0.2</code> prints <code>0.30000000000000004</code>, in exponent form from an
+exponent of 6 or below -4, as in <code>1.5e+07</code> and <code>1e-05</code>.</li>
+<li><code>Decimal</code> is exact decimal arithmetic that keeps the written scale. A
+literal with a fraction part, such as <code>0.00</code>, is a <code>Decimal</code> where a
+<code>Decimal</code> is required and a <code>Float</code> otherwise: after <code>Decimal a = 1.20</code>,
+<code>print(a + 3.400)</code> prints <code>4.600</code>, <code>Decimal b = 1.25 * 3.00</code> holds
+<code>3.7500</code>, and <code>print(1.20 + 3.400)</code> prints the <code>Float</code> <code>4.6</code>.</li>
+<li>Integers, Floats, and Decimals do not mix in arithmetic or comparisons,
+so convert with <code>Float.fromInt(n)</code>, <code>Decimal.fromInt(n)</code>, or
+<code>Int.fromFloat(x)</code>, which truncates toward zero.</li>
+<li>A <code>Byte</code> holds 0 to 255. <code>Byte.fromInt(n)</code> and <code>Int.fromByte(b)</code> convert,
+<code>Byte[].fromString(s)</code> gives the UTF-8 bytes of <code>s</code>, and
+<code>String.fromBytes(bs)</code> decodes them, raising <code>Malformed!</code> for invalid
+UTF-8.</li>
+</ul>
+<h2 id="conditions-match-and-loops">Conditions, match, and loops</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">grade</span><span>(</span><span style="color: #C18401;">Int</span><span> score) -&gt;</span><span style="color: #C18401;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    match</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        case</span><span> score &gt;=</span><span style="color: #986801;"> 90</span><span> =&gt; { </span><span style="color: #A626A4;">return</span><span style="color: #50A14F;"> &quot;A&quot;</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        any</span><span> =&gt; { </span><span style="color: #A626A4;">return</span><span style="color: #50A14F;"> &quot;C&quot;</span><span> }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">grade</span><span>(</span><span style="color: #986801;">85</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p><code>if c { } else if d { } else { }</code> takes no parentheses. A <code>match</code> with a
+subject compares it with each <code>case</code> value, such as a literal or a constant,
+and one without tries each <code>case</code> condition, in order. The first selected arm
+runs, in braces, and <code>any</code> is the remainder. A <code>match</code> that lists every enum
+member does not count as returning on every path, so when its arms return,
+write the last member as <code>any</code>.</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> i </span><span style="color: #A626A4;">in</span><span style="color: #4078F2;"> range</span><span>(</span><span style="color: #986801;">3</span><span>) { </span><span style="color: #4078F2;">print</span><span>(i) }             </span><span style="color: #A0A1A7;font-style: italic;">// 0, 1, 2</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> i </span><span style="color: #A626A4;">in</span><span style="color: #4078F2;"> range</span><span>(</span><span style="color: #986801;">2</span><span>, </span><span style="color: #986801;">8</span><span>, </span><span style="color: #986801;">3</span><span>) { </span><span style="color: #4078F2;">print</span><span>(i) }       </span><span style="color: #A0A1A7;font-style: italic;">// 2, 5</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> x </span><span style="color: #A626A4;">in</span><span> [</span><span style="color: #986801;">10</span><span>, </span><span style="color: #986801;">20</span><span>] { </span><span style="color: #4078F2;">print</span><span>(x) }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> k, v </span><span style="color: #A626A4;">in</span><span> [</span><span style="color: #50A14F;">&quot;a&quot;</span><span>: </span><span style="color: #986801;">1</span><span>] { </span><span style="color: #4078F2;">print</span><span>(</span><span style="color: #50A14F;">f&quot;{k}={v}&quot;</span><span>) }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> n =</span><span style="color: #986801;"> 0</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> n &lt;</span><span style="color: #986801;"> 3</span><span> { n +=</span><span style="color: #986801;"> 1</span><span> }</span></span>
+<span class="giallo-l"><span>    outer: </span><span style="color: #A626A4;">for</span><span> r </span><span style="color: #A626A4;">in</span><span style="color: #4078F2;"> range</span><span>(</span><span style="color: #986801;">3</span><span>) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        for</span><span> c </span><span style="color: #A626A4;">in</span><span style="color: #4078F2;"> range</span><span>(</span><span style="color: #986801;">3</span><span>) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">            if</span><span> r + c ==</span><span style="color: #986801;"> 3</span><span> { </span><span style="color: #A626A4;">break</span><span> outer }</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p><code>for { }</code> loops until <code>break</code>. <code>break</code> and <code>continue</code>, also in a <code>match</code>
+arm, act on the innermost loop, and <code>break name</code> or <code>continue name</code> act on
+the loop labelled <code>name:</code>.</p>
+<h2 id="structs-methods-and-enums">Structs, methods, and enums</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">Point</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> x</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> y =</span><span style="color: #986801;"> 0</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">Point</span><span>.</span><span style="color: #4078F2;">shift</span><span>(</span><span style="color: #C18401;">Int</span><span> dx) {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    self</span><span>.x += dx</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">Figure</span><span> { </span><span style="color: #986801;">CIRCLE</span><span>, </span><span style="color: #986801;">SQUARE</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Point</span><span> p =</span><span style="color: #C18401;"> Point</span><span> { x: </span><span style="color: #986801;">1</span><span> }</span></span>
+<span class="giallo-l"><span>    p.</span><span style="color: #4078F2;">shift</span><span>(</span><span style="color: #986801;">4</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(p)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Figure</span><span> s =</span><span style="color: #C18401;"> Figure</span><span>.</span><span style="color: #986801;">SQUARE</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    match</span><span> s {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        case</span><span style="color: #C18401;"> Figure</span><span>.</span><span style="color: #986801;">CIRCLE</span><span> =&gt; { </span><span style="color: #4078F2;">print</span><span>(</span><span style="color: #50A14F;">&quot;round&quot;</span><span>) }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">        case</span><span style="color: #C18401;"> Figure</span><span>.</span><span style="color: #986801;">SQUARE</span><span> =&gt; { </span><span style="color: #4078F2;">print</span><span>(</span><span style="color: #50A14F;">&quot;square&quot;</span><span>) }</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(s)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>This prints <code>Point { x: 5, y: 0 }</code> first and <code>SQUARE</code> last. A method that
+uses <code>self</code> may change its receiver when that is a variable, a field, or an
+element, so <code>counters[i].advance()</code> updates the array. A method without
+<code>self</code> is called through its type, as in <code>Point.origin()</code>. Assigning,
+passing, or returning a struct copies it. A struct contains itself only
+through a nullable field, an array, or a dictionary, such as
+<code>Node? next = none</code>.</p>
+<h2 id="arrays">Arrays</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span>[] xs = [</span><span style="color: #986801;">3</span><span>, </span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">2</span><span>]</span></span>
+<span class="giallo-l"><span>    xs =</span><span style="color: #4078F2;"> append</span><span>(xs, </span><span style="color: #986801;">4</span><span>)</span></span>
+<span class="giallo-l"><span>    xs[</span><span style="color: #986801;">0</span><span>] =</span><span style="color: #986801;"> 9</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(xs[</span><span style="color: #986801;">1</span><span>:</span><span style="color: #986801;">3</span><span>])</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">sort</span><span>(xs))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Array operations are free functions: <code>count</code>, <code>contains</code>, <code>indexOf</code> (an
+<code>Int?</code>), <code>first</code> and <code>last</code> (nullable), <code>append</code>, <code>insert(xs, i, v)</code>,
+<code>removeAt(xs, i)</code>, <code>concat</code>, <code>reverse</code>, <code>sort</code>, and <code>fill(v, n)</code>. No array
+function changes its argument, so <code>sort(xs)</code> alone does nothing: write
+<code>xs = sort(xs)</code> and <code>xs = append(xs, v)</code>. An empty literal <code>[]</code> needs a
+declared type. <code>grid[r][c] = 0</code> assigns one element of an <code>Int[][]</code>.
+<code>Int[3]</code> holds exactly 3 elements and is a type apart from <code>Int[]</code>, which
+its slice <code>k[0:3]</code> is. A module constant <code>Int[] MISS = [-1]</code> acts as an
+<code>Int[1]</code> in a handler arm, <code>append</code>, and <code>==</code>, so bind
+<code>Int[] miss = MISS</code> first. Slices <code>xs[lo:hi]</code> are half-open, and
+indexing out of range raises <code>OutOfRange!</code>. <code>map</code>, <code>filter</code>, <code>reduce</code>,
+<code>sum</code>, <code>find</code>, and <code>sortBy</code> do not exist, and <code>+</code> and <code>+=</code> do not apply to
+arrays.</p>
+<p>Bind an index or key to a variable first unless it is a variable or its
+field, a literal, or <code>+</code>, <code>-</code>, or <code>*</code> of them. Any other, such as an element
+or its field, a slice, <code>/</code>, <code>%</code>, an f-string, or a call such as
+<code>toLower(w)</code>, copies the whole array or dictionary in a read, also by <code>get</code>
+or <code>has</code>, and in an assignment target, as in <code>d[f[0]] = 1</code>, it is rejected
+with <code>assignment.fallible-operand</code>.</p>
+<p>Assigning an element or entry, also through <code>self</code>, and assigning the result
+of <code>append</code>, <code>concat</code>, <code>insert</code>, or <code>removeAt</code> to the same variable, field,
+or element change the value in place, and <code>for i in range(n)</code> builds no
+array. The second form copies the array when another argument reads the
+same variable (<code>self</code> for a field), as in <code>xs = removeAt(xs, count(xs) - 1)</code>,
+so bind that value first, and it always copies a dictionary entry, as in
+<code>d[k] = append(d[k], v)</code>, so grow lists in an <code>Int[][]</code> or through a <code>self</code>
+method, as in <code>d[k].add(v)</code>. A function copies an array or dictionary
+parameter at each call only when it assigns to it, and the caller sees the
+change only through a returned value. <code>d = remove(d, k)</code>, a slice, and
+<code>s = f"{s}..."</code> copy the whole value, so repeating them on a large value
+takes quadratic time: overwrite or mark an entry instead of removing it, and
+collect strings in an array for <code>join</code>. <code>rcc</code> builds <code>fill(v, n)</code> with a
+constant <code>n</code>, such as <code>2 * MAX_N</code>, at seconds per million elements, and
+can reject <code>Byte.fromInt(0)</code> as <code>v</code> there with <code>limit.unsupported-syntax</code>,
+so bind a large <code>n</code> and such a <code>v</code> first.</p>
+<h2 id="strings">Strings</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    String</span><span>[] names = []</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> name </span><span style="color: #A626A4;">in</span><span style="color: #4078F2;"> split</span><span>(</span><span style="color: #50A14F;">&quot;usr/local/bin&quot;</span><span>, </span><span style="color: #50A14F;">&quot;/&quot;</span><span>) {</span></span>
+<span class="giallo-l"><span>        names =</span><span style="color: #4078F2;"> append</span><span>(names, </span><span style="color: #4078F2;">replace</span><span>(name, </span><span style="color: #50A14F;">&quot;l&quot;</span><span>, </span><span style="color: #50A14F;">&quot;L&quot;</span><span>))</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">join</span><span>(</span><span style="color: #4078F2;">reverse</span><span>(names), </span><span style="color: #50A14F;">&quot; &lt; &quot;</span><span>))</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    String</span><span> word =</span><span style="color: #50A14F;"> &quot;hello&quot;</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> at, </span><span style="color: #C18401;">Bool</span><span> found =</span><span style="color: #4078F2;"> indexOf</span><span>(word, </span><span style="color: #50A14F;">&quot;l&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #50A14F;">f&quot;{at} {found} {count(word)} {word[1:3]}&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<ul>
+<li>String operations are free functions that take the string first:
+<code>count</code>, <code>isEmpty</code>, <code>contains</code>, <code>startsWith</code>, <code>endsWith</code>, <code>indexOf</code>,
+<code>toUpper</code> and <code>toLower</code>, which also convert non-ASCII letters, <code>trim</code>,
+<code>replace(s, old, new)</code>, <code>split(s, sep)</code>, and <code>join(parts, sep)</code>. <code>split</code>
+keeps empty fields: <code>split("a  b", " ")</code> is <code>["a", "", "b"]</code>, and
+<code>split("", " ")</code> is <code>[""]</code>.</li>
+<li>An f-string slot cannot contain a string literal, so <code>f"{join(xs, "/")}"</code>
+is rejected with <code>interpolation.unterminated</code>: bind <code>String sep = "/"</code>
+first. Doubled braces write a literal brace. <code>+</code> does not join strings.</li>
+<li>Positions and counts are UTF-8 bytes. <code>s[i]</code> is rejected, and a slice
+whose start or end falls inside a character raises
+<code>InvalidStringBoundary!</code>: for <code>String s = "é!"</code>, <code>count(s)</code> is 3, <code>s[0:1]</code>
+raises it, and <code>s[2:3]</code> is <code>!</code>. <code>split(s, "")</code> gives the characters,
+<code>["é", "!"]</code>, whose <code>count</code> is 2.</li>
+<li><code>&lt;</code>, <code>&gt;</code>, <code>==</code>, and <code>sort</code> order strings by their UTF-8 bytes, so
+<code>"Z" &lt; "a"</code> and <code>"é" &gt; "z"</code>.</li>
+<li>Quoted strings take escapes such as <code>\n</code>, <code>\t</code>, and <code>\"</code>, and a backtick
+string is raw and may span lines.</li>
+<li><code>Int.fromString(s)</code> accepts a sign and digits, so <code>"075"</code> gives <code>75</code>, and
+raises <code>Malformed!</code> for other text, such as <code>" 5"</code>.</li>
+</ul>
+<h2 id="dictionaries-and-nullable-values">Dictionaries and nullable values</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span>    [</span><span style="color: #C18401;">String</span><span>: </span><span style="color: #C18401;">Int</span><span>] ages = [</span><span style="color: #50A14F;">&quot;ada&quot;</span><span>: </span><span style="color: #986801;">36</span><span>]</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    String</span><span>[] f =</span><span style="color: #4078F2;"> split</span><span>(</span><span style="color: #50A14F;">&quot;lin 41&quot;</span><span>, </span><span style="color: #50A14F;">&quot; &quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    String</span><span> who = f[</span><span style="color: #986801;">0</span><span>]</span></span>
+<span class="giallo-l"><span>    ages[who] =</span><span style="color: #C18401;"> Int</span><span>.</span><span style="color: #4078F2;">fromString</span><span>(f[</span><span style="color: #986801;">1</span><span>])  </span><span style="color: #A0A1A7;font-style: italic;">// not ages[f[0]]</span></span>
+<span class="giallo-l"><span>    ages[</span><span style="color: #50A14F;">&quot;ada&quot;</span><span>] = (ages.</span><span style="color: #4078F2;">get</span><span>(</span><span style="color: #50A14F;">&quot;ada&quot;</span><span>) ??</span><span style="color: #986801;"> 0</span><span>) +</span><span style="color: #986801;"> 1</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(ages[</span><span style="color: #50A14F;">&quot;ada&quot;</span><span>])</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span>? maybe = ages.</span><span style="color: #4078F2;">get</span><span>(</span><span style="color: #50A14F;">&quot;bo&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> maybe {</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">        print</span><span>(maybe)</span></span>
+<span class="giallo-l"><span>    } </span><span style="color: #A626A4;">else</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">        print</span><span>(</span><span style="color: #50A14F;">&quot;absent&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p><code>[K: V]</code> is a dictionary and <code>[:]</code> is an empty one. <code>d[k]</code> raises
+<code>MissingKey!</code> for a missing key, <code>d.get(k)</code> returns <code>V?</code>, and <code>has</code>, <code>keys</code>,
+<code>values</code>, <code>remove</code>, and <code>count</code> are free functions. Iteration and <code>keys</code>
+have no fixed order. <code>T?</code> holds a <code>T</code> or <code>none</code>; test it with <code>if x</code> or
+<code>x != none</code> before using it as <code>T</code>. A test that leaves the function, such as
+<code>if v == none { return -1 }</code>, narrows <code>v</code> to <code>T</code> for the rest of the
+function, so a later <code>v ?? 0</code> is rejected there.</p>
+<h2 id="errors">Errors</h2>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span>Low! { </span><span style="color: #C18401;">Int</span><span> n }</span></span>
+<span class="giallo-l"><span>High! {}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">check</span><span>(</span><span style="color: #C18401;">Int</span><span> n) -&gt;</span><span style="color: #C18401;"> Int</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> n &lt;</span><span style="color: #986801;"> 0</span><span> { </span><span style="color: #A626A4;">return</span><span> Low! { n: n } }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> n &gt;</span><span style="color: #986801;"> 9</span><span> { </span><span style="color: #A626A4;">return</span><span> High! }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span> n</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> a =</span><span style="color: #4078F2;"> check</span><span>(-</span><span style="color: #986801;">2</span><span>) </span><span style="color: #A626A4;">handle</span><span> Low! e =&gt; e.n *</span><span style="color: #986801;"> 10</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> b =</span><span style="color: #4078F2;"> check</span><span>(</span><span style="color: #986801;">20</span><span>) </span><span style="color: #A626A4;">handle</span><span> {</span></span>
+<span class="giallo-l"><span>        Low! =&gt;</span><span style="color: #986801;"> 0</span></span>
+<span class="giallo-l"><span>        High! =&gt;</span><span style="color: #986801;"> 99</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #50A14F;">f&quot;{a} {b}&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> n </span><span style="color: #A626A4;">in</span><span> [</span><span style="color: #986801;">1</span><span>, -</span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">50</span><span>] {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">        Int</span><span> c =</span><span style="color: #4078F2;"> check</span><span>(n) </span><span style="color: #A626A4;">handle</span><span> {</span></span>
+<span class="giallo-l"><span>            Low! =&gt;</span><span style="color: #A626A4;"> continue</span></span>
+<span class="giallo-l"><span>            High! =&gt;</span><span style="color: #A626A4;"> break</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">        print</span><span>(c)</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #4078F2;">check</span><span>(-</span><span style="color: #986801;">5</span><span>))</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Returning an error value raises it, also from <code>main</code> or a function without a
+result, and a function's result type stays the success type. A function may
+list its errors after the result with <code>|</code>, as in <code>-&gt; Int | Low! | High!</code> or
+<code>-&gt; none | Low!</code>, and a function without a list may raise any error. A list
+names every declared error type that can leave the function, its callees'
+included, and no other (<code>contract.undeclared-error</code>,
+<code>contract.unraised-error</code>), and a function that calls a function value cannot
+have one. A function that returns nothing ends with a bare <code>return</code> or at its
+end, and <code>return none</code> is rejected.</p>
+<p>Built-in errors, such as <code>OutOfRange!</code>, <code>MissingKey!</code>, <code>Malformed!</code>,
+<code>LengthMismatch!</code>, and the remote failures, form a catalog: declaring one
+is rejected with <code>name.reserved-name</code>, no error list may name one, and
+constructing one is rejected with <code>error.catalog-construction</code> except
+under <code>rcc --debug</code>.</p>
+<p><code>handle</code> follows the whole statement it protects, not an argument or other
+part of it, on the line where that statement ends. An arm replaces the
+statement's whole value, such as the new <code>xs</code> of <code>xs = append(xs, f(n))</code>,
+or runs <code>continue</code>, <code>break</code>, or <code>return</code>, <code>return E!</code> in an arm raises
+another error, as in <code>Low! =&gt; return High!</code>, and <code>E! e</code> binds the error
+when the arm reads it. A block arm, such as
+<code>Low! e =&gt; { print(e.n); continue }</code>, supplies a replacement value by ending
+with <code>resume value</code>. A handler after a block or a loop, with <code>handle</code> on the
+line of the closing brace, protects each statement inside, so after an arm
+that completes, the block continues with its next statement, and <code>continue</code>
+and <code>break</code> in an arm of <code>for x in xs { ... } handle { ... }</code> act on that
+loop. A variable that a protected statement assigns has a value after it
+only when every arm that completes assigns it too, even when it held a
+value before.</p>
+<h2 id="type-aliases">Type aliases</h2>
+<p><code>Name = Type</code> at module level gives a type a second name. An array of a
+function type needs an alias, as in <code>Step = (Int) -&gt; Int</code> and
+<code>Step[] steps = [x =&gt; x + 1]</code>. A nullable function value such as <code>Step?</code>
+cannot be tested, compared with <code>none</code>, or called, so pass a function with
+the default behavior instead.</p>
+<h2 id="services">Services</h2>
+<p>A service is declared as <code>@Name {}</code>, and its methods have no <code>self</code>, take
+defaults and list errors like a function, and are called as
+<code>@Name.method(...)</code>. Their parameters and results are built-in types and
+arrays and dictionaries of them, so a struct or enum is passed as separate
+values.</p>
+<h2 id="clock-durations-and-random-numbers">Clock, durations, and random numbers</h2>
+<p>A <code>Duration</code> literal is an integer with a unit, <code>ns</code>, <code>us</code>, <code>ms</code>, <code>s</code>, <code>m</code>,
+<code>h</code>, or <code>d</code>, such as <code>1500ms</code>; <code>1.5s</code> is rejected.</p>
+<p><code>r::Clock.sleep(300ms)</code> suspends the caller, and
+<code>r::Clock.time()</code> returns the current <code>DateTime</code>. <code>DateTime.fromUnix(n)</code> is
+the instant <code>n</code> seconds after 1970-01-01 UTC, which prints as
+<code>2026-03-02T11:00:00Z</code>, and <code>t.withOffset(330m)</code> prints the same instant as
+<code>2026-03-02T16:30:00+05:30</code>. <code>t + d</code> adds a <code>Duration</code>, <code>t - u</code> gives one, and
+<code>n * 1s</code> makes one, which prints its nonzero parts, as in <code>1d9h30m</code> or
+<code>505ms33us</code>, and <code>0s</code> for zero. Dividing two durations gives a <code>Float</code>, so
+<code>Int.fromFloat(d / 1ms)</code> is the count of milliseconds.</p>
+<p>A <code>Date</code> is written and printed as <code>d2026-03-02</code> and a <code>Time</code> of day as
+<code>t23:30:00.5</code>, and <code>f"{d}"[1:]</code> drops the letter. A <code>Time</code> wraps at
+midnight under <code>+</code> and <code>-</code> of a <code>Duration</code>, <code>t01:00:00 - t23:30:00</code> is
+<code>-22h30m</code>, and <code>t23:30:00.until(t01:00:00)</code> is <code>1h30m</code>. A <code>Date</code> has
+<code>addDays(n)</code>, <code>addYears(n)</code>, <code>daysUntil(other)</code>, an <code>Int</code>, and
+<code>addMonths(n)</code>, which gives <code>d2026-02-28</code> for <code>d2026-01-31.addMonths(1)</code>.
+For a date's parts <code>y</code>, <code>m</code>, and <code>d</code>, the month's first day is
+<code>Date f = d0001-01-01.addYears(y - 1).addMonths(m - 1)</code>, its length
+<code>f.daysUntil(f.addMonths(1))</code> bounds a valid <code>d</code>, and the date is
+<code>f.addDays(d - 1)</code>.</p>
+<p><code>r::Random g = r::Random.seed(s)</code> makes a generator whose draws are the
+same for the same <code>Byte[32] s</code>, and <code>r::Random.new()</code> makes an unseeded one.
+<code>g.range(lo, hi)</code> draws an <code>Int</code> in <code>[lo, hi)</code>,
+<code>g.ratio()</code> a <code>Float</code> in <code>[0, 1)</code>, and <code>g.bits()</code> a 64-bit <code>BitSet</code>, which
+prints as <code>0x</code> and 16 lowercase hexadecimal digits and can key a
+dictionary. A literal such as <code>0</code> is a <code>BitSet</code> where one is required.
+Assigning or passing a generator copies it, so a helper that draws returns
+it, as in <code>-&gt; (Int, r::Random)</code>, or draws through a struct field as
+<code>self.g</code>. After <code>Byte zero = Byte.fromInt(0)</code>,
+<code>Byte[32] s = fill(zero, 32)</code> makes a seed.</p>
+<h2 id="remote-failures-and-the-time-budget">Remote failures and the time budget</h2>
+<p>The runtime can fail a service call with a catalog error:
+<code>Unavailable!</code>, <code>Rejected!</code>, <code>Conflict!</code>, <code>Unmodified!</code>, and <code>Cancelled!</code> mean
+the call changed nothing, and <code>Unverified!</code> means a write may or may not have
+happened. This example constructs <code>Unavailable!</code> itself to stand in for a
+failing service, so it runs only as <code>rcrun --debug</code>.</p>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span style="color: #C18401;">@Weather</span><span> {}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Weather</span><span>.</span><span style="color: #4078F2;">reading</span><span>(</span><span style="color: #C18401;">String</span><span> station, </span><span style="color: #C18401;">Duration</span><span> d) -&gt;</span><span style="color: #C18401;"> Int</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> station ==</span><span style="color: #50A14F;"> &quot;north&quot;</span><span> { </span><span style="color: #A626A4;">return</span><span> Unavailable! }</span></span>
+<span class="giallo-l"><span>    r::</span><span style="color: #C18401;">Clock</span><span>.</span><span style="color: #4078F2;">sleep</span><span>(d)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span style="color: #986801;"> 3</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> a =</span><span style="color: #C18401;"> @Weather</span><span>.</span><span style="color: #4078F2;">reading</span><span>(</span><span style="color: #50A14F;">&quot;north&quot;</span><span>, </span><span style="color: #986801;">0ms</span><span>) </span><span style="color: #A626A4;">handle</span><span> Unavailable! =&gt; -</span><span style="color: #986801;">1</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> c =</span><span style="color: #C18401;"> @Weather</span><span>.</span><span style="color: #4078F2;">reading</span><span>(</span><span style="color: #50A14F;">&quot;west&quot;</span><span>, </span><span style="color: #986801;">2500ms</span><span>) </span><span style="color: #A626A4;">handle</span><span> Cancelled! =&gt; -</span><span style="color: #986801;">2</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(</span><span style="color: #50A14F;">f&quot;{a} {c}&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure>
+<p>Every program runs under a time budget, 2000 ms by default, which limits
+its service calls; other code, such as an <code>r::Clock.sleep</code> in <code>main</code>,
+continues past it. <code>RITCHIE_ENTRY_BUDGET_MS</code> sets it for a run, and the
+program text cannot set or read it. A service call starts only within the
+first 70 percent of the budget, and a later one fails at once with
+<code>Cancelled!</code>. A started call without a response when the budget ends fails
+with <code>Cancelled!</code>, not <code>Unverified!</code>. Enforce time limits through this
+budget and its errors, not by timing calls.</p>
+<h2 id="futures">Futures</h2>
+<p>A call of a service method starts where it is written, and the program
+waits for its result at the first use of the value.</p>
+<ul>
+<li>Storing a result in a variable or an array element, or appending it to an
+array, does not wait when the target has the result's type, but a <code>T?</code>
+target for a <code>T</code> result waits, and so does an array result stored in a
+variable, so append the call itself, as in <code>xs = append(xs, f(n))</code>.
+Every other use waits, such as a dictionary entry, a field, arithmetic,
+<code>if</code>, an argument of another call, <code>print</code>, and <code>count(xs)</code> of an array
+of results, which waits for all of them.</li>
+<li>A use waits for its call and every call started before it, and so does a
+call of a function value. So of two failed calls the program sees the
+earlier one, and a loop whose body starts a call and also uses its result
+or calls a function value runs its calls in sequence. Collect the results
+in an array in one loop and use them in a second loop.</li>
+<li>A local routine whose body calls services, writes no output, has no
+<code>for</code> loop without <code>in</code>, and does not call itself, also through other
+routines, starts at its call in the same way, so a routine for one item,
+which may use its results and handle their failures, can be called for
+every item and the calls run together.</li>
+<li>A call's failure is raised at the call's statement, and only a handler
+there catches it; an arm on a later use that nothing else selects is
+rejected with <code>handle.dead-arm</code>.</li>
+<li>A handler whose arms are each a literal, a constant, or a variable, such
+as <code>handle Low! =&gt; 0</code>, or only return one, as in
+<code>handle Low! =&gt; { return 0 }</code>, does not wait, so a stored marker can
+stand for a failure. Any other arm, such as an f-string, waits.</li>
+<li>Leaving a routine waits for every call written before the exit and
+cancels every call written after it.</li>
+<li>A call with a side effect also starts early, so to start a call only after
+an earlier call has succeeded, use the earlier result first, as in an <code>if</code>.</li>
+</ul>
+<figure class="code-window">
+
+<pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="Ritchie"><span class="giallo-l"><span>Low!</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C18401;">@Gauge</span><span> {}</span></span>
+<span class="giallo-l"><span style="color: #C18401;">@Gauge</span><span>.</span><span style="color: #4078F2;">level</span><span>(</span><span style="color: #C18401;">Int</span><span> id) -&gt;</span><span style="color: #C18401;"> Int</span><span> | Low! {</span></span>
+<span class="giallo-l"><span>    r::</span><span style="color: #C18401;">Clock</span><span>.</span><span style="color: #4078F2;">sleep</span><span>(</span><span style="color: #986801;">50ms</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    if</span><span> id ==</span><span style="color: #986801;"> 9</span><span> { </span><span style="color: #A626A4;">return</span><span> Low! }</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span> id</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span style="color: #C18401;">@Gauge</span><span>.</span><span style="color: #4078F2;">trend</span><span>(</span><span style="color: #C18401;">Int</span><span> lv) -&gt;</span><span style="color: #C18401;"> Int</span><span> { r::</span><span style="color: #C18401;">Clock</span><span>.</span><span style="color: #4078F2;">sleep</span><span>(</span><span style="color: #986801;">50ms</span><span>); </span><span style="color: #A626A4;">return</span><span> lv *</span><span style="color: #986801;"> 2</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">reading</span><span>(</span><span style="color: #C18401;">Int</span><span> id) -&gt;</span><span style="color: #C18401;"> Int</span><span> | Low! {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> lv =</span><span style="color: #C18401;"> @Gauge</span><span>.</span><span style="color: #4078F2;">level</span><span>(id)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> tr =</span><span style="color: #C18401;"> @Gauge</span><span>.</span><span style="color: #4078F2;">trend</span><span>(lv)</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    return</span><span> lv + tr</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #4078F2;">main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span>[] sums = []</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> id </span><span style="color: #A626A4;">in</span><span> [</span><span style="color: #986801;">1</span><span>, </span><span style="color: #986801;">2</span><span>, </span><span style="color: #986801;">3</span><span>] {</span></span>
+<span class="giallo-l"><span>        sums =</span><span style="color: #4078F2;"> append</span><span>(sums, </span><span style="color: #4078F2;">reading</span><span>(id))</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> total =</span><span style="color: #986801;"> 0</span></span>
+<span class="giallo-l"><span style="color: #A626A4;">    for</span><span> s </span><span style="color: #A626A4;">in</span><span> sums { total += s }</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(total)</span></span>
+<span class="giallo-l"><span style="color: #C18401;">    Int</span><span> bad =</span><span style="color: #4078F2;"> reading</span><span>(</span><span style="color: #986801;">9</span><span>) </span><span style="color: #A626A4;">handle</span><span> Low! =&gt; -</span><span style="color: #986801;">1</span></span>
+<span class="giallo-l"><span style="color: #4078F2;">    print</span><span>(bad)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+</figure><h2 id="projects-and-modules">Projects and modules</h2>
+<p>A project is a directory with <code>NAME.ritchie.toml</code>, whose <code>[modules]</code> table
+maps each module to its directory, as in <code>stock = "stock"</code>. Every <code>.ri</code> file
+under that directory belongs to the module, and at most one module declares
+<code>main</code>. <code>rcc</code> with no file, run in the project directory, writes <code>NAME</code>, or
+<code>NAME.run</code> when a service is declared.</p>
+<p><code>::</code> reaches another module, as in <code>stock::Item.find("pen")</code>,
+<code>stock::Missing! e</code>, and <code>stock::@Depot.level("pen")</code>. Only a type with a
+method whose name does not start with <code>_</code>, those methods, an error type and
+its fields, and a service cross modules. Fields, struct literals, free
+functions, and constants are rejected in another module with
+<code>module.unpublished-member</code>. A served method's path names its module, as in
+<code>/stock/Depot/level</code>.</p>
+<h2 id="known-defects">Known defects</h2>
+<p>The current compiler departs from the language in these forms, so write the
+alternative.</p>
+<ul>
+<li>An enum that gives values to some members only crashes <code>rcc</code>, so give
+values to every member or to none.</li>
+<li>A struct whose field holds a struct, or an array of structs, with a
+function-type field fails to build, so keep such structs in variables,
+arrays, or dictionaries. A call of a field, as in <code>r.f(9)</code>, is rejected, so
+bind it first, as in <code>Apply f = r.f</code>.</li>
+</ul>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
+    </div>
+  </footer>
+</body>
+</html>

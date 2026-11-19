@@ -1289,10 +1289,6 @@ h4 {
   margin-bottom: 0.8rem;
 }
 
-.tech-listing-action {
-  margin-bottom: 0;
-}
-
 .article .footnote-definition {
   display: flex;
   gap: 0.6rem;
@@ -1604,6 +1600,12 @@ sub {
   .giallo [style*="color: #0184BC"] {
     color: #0184bc !important;
   }
+}
+
+/* Ritchie at a Glance quotes long runs of code inline, such as the list of
+   keywords, which would push the page sideways unless they wrap at spaces. */
+.glance-document code:not(pre code) {
+  white-space: normal;
 }
 
 /* Links to related pages, under the page hero's lede. */

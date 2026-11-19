@@ -83,7 +83,7 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=2ff64d6dc98204c49c45">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=ea18d36fcdd718b93973">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -133,6 +133,8 @@
 <li><strong>Automatic Concurrency!</strong> Ritchie compiler figures out which operations can be executed concurrently to save wall time over blocked I/O. You get this benefit without having to write explicit forks, async/await, promises, futures, etc.</li>
 <li><a href="/rite">RITE</a> was thoroughly revised and rigorously checked. It is now in a shape where it can be used as an abstract machine and architecture that we can build against and match or exceed, but not fall short of.</li>
 <li>The error handling model was revised to decouple it from concurrency. Previously concurrency was enabled only inside a handled block. Now Automatic Concurrency is always on, independent of error handling syntax.</li>
+<li>Much more compact and competent Ritchie Skill for coding agents.</li>
+<li>A new <a href="/tech/ritchie-at-a-glance/">Ritchie at a Glance</a> page for you to get familiar with the language.</li>
 </ol>
 <h2 id="automatic-concurrency">Automatic Concurrency</h2>
 <p>When you write something like:</p>
@@ -155,7 +157,7 @@
 <span class="giallo-l"><span style="color: #4078F2;">print</span><span>(</span><span style="color: #50A14F;">&quot;confidential&quot;</span><span>)  </span><span style="color: #A0A1A7;font-style: italic;">// only if auth check succeeded</span></span></code></pre>
 
 </figure>
-<p>The above snippet assumes that <code>@Auth.check()</code> raises an error if authentication fails and Ritchie's implicit error handling means that the second line must not run in case of auth check failure because the auth check error will be returned to the caller. In this scenario, Ritchie is able to work out that it must wait for the response of the auth check, ensure that it succeeded and only then proceed with printing confidential data.</p>
+<p>The above snippet assumes that <code>@Auth.check()</code> raises an error if authentication fails. Ritchie's implicit error handling means that the second line must not run in case of auth check failure because the auth check error will be returned to the caller. In this scenario, Ritchie is able to work out that it must wait for the response of the auth check, ensure that it succeeded and only then proceed with printing confidential data.</p>
 <p>Fun fact: this was <em>exactly</em> the snippet that broke in the first implementation of Automatic Concurrency and triggered the whole compiler rewrite!</p>
 <p>For a more detailed walkthrough of Automatic Concurrency and our error handling model, read <a href="/tech/magic-of-automatic-concurrency/">Magically Thriving with Evolving Requirements</a>.</p>
 <h2 id="under-the-hood">Under the Hood</h2>
