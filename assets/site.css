@@ -1127,7 +1127,7 @@ h4 {
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 640px) {
   body {
     font-size: 1.06rem;
   }
@@ -1157,7 +1157,7 @@ h4 {
   }
 
   .hero {
-    padding-top: 4.5rem;
+    padding-top: 2rem;
   }
 
   h1,
