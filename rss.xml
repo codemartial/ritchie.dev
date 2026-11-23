@@ -15,7 +15,7 @@
       <description>Announcing Ritchie&#39;s most complex feature to date, along with fundamental compiler improvements</description>
     </item>
     <item>
-      <title>Magically Thriving with Evolving Requirements</title>
+      <title>Automatic Concurrency Without async/await</title>
       <pubDate>Wed, 18 Nov 2026 00:00:00 +0000</pubDate>
       <link>https://ritchie.dev/tech/magic-of-automatic-concurrency/</link>
       <guid isPermaLink="true">https://ritchie.dev/tech/magic-of-automatic-concurrency/</guid>

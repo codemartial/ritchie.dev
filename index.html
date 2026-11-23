@@ -61,7 +61,7 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=ea18d36fcdd718b93973">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=af503b521d6d1507eccd">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -71,7 +71,7 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/preview/">Preview</a>
+        <a href="/preview/">Vision</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/">Tech</a>
@@ -86,12 +86,12 @@
 <div>
 <p class="eyebrow">Distributed Application Programming Language</p>
 <h1 class="hero-brand"><span class="visually-hidden">Ritchie</span><picture aria-hidden="true"><source media="(prefers-color-scheme: dark)" srcset="/assets/Ritchie.1.png" /><img src="/assets/Ritchie.2.png" alt="" style="width: 100%; aspect-ratio: 1373 / 509" /></picture></h1>
-<p class="hero-claim">Multiple Components,<br />One Application</p>
-<p class="lede">Ritchie is a programming language for stateful cloud-native enterprise applications. Stop assembling servers, start composing functionality.</p>
+<p class="hero-claim">The Program is<br />the Architecture</p>
+<p class="lede">Backend programming language for the agentic era. Less code. Easy to review. Easily correct.</p>
 <div class="hero-actions">
 <a class="button" href="/playground/">Try Ritchie in the browser</a>
-<a class="button button-secondary" href="/preview/">Preview distributed Hello World</a>
-<a class="button button-secondary" href="/rite/">The Programming Model</a>
+<a class="button button-secondary" href="/downloads/">Get the compiler and agent skill</a>
+<a class="button button-secondary" href="/preview/">The vision: why Ritchie</a>
 </div>
 </div>
 <figure class="code-window">
@@ -121,7 +121,7 @@
 <div class="shell">
 <div class="section-head">
 <h2>First-class support for distributed concepts.</h2>
-<p>Ritchie gives the compiler a semantic view of the application: which work is local, which state persists, which operations cross a boundary, which reads are published, and which failures callers can recover from.</p>
+<p>Ritchie has built-in archetypes for distributed system components like stateless services, transactional state, queryable state, and streams, each with interaction semantics defined by <a href="/rite/">RITE</a>. Choose the right archetype for each domain type to match the distributed architecture you need.</p>
 </div>
 <div class="surface-grid">
 <article class="surface">
@@ -152,7 +152,7 @@
 </div>
 </div>
 </section>
-<section class="section">
+<section class="section" style="border-bottom: 0;">
 <div class="shell" style="display: flex; flex-wrap: wrap; align-items: center; gap: clamp(2.5rem, 4vw, 4.5rem);">
 <h2 style="flex: 0 1 auto; font-size: clamp(4.5rem, 12vw, 7.5rem); line-height: 0.84;"><span style="display: block;">Zero</span><span style="display: block;">Code</span><span style="display: block;">Changes<sup id="zero-change-footnote-reference" style="font-family: 'Iosevka Term', ui-monospace, monospace; font-size: 0.8rem; line-height: 1; vertical-align: super;"><a href="#zero-change-footnote" aria-label="Footnote 1" style="color: var(--rust); text-decoration: none;">*</a></sup></span></h2>
 <div style="flex: 1 1 30rem;">
@@ -163,32 +163,29 @@
 <li><span aria-hidden="true">—</span><div>You migrate from one cloud to another</div></li>
 <li><span aria-hidden="true">—</span><div>The Ritchie runtime adopts a newer architecture</div></li>
 </ul>
-<div id="zero-change-footnote" role="doc-footnote" style="display: flex; gap: 0.6rem; margin: 2.5rem 0 0; padding-top: 1rem; color: var(--ink-soft); font-size: 0.92rem;">
+<div id="zero-change-footnote" role="doc-footnote" style="display: flex; gap: 0.6rem; margin: 1rem 0 0; color: var(--ink-soft); font-size: 0.92rem;">
 <a href="#zero-change-footnote-reference" aria-label="Back to footnote 1" style="color: var(--rust); font-family: 'Iosevka Term', ui-monospace, monospace; font-size: 0.8rem; text-decoration: none;">*</a>
 <p style="margin: 0;">Error rates and latency may vary.</p>
 </div>
 </div>
 </div>
 </section>
-<section class="section section-plain">
+<section class="section">
 <div class="shell">
-<div class="section-head">
-<h2>Preview the Language and the Model.</h2>
-</div>
 <div class="path-grid">
 <a class="path-card" href="/preview/">
 <div>
-<small>Preview</small>
-<h3>See distributed Hello World in Ritchie</h3>
+<small>Vision</small>
+<h3>A Distributed Program in Ritchie</h3>
 <p>Write Hello World in Go with basic state, concurrency and a network boundary, then see the resulting application expressed in Ritchie.</p>
 </div>
-<strong>Open preview →</strong>
+<strong>See the vision →</strong>
 </a>
 <a class="path-card" href="/rite/">
 <div>
 <small>Runtime model</small>
 <h3>Reliable Interaction with Typed Endpoints</h3>
-<p>See the ownership, interaction, failure and runtime rules that turn Ritchie’s program graph into a reliable distributed system.</p>
+<p>RITE is the architectural style and abstract machine that turns Ritchie’s program graph into a reliable distributed system.</p>
 </div>
 <strong>Read about RITE →</strong>
 </a>
@@ -200,7 +197,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Vision</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

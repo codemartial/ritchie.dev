@@ -83,7 +83,7 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=ea18d36fcdd718b93973">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=af503b521d6d1507eccd">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -93,7 +93,7 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/preview/">Preview</a>
+        <a href="/preview/">Vision</a>
         <a href="/playground/">Playground</a>
         <a href="/news/" aria-current="page">News</a>
         <a href="/tech/">Tech</a>
@@ -159,7 +159,7 @@
 </figure>
 <p>The above snippet assumes that <code>@Auth.check()</code> raises an error if authentication fails. Ritchie's implicit error handling means that the second line must not run in case of auth check failure because the auth check error will be returned to the caller. In this scenario, Ritchie is able to work out that it must wait for the response of the auth check, ensure that it succeeded and only then proceed with printing confidential data.</p>
 <p>Fun fact: this was <em>exactly</em> the snippet that broke in the first implementation of Automatic Concurrency and triggered the whole compiler rewrite!</p>
-<p>For a more detailed walkthrough of Automatic Concurrency and our error handling model, read <a href="/tech/magic-of-automatic-concurrency/">Magically Thriving with Evolving Requirements</a>.</p>
+<p>For a more detailed walkthrough of the concurrency and error handling model, read <a href="/tech/magic-of-automatic-concurrency/">Automatic Concurrency Without async/await</a>.</p>
 <h2 id="under-the-hood">Under the Hood</h2>
 <p>The compiler rewrite was undertaken with great deliberation after we started seeing a whack-a-mole pattern of errors, which pointed to a weakness in design. We were not convinced that we could build something as complicated as Automatic Concurrency on a weak base. So here's how the design was strengthened.</p>
 <p>Ritchie now has an intermediate representation (IR) that we call <em>ritchie-min</em> or <em>kernel</em>, interchangeably. Many Ritchie features were already implicitly specified as rewrites into a subset language (how <code>a += b</code> is exactly <code>a = a + b</code>, to take the simplest example). However, this subset language was only "in the head" and the implementation often short-circuited it.</p>
@@ -185,7 +185,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Vision</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Magically Thriving with Evolving Requirements</title>
+  <title>Automatic Concurrency Without async/await</title>
   <meta name="description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
   <meta name="author" content="Tahir Hashmi">
   <link rel="canonical" href="https://ritchie.dev/tech/magic-of-automatic-concurrency/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ritchie">
-  <meta property="og:title" content="Magically Thriving with Evolving Requirements">
+  <meta property="og:title" content="Automatic Concurrency Without async/await">
   <meta property="og:description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
   <meta property="og:url" content="https://ritchie.dev/tech/magic-of-automatic-concurrency/">
   <meta property="og:image" content="https://ritchie.dev/assets/social-card.png">
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Ritchie — Distributed Application Programming Language">
   <meta property="article:published_time" content="2026-11-18">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Magically Thriving with Evolving Requirements">
+  <meta name="twitter:title" content="Automatic Concurrency Without async/await">
   <meta name="twitter:description" content="This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.">
   <meta name="twitter:image" content="https://ritchie.dev/assets/social-card.png">
   <meta name="twitter:image:alt" content="Ritchie — Distributed Application Programming Language">
@@ -47,7 +47,7 @@
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Magically Thriving with Evolving Requirements",
+        "name": "Automatic Concurrency Without async/await",
         "item": "https://ritchie.dev/tech/magic-of-automatic-concurrency/"
       }
     ]
@@ -60,7 +60,7 @@
     "@id": "https://ritchie.dev/tech/magic-of-automatic-concurrency/#article",
     "url": "https://ritchie.dev/tech/magic-of-automatic-concurrency/",
     "mainEntityOfPage": "https://ritchie.dev/tech/magic-of-automatic-concurrency/",
-    "headline": "Magically Thriving with Evolving Requirements",
+    "headline": "Automatic Concurrency Without async/await",
     "description": "This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.",
     "image": "https://ritchie.dev/assets/social-card.png",
     "datePublished": "2026-11-18",
@@ -83,7 +83,7 @@
   <link rel="preload" href="/fonts/barlow-condensed-v13-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/barlow-semi-condensed-v16-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/IosevkaTerm-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=ea18d36fcdd718b93973">
+  <link rel="stylesheet" href="https://ritchie.dev/assets/site.css?h=af503b521d6d1507eccd">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -93,7 +93,7 @@
         <span class="brand-image"><img src="/assets/Ritchie.1.png" alt="" style="width: 100%; aspect-ratio: 1373 / 510" /></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="/preview/">Preview</a>
+        <a href="/preview/">Vision</a>
         <a href="/playground/">Playground</a>
         <a href="/news/">News</a>
         <a href="/tech/" aria-current="page">Tech</a>
@@ -106,7 +106,7 @@
     <header class="page-hero">
       <div class="shell">
         <p class="eyebrow">Technical documents</p>
-        <h1>Magically Thriving with Evolving Requirements</h1>
+        <h1>Automatic Concurrency Without async/await</h1>
         <p class="lede"></p>
         <p class="document-meta">Tahir Hashmi · 18 November 2026</p>
       </div>
@@ -273,7 +273,7 @@
 <span class="giallo-l"><span>  }</span></span></code></pre>
 
 </figure>
-<p>Deadlines are built into the runtime, so there is nothing to thread through your code. Every entry already runs its calls under a budget, 1400 ms unless configured, and holds back an extra buffer to deliver the response. Every remote call inherits what is left of it. Honestly, this would've been a zero-code change if we hadn't decided to rename the error from <code>Cancelled!</code> to <code>OutOfTime!</code>.</p>
+<p>Deadlines are built into the runtime, so there is nothing to thread through your code. Every entry already runs its calls under a deadline, 1400 ms unless configured, and holds back a grace period after it to wrap up and deliver the response. Every remote call inherits what is left of it. Honestly, this would've been a zero-code change if we hadn't decided to rename the error from <code>Cancelled!</code> to <code>OutOfTime!</code>.</p>
 <p>TypeScript has to thread the deadline by hand, and every call must remember to carry it. Leave <code>{ signal }</code> off one of them and that call ignores the budget, and the compiler has no opinion on the matter.</p>
 <h2 id="customers-want-to-buy-multiple-items">Customers Want to Buy Multiple Items</h2>
 <p>Product has noticed that people would be happier to buy multiple things in one checkout. So checkout now takes a whole cart. An SKU that is sold out or discontinued gets skipped and counted, and the rest of the cart carries on. So we do what anyone would do — we add a loop.<sup class="footnote-reference"><a href="#1">1</a></sup></p>
@@ -446,10 +446,11 @@
 <figcaption class="code-window-bar"><span>terminal</span><span>run</span></figcaption>
 
 <pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="plain" data-file="terminal" data-title="run"><span class="giallo-l"><span>$ rcrun checkout.ri</span></span>
-<span class="giallo-l"><span>total $4.00, skipped 0, reconcile 0</span></span></code></pre>
+<span class="giallo-l"><span>total $4.00, skipped 0, reconcile 0</span></span>
+<span class="giallo-l"><span>took 704 ms</span></span></code></pre>
 
 </figure>
-<p>The full cart, in half the time TypeScript spent failing.</p>
+<p>The full cart, in half the time TypeScript spent failing. The <code>took</code> line comes from the checkout's <code>main</code>, which reads <code>r::Clock.time()</code> before and after the call, so you can <a href="/playground/?example=concurrent-checkout">run it in the Playground</a> and check the figure yourself.</p>
 <div class="inline-svg"><svg class="article-diagram" role="img" aria-label="Ritchie timeline: all eight reads start at once, the writes follow one at a time, and the cart finishes at 700 ms" xmlns="http://www.w3.org/2000/svg" version="1.1"    width="688" height="410"    viewBox="0 0 688 410">  <style type="text/css" source-text-origin="source-independent defaults: shared by ASCII and UTF-8">    svg {        color-scheme: light dark; /* this becomes necessary if not inherited from parent elements */        font-family: monospace;        font-size: 15px;    }    text {        stroke: none;        text-anchor: middle;    }    .path {        fill: none;    }    circle.filled {        fill: inherit;    }    circle.hollow {         fill: none;    }    svg {        color: #000;  /* set value of 'currentColor' */    }    @media (prefers-color-scheme: dark) {        svg {            color: #FFF;  /* set value of 'currentColor' */        }    }    svg {        fill: currentColor;        stroke: currentColor;    }  </style>  <style type="text/css" source-text-origin="font.css">svg { font-family: "TX-02", "Iosevka Term", monospace; font-size: 14px; }  </style><g transform='translate(8,12)'>  <g id='lines'>    <polyline class="path" points="112,32 208,32"/>    <polyline class="path" points="112,64 176,64"/>    <polyline class="path" points="208,96 240,96"/>    <polyline class="path" points="112,128 208,128"/>    <polyline class="path" points="112,160 176,160"/>    <polyline class="path" points="240,192 272,192"/>    <polyline class="path" points="112,224 208,224"/>    <polyline class="path" points="112,256 176,256"/>    <polyline class="path" points="272,288 304,288"/>    <polyline class="path" points="112,320 208,320"/>    <polyline class="path" points="112,352 176,352"/>    <polyline class="path" points="304,384 336,384"/>    <polyline class="path" points="560,32 560,384"/>  </g>  <g id='triangles'>  </g>  <g id='roundedCorners'>  </g>  <g id='circles'>  </g>  <g id='bridges'>  </g>  <g id='text'>    <text x="112" y="4">0</text>    <text x="264" y="4">5</text>    <text x="272" y="4">0</text>    <text x="280" y="4">0</text>    <text x="424" y="4">1</text>    <text x="432" y="4">0</text>    <text x="440" y="4">0</text>    <text x="448" y="4">0</text>    <text x="552" y="4">1</text>    <text x="560" y="4">4</text>    <text x="568" y="4">0</text>    <text x="576" y="4">0</text>    <text x="592" y="4">m</text>    <text x="600" y="4">s</text>    <text x="616" y="4">d</text>    <text x="624" y="4">e</text>    <text x="632" y="4">a</text>    <text x="640" y="4">d</text>    <text x="648" y="4">l</text>    <text x="656" y="4">i</text>    <text x="664" y="4">n</text>    <text x="672" y="4">e</text>    <text x="0" y="36">P</text>    <text x="8" y="36">r</text>    <text x="16" y="36">i</text>    <text x="24" y="36">c</text>    <text x="32" y="36">i</text>    <text x="40" y="36">n</text>    <text x="48" y="36">g</text>    <text x="64" y="36">a</text>    <text x="0" y="68">I</text>    <text x="8" y="68">n</text>    <text x="16" y="68">v</text>    <text x="24" y="68">e</text>    <text x="32" y="68">n</text>    <text x="40" y="68">t</text>    <text x="48" y="68">o</text>    <text x="56" y="68">r</text>    <text x="64" y="68">y</text>    <text x="80" y="68">a</text>    <text x="0" y="100">L</text>    <text x="8" y="100">e</text>    <text x="16" y="100">d</text>    <text x="24" y="100">g</text>    <text x="32" y="100">e</text>    <text x="40" y="100">r</text>    <text x="56" y="100">a</text>    <text x="0" y="132">P</text>    <text x="8" y="132">r</text>    <text x="16" y="132">i</text>    <text x="24" y="132">c</text>    <text x="32" y="132">i</text>    <text x="40" y="132">n</text>    <text x="48" y="132">g</text>    <text x="64" y="132">b</text>    <text x="0" y="164">I</text>    <text x="8" y="164">n</text>    <text x="16" y="164">v</text>    <text x="24" y="164">e</text>    <text x="32" y="164">n</text>    <text x="40" y="164">t</text>    <text x="48" y="164">o</text>    <text x="56" y="164">r</text>    <text x="64" y="164">y</text>    <text x="80" y="164">b</text>    <text x="0" y="196">L</text>    <text x="8" y="196">e</text>    <text x="16" y="196">d</text>    <text x="24" y="196">g</text>    <text x="32" y="196">e</text>    <text x="40" y="196">r</text>    <text x="56" y="196">b</text>    <text x="0" y="228">P</text>    <text x="8" y="228">r</text>    <text x="16" y="228">i</text>    <text x="24" y="228">c</text>    <text x="32" y="228">i</text>    <text x="40" y="228">n</text>    <text x="48" y="228">g</text>    <text x="64" y="228">c</text>    <text x="0" y="260">I</text>    <text x="8" y="260">n</text>    <text x="16" y="260">v</text>    <text x="24" y="260">e</text>    <text x="32" y="260">n</text>    <text x="40" y="260">t</text>    <text x="48" y="260">o</text>    <text x="56" y="260">r</text>    <text x="64" y="260">y</text>    <text x="80" y="260">c</text>    <text x="0" y="292">L</text>    <text x="8" y="292">e</text>    <text x="16" y="292">d</text>    <text x="24" y="292">g</text>    <text x="32" y="292">e</text>    <text x="40" y="292">r</text>    <text x="56" y="292">c</text>    <text x="0" y="324">P</text>    <text x="8" y="324">r</text>    <text x="16" y="324">i</text>    <text x="24" y="324">c</text>    <text x="32" y="324">i</text>    <text x="40" y="324">n</text>    <text x="48" y="324">g</text>    <text x="64" y="324">d</text>    <text x="0" y="356">I</text>    <text x="8" y="356">n</text>    <text x="16" y="356">v</text>    <text x="24" y="356">e</text>    <text x="32" y="356">n</text>    <text x="40" y="356">t</text>    <text x="48" y="356">o</text>    <text x="56" y="356">r</text>    <text x="64" y="356">y</text>    <text x="80" y="356">d</text>    <text x="0" y="388">L</text>    <text x="8" y="388">e</text>    <text x="16" y="388">d</text>    <text x="24" y="388">g</text>    <text x="32" y="388">e</text>    <text x="40" y="388">r</text>    <text x="56" y="388">d</text></g></g></svg></div>
 <p>That is the same trace our 39 lines of TypeScript produce.</p>
 <p>But wait. How does Ritchie know that it can send every price and stock read right away, yet has to send the ledger writes one at a time? That's the Automatic Concurrency feature of Ritchie in action. It does two things that we had to do manually in TypeScript:</p>
@@ -458,6 +459,11 @@
 <p>Your handlers did not move either, because a failure takes effect at the statement that made the call, whatever time its response turns up.</p>
 <p>To go fast, TypeScript had to change almost half the code. Ritchie did not change at all. It was never slow.</p>
 <p><em>Thank you. You have been a wonderful audience.</em></p>
+<blockquote>
+<p>This may seem very futuristic (pardon the pun), but it's actually 1970s and 80s tech!</p>
+<p>Dataflow execution, where an operation runs as soon as its inputs are ready, goes back to Jack Dennis's dataflow machines at MIT in the mid-1970s<sup class="footnote-reference"><a href="#dataflow">3</a></sup> and to languages such as Lucid and Id. Lucid ran the other way round, computing a value only when something <em>demanded</em> it.<sup class="footnote-reference"><a href="#lucid">4</a></sup> Ritchie pairs eager execution with lazy blocking using Futures, to minimise the time spent waiting for remote results. Futures, the placeholders for a result still on its way, appeared later in the 1970s,<sup class="footnote-reference"><a href="#futures">5</a></sup> and Liskov and Shrira's Promises brought them to remote calls in 1988.<sup class="footnote-reference"><a href="#promises">6</a></sup> Effect systems, which tell a compiler which calls change the world, come from John Lucassen and David Gifford at MIT in the same decade.<sup class="footnote-reference"><a href="#effects">7</a></sup></p>
+<p>So what makes the magic work this time? The balance of cost and benefit. At the granularity of remote calls, the latency is high enough to justify the extra bookkeeping. And, errors are raised at the call site, not wherever its result is demanded.</p>
+</blockquote>
 <h2 id="erm-actually">Erm, Actually...</h2>
 <p>This is where someone says, "try language X instead", or "use framework Y". So, we also wrote the fast checkout in Kotlin and Go, in case TypeScript was the problem. It wasn't. Kotlin took 47 lines and Go took 54, and each one had lines that break the program if you leave them out, but that the compiler won't miss.</p>
 <p>Yes, we know about Effect, and we know about Encore. It is the best TypeScript has, so let us judge it on what is left: reading it and trusting it.</p>
@@ -503,7 +509,7 @@
 <tr><td>A failed write can confirm whether nothing was modified</td><td>Yes, <code>Unmodified!</code> is built-in</td><td>Not built in</td></tr>
 </tbody></table>
 <p>Wherever the right-hand column requires explicit coding, <code>tsc --strict</code> accepts the program with that code left out, and therefore without the guarantee. Ritchie won't save you from every mistake, but its guarantees are not yours to forget.</p>
-<p>If you're going to write it in someone else's language<sup class="footnote-reference"><a href="#3">3</a></sup> anyway, try Ritchie. It means business.</p>
+<p>If you're going to write it in someone else's language<sup class="footnote-reference"><a href="#3">8</a></sup> anyway, try Ritchie. It means business.</p>
 <blockquote>
 <p>Try <a href="/playground/?example=concurrent-checkout">concurrent checkout in the Playground</a>.</p>
 </blockquote>
@@ -511,9 +517,24 @@
 <p>This is where you put your foot down and say, "No, we need a batch API instead", and you'd be right. Except, I've seen three very large e-commerce stacks and one of them did the loop. I won't say which one, but I can say that if you made an educated guess, you'd be more wrong than the random sampling chances of ~67%!</p>
 </div>
 <div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
-<p>Output is written where the same statements run in strict sequence would write it, and when several reads in flight fail, the failure of the one written first is the one that takes effect. Writes currently go one at a time across all services. Further optimisations are scheduled, and they will not require changes to your code.</p>
+<p>Sequential execution applies within a scheduling scope, such as a function body. Ritchie units (Services, Entities, etc.) are themselves concurrent and can serve multiple overlapping requests.</p>
 </div>
-<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<div class="footnote-definition" id="dataflow"><sup class="footnote-definition-label">3</sup>
+<p>Jack B. Dennis and David P. Misunas, "<a href="https://doi.org/10.1145/641675.642111">A Preliminary Architecture for a Basic Data-Flow Processor</a>", <em>ACM SIGARCH Computer Architecture News</em> 3(4), 1974.</p>
+</div>
+<div class="footnote-definition" id="lucid"><sup class="footnote-definition-label">4</sup>
+<p>William W. Wadge and Edward A. Ashcroft, <em>Lucid, the Dataflow Programming Language</em>, Academic Press, 1985.</p>
+</div>
+<div class="footnote-definition" id="futures"><sup class="footnote-definition-label">5</sup>
+<p>Henry C. Baker Jr. and Carl Hewitt, "<a href="https://doi.org/10.1145/872734.806932">The Incremental Garbage Collection of Processes</a>", <em>ACM SIGPLAN Notices</em> 12(8), 1977.</p>
+</div>
+<div class="footnote-definition" id="promises"><sup class="footnote-definition-label">6</sup>
+<p>Barbara Liskov and Liuba Shrira, "<a href="https://doi.org/10.1145/53990.54016">Promises: Linguistic Support for Efficient Asynchronous Procedure Calls in Distributed Systems</a>", <em>ACM SIGPLAN Conference on Programming Language Design and Implementation</em>, 1988.</p>
+</div>
+<div class="footnote-definition" id="effects"><sup class="footnote-definition-label">7</sup>
+<p>David K. Gifford and John M. Lucassen, "<a href="https://doi.org/10.1145/319838.319848">Integrating Functional and Imperative Programming</a>", <em>ACM Conference on LISP and Functional Programming</em>, 1986.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">8</sup>
 <p>By the time you're writing <code>Effect.gen</code> and <code>yield*</code>, you're no longer writing the TypeScript everyone knows. Your team has to learn it, agents have to reason through it, and most <code>npm</code> libraries need wrapping before they'll play along. While preparing this article, Opus 5.5 spent about 53,000 reasoning tokens on Effect and Encore, against 19,000 on Ritchie, a language it had never seen. The incumbency you chose TypeScript for is gone.</p>
 </div>
 
@@ -523,7 +544,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p><a href="/">About</a> · <a href="/preview/">Preview</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
+      <p><a href="/">About</a> · <a href="/preview/">Vision</a> · <a href="/playground/">Playground</a> · <a href="/news/">News</a> · <a href="/tech/">Tech</a> · <a href="/downloads/">Downloads</a></p>
       <small>Ritchie — Distributed Application Programming Language. © 2026 <a href="https://tahirhashmi.com">Tahir Hashmi</a>. queries@ritchie.dev</small>
     </div>
   </footer>

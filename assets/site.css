@@ -352,7 +352,7 @@ h1 {
 }
 
 .hero-claim {
-  max-width: 14ch;
+  max-width: 17ch;
   margin: 1.25rem 0 0;
   color: var(--ink);
   font-family: "Barlow Condensed", sans-serif;
