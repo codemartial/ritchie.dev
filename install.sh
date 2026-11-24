@@ -7,16 +7,16 @@
 # ~/.local/bin). Programs need Go 1.27 or newer on PATH to build and run;
 # this script checks for it but does not install it.
 #
-# The binaries are licensed for evaluation only; installing them accepts the
-# Ritchie Evaluation Licence at https://ritchie.dev/downloads/LICENSE.txt.
+# The binaries are licensed under the Functional Source License, Version 1.1,
+# ALv2 Future License, at https://ritchie.dev/downloads/LICENSE.txt.
 #
 # The whole script is one function called on the last line, so a download
 # cut short runs nothing.
 set -eu
 
 main() {
-  version='2026-11-19-fe7ece62'
-  base=${RITCHIE_DOWNLOAD_URL:-'https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62'}
+  version='2026-11-24-31b5480b'
+  base=${RITCHIE_DOWNLOAD_URL:-'https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b'}
   bindir=${RITCHIE_BIN_DIR:-$HOME/.local/bin}
   sharedir=${RITCHIE_SHARE_DIR:-$HOME/.local/share/ritchie}
 
@@ -38,10 +38,10 @@ main() {
   name=ritchie-$version-$os-$arch
   archive=$name.tar.gz
   case $os-$arch in
-    darwin-arm64) expected='6164eef4c4554ce0102e9ccc90bf89b8350fb07b2b92984bc97aa71ef195ad57' ;;
-    darwin-amd64) expected='51e8199c0d589e4f3a5f78871faa6afa1f40a83330dbd462b2a1acbd15f4a143' ;;
-    linux-amd64) expected='52e5fcddf8ec0a933152f83fd74ee81f7ead35522432c7d5bb7646e09b0a0aae' ;;
-    linux-arm64) expected='cf08ec55a6544b190d1a16285b507dbe38a730fc9747d554b36653711f54589a' ;;
+    darwin-arm64) expected='19bac741954dc746a32ca472002a90e2f488c4055a22cf34b9b0947f22df9ed9' ;;
+    darwin-amd64) expected='a5679ee375d28eb54b06fb9ef4b0c0bf69caa88100311fb99880ba10ce00d3df' ;;
+    linux-amd64) expected='1f882ecb4ef8d8b507c31147f0920707d9166bb999e842b11292ef19308231cf' ;;
+    linux-arm64) expected='8f8fa5c846a144cefcfcd8a9d8d942d3f7d50890ac68e5fad3d86f681bd54187' ;;
     *) fail "no build for $os/$arch; see https://ritchie.dev/downloads/releases/" ;;
   esac
 
@@ -74,7 +74,7 @@ main() {
   done
   cp "$tmp/$name/LICENSE" "$sharedir/LICENSE"
   say "installed ritchie $version in $bindir"
-  say "for evaluation only, under the Ritchie Evaluation Licence: $sharedir/LICENSE"
+  say "licensed under FSL-1.1-ALv2: $sharedir/LICENSE"
 
   case ":$PATH:" in
     *":$bindir:"*) ;;

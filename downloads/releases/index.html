@@ -114,9 +114,7 @@
 
 <pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #4078F2;">curl</span><span style="color: #986801;"> -fsSL</span><span style="color: #50A14F;"> https://ritchie.dev/install.sh</span><span> |</span><span style="color: #E45649;"> RITCHIE_BIN_DIR</span><span>=</span><span style="color: #50A14F;">/usr/local/bin</span><span style="color: #4078F2;"> sh</span></span></code></pre>
 
-</figure>
-<p>These binaries are provided for evaluation purposes only. See <a href="https://ritchie.dev/downloads/releases/#licence">Licence</a> for details.</p>
-<h2 id="requirements">Requirements</h2>
+</figure><h2 id="requirements">Requirements</h2>
 <p>Ritchie compiles programs to Go and builds them with your Go toolchain, so <a href="https://go.dev/dl/">Go 1.27 or newer</a> must be on your <code>PATH</code>. The installer checks for Go and tells you if it is missing or too old.</p>
 <h2 id="usage">Usage</h2>
 <p><code>ritchie compile</code> compiles Ritchie source and <code>ritchie run</code> builds and runs a program. <code>rcc</code> and <code>rcrun</code> are short names for those two commands.</p>
@@ -125,25 +123,25 @@
 <pre class="giallo" style="color: #383A42; background-color: #FAFAFA;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #0184BC;">echo</span><span style="color: #50A14F;"> &#39;main() { log(&quot;hello&quot;) }&#39;</span><span> |</span><span style="color: #4078F2;"> rcrun</span><span style="color: #50A14F;"> -</span></span></code></pre>
 
 </figure><h2 id="downloads">Downloads</h2>
-<p>Version <code>2026-11-19-fe7ece62</code>, released 19 November 2026.</p>
+<p>Version <code>2026-11-24-31b5480b</code>, released 24 November 2026.</p>
 <p>Each archive holds a single folder with <code>bin/</code> and the licence. On Windows, unzip it and add its <code>bin</code> folder to your <code>PATH</code>. <code>rcc.cmd</code> and <code>rcrun.cmd</code> work like <code>rcc</code> and <code>rcrun</code>. Windows and Intel-Mac builds have not been tested.</p>
 <div class="table-scroll">
 <table class="release-table">
 <thead><tr><th scope="col">Platform</th><th scope="col">Download</th><th scope="col">SHA-256</th></tr></thead>
 <tbody>
-<tr><th scope="row">macOS, Apple silicon</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-darwin-arm64.tar.gz" download title="ritchie-2026-11-19-fe7ece62-darwin-arm64.tar.gz">.tar.gz</a> · 3248 KB</td><td><code class="release-sha">6164eef4c4554ce0102e9ccc90bf89b8350fb07b2b92984bc97aa71ef195ad57</code></td></tr>
-<tr><th scope="row">macOS, Intel</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-darwin-amd64.tar.gz" download title="ritchie-2026-11-19-fe7ece62-darwin-amd64.tar.gz">.tar.gz</a> · 3559 KB</td><td><code class="release-sha">51e8199c0d589e4f3a5f78871faa6afa1f40a83330dbd462b2a1acbd15f4a143</code></td></tr>
-<tr><th scope="row">Linux, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-linux-amd64.tar.gz" download title="ritchie-2026-11-19-fe7ece62-linux-amd64.tar.gz">.tar.gz</a> · 3524 KB</td><td><code class="release-sha">52e5fcddf8ec0a933152f83fd74ee81f7ead35522432c7d5bb7646e09b0a0aae</code></td></tr>
-<tr><th scope="row">Linux, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-linux-arm64.tar.gz" download title="ritchie-2026-11-19-fe7ece62-linux-arm64.tar.gz">.tar.gz</a> · 3148 KB</td><td><code class="release-sha">cf08ec55a6544b190d1a16285b507dbe38a730fc9747d554b36653711f54589a</code></td></tr>
-<tr><th scope="row">Windows, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-windows-amd64.zip" download title="ritchie-2026-11-19-fe7ece62-windows-amd64.zip">.zip</a> · 3601 KB</td><td><code class="release-sha">462ac676ae00349bfa1594bc78a3ab0beaac9f41e0e6b6e338b5f802bd68be82</code></td></tr>
-<tr><th scope="row">Windows, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-windows-arm64.zip" download title="ritchie-2026-11-19-fe7ece62-windows-arm64.zip">.zip</a> · 3189 KB</td><td><code class="release-sha">4ecca19a055c681fd12e2687d0ea57e740aab8db24d79c51bb0d01076e071606</code></td></tr>
+<tr><th scope="row">macOS, Apple silicon</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-darwin-arm64.tar.gz" download title="ritchie-2026-11-24-31b5480b-darwin-arm64.tar.gz">.tar.gz</a> · 3248 KB</td><td><code class="release-sha">19bac741954dc746a32ca472002a90e2f488c4055a22cf34b9b0947f22df9ed9</code></td></tr>
+<tr><th scope="row">macOS, Intel</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-darwin-amd64.tar.gz" download title="ritchie-2026-11-24-31b5480b-darwin-amd64.tar.gz">.tar.gz</a> · 3559 KB</td><td><code class="release-sha">a5679ee375d28eb54b06fb9ef4b0c0bf69caa88100311fb99880ba10ce00d3df</code></td></tr>
+<tr><th scope="row">Linux, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-linux-amd64.tar.gz" download title="ritchie-2026-11-24-31b5480b-linux-amd64.tar.gz">.tar.gz</a> · 3524 KB</td><td><code class="release-sha">1f882ecb4ef8d8b507c31147f0920707d9166bb999e842b11292ef19308231cf</code></td></tr>
+<tr><th scope="row">Linux, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-linux-arm64.tar.gz" download title="ritchie-2026-11-24-31b5480b-linux-arm64.tar.gz">.tar.gz</a> · 3148 KB</td><td><code class="release-sha">8f8fa5c846a144cefcfcd8a9d8d942d3f7d50890ac68e5fad3d86f681bd54187</code></td></tr>
+<tr><th scope="row">Windows, x86-64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-windows-amd64.zip" download title="ritchie-2026-11-24-31b5480b-windows-amd64.zip">.zip</a> · 3600 KB</td><td><code class="release-sha">4aeadd2d86bb8b91569deeb26193aa396b171a0c1f4831ce2195e2ed79afc324</code></td></tr>
+<tr><th scope="row">Windows, ARM64</th><td><a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-windows-arm64.zip" download title="ritchie-2026-11-24-31b5480b-windows-arm64.zip">.zip</a> · 3191 KB</td><td><code class="release-sha">ad68ac8d2baf52e6d6735bf782ea4aef7c19e256050049a86459af1f5a7a7e39</code></td></tr>
 </tbody>
 </table>
 </div>
-<p>All checksums in one file: <a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-19-fe7ece62/ritchie-2026-11-19-fe7ece62-SHA256SUMS" download><code>ritchie-2026-11-19-fe7ece62-SHA256SUMS</code></a>.</p>
+<p>All checksums in one file: <a href="https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b/ritchie-2026-11-24-31b5480b-SHA256SUMS" download><code>ritchie-2026-11-24-31b5480b-SHA256SUMS</code></a>.</p>
 <h2 id="licence">Licence</h2>
-<p>The binaries are licensed for evaluation only under the <a href="/downloads/LICENSE.txt">Ritchie Evaluation Licence</a>. You may install and use them to learn and try Ritchie. You may not use them, or programs built with them, commercially or in production, and you may not redistribute them. Installing or using the binaries means you accept the licence. For other uses, write to <a href="mailto:queries@ritchie.dev">queries@ritchie.dev</a>.</p>
-<p>The binaries contain the Go standard library, whose licence is reproduced in the appendix of the Ritchie Evaluation Licence.</p>
+<p>The binaries are licensed under the <a href="/downloads/LICENSE.txt">Functional Source License, Version 1.1, ALv2 Future License</a>. You may use them for any purpose other than a commercial product or service that competes with Ritchie, and each release becomes available under the Apache License, Version 2.0, two years after its publication. For other uses, write to <a href="mailto:queries@ritchie.dev">queries@ritchie.dev</a>.</p>
+<p>The binaries contain the Go standard library, whose licence is reproduced in the appendix of the licence file.</p>
 
       </article>
     </div>

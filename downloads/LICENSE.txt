@@ -1,94 +1,108 @@
-Ritchie Evaluation Licence, version 1.0
+# Functional Source License, Version 1.1, ALv2 Future License
 
-Copyright 2026 Tahir Hashmi. All rights reserved.
+## Abbreviation
 
-This licence covers the Ritchie compiler binaries and the files distributed
-with them (the "Software"). By installing or using the Software you accept
-this licence. If you do not accept it, do not install or use the Software.
+FSL-1.1-ALv2
 
-1. Grant
+## Notice
 
-Tahir Hashmi (the "Licensor") grants you a personal, non-exclusive,
-non-transferable, non-sublicensable, revocable, royalty-free licence to
-install and use the Software for the sole purpose of evaluating the Ritchie
-language: learning it, trying it out, and judging whether it suits your
-needs. You may make only the copies of the Software that this use needs.
+Copyright 2026 Tahir Hashmi
 
-2. Programs you build
+## Terms and Conditions
 
-Programs, generated source code and executables that the Software produces
-("Output") may be used only for the evaluation described in section 1. You
-may not deploy Output to production, use it to process real customer or
-business data, distribute it, sell it, or offer it to others as a hosted
-service. Ritchie source code that you write yourself remains yours.
+### Licensor ("We")
 
-3. Restrictions
+The party offering the Software under these Terms and Conditions.
 
-You may not, and may not allow anyone else to:
+### The Software
 
-  a. use the Software or Output for any commercial or production purpose;
-  b. copy, distribute, sell, lease, lend, publish or otherwise make the
-     Software available to anyone else, including by offering it as a
-     hosted or online service;
-  c. modify, adapt, translate or create derivative works of the Software;
-  d. reverse engineer, decompile or disassemble the Software, except to the
-     extent that applicable law expressly permits it despite this
-     limitation;
-  e. use the Software, or knowledge gained from its internals, to build a
-     compiler, interpreter, runtime or other implementation of the Ritchie
-     language, or a product that competes with Ritchie;
-  f. remove or alter any notice of ownership or licence in the Software.
+The "Software" is each version of the software that we make available under
+these Terms and Conditions, as indicated by our inclusion of these Terms and
+Conditions with the Software.
 
-4. Ownership
+### License Grant
 
-The Software is licensed, not sold. The Licensor keeps all right, title and
-interest in the Software, including all intellectual property rights. All
-rights not expressly granted in this licence are reserved.
+Subject to your compliance with this License Grant and the Patents,
+Redistribution and Trademark clauses below, we hereby grant you the right to
+use, copy, modify, create derivative works, publicly perform, publicly display
+and redistribute the Software for any Permitted Purpose identified below.
 
-5. Feedback
+### Permitted Purpose
 
-If you send the Licensor suggestions, bug reports or other feedback, the
-Licensor may use them for any purpose without obligation to you.
+A Permitted Purpose is any purpose other than a Competing Use. A Competing Use
+means making the Software available to others in a commercial product or
+service that:
 
-6. Term and termination
+1. substitutes for the Software;
 
-This licence lasts until it is terminated. It terminates automatically if
-you breach any of its terms, and the Licensor may terminate it at any time
-by notice, including by publishing a replacement licence for a newer
-release. On termination you must stop using the Software and Output and
-delete every copy of the Software. Sections 4, 5, 7, 8 and 9 survive
-termination.
+2. substitutes for any other product or service we offer using the Software
+   that exists as of the date we make the Software available; or
 
-7. No warranty
+3. offers the same or substantially similar functionality as the Software.
 
-The Software is provided "as is", without warranty of any kind, express or
-implied, including the implied warranties of merchantability, fitness for a
-particular purpose and non-infringement. The Software is pre-release and may
-contain defects, change incompatibly, or stop working.
+Permitted Purposes specifically include using the Software:
 
-8. Limitation of liability
+1. for your internal use and access;
 
-To the maximum extent permitted by law, the Licensor is not liable for any
-direct, indirect, incidental, special, consequential or exemplary damages,
-or for any loss of data, profit or business, arising out of or in
-connection with the Software, Output or this licence, however caused and on
-any theory of liability, even if advised of the possibility of such damage.
+2. for non-commercial education;
 
-9. Third-party components
+3. for non-commercial research; and
 
-The Software contains third-party components, whose notices are reproduced
-in the appendix below. They are licensed to you under their own terms, and
-nothing in this licence limits your rights under those terms.
+4. in connection with professional services that you provide to a licensee
+   using the Software in accordance with these Terms and Conditions.
 
-10. Other licences
+### Patents
 
-If the Licensor has given you the Ritchie source code or the Software under
-a separate written licence, that licence governs your use of that copy
-instead of this one.
+To the extent your use for a Permitted Purpose would necessarily infringe our
+patents, the license grant above includes a license under our patents. If you
+make a claim against any party that the Software infringes or contributes to
+the infringement of any patent, then your patent license to the Software ends
+immediately.
 
-Questions about this licence or about other uses of Ritchie:
-queries@ritchie.dev
+### Redistribution
 
+The Terms and Conditions apply to all copies, modifications and derivatives of
+the Software.
+
+If you redistribute any copies, modifications or derivatives of the Software,
+you must include a copy of or a link to these Terms and Conditions and not
+remove any copyright notices provided in or with the Software.
+
+### Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING WITHOUT LIMITATION WARRANTIES OF FITNESS FOR A PARTICULAR
+PURPOSE, MERCHANTABILITY, TITLE OR NON-INFRINGEMENT.
+
+IN NO EVENT WILL WE HAVE ANY LIABILITY TO YOU ARISING OUT OF OR RELATED TO THE
+SOFTWARE, INCLUDING INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES,
+EVEN IF WE HAVE BEEN INFORMED OF THEIR POSSIBILITY IN ADVANCE.
+
+### Trademarks
+
+Except for displaying the License Details and identifying us as the origin of
+the Software, you have no right under these Terms and Conditions to use our
+trademarks, trade names, service marks or product names.
+
+## Grant of Future License
+
+We hereby irrevocably grant you an additional license to use the Software under
+the Apache License, Version 2.0 that is effective on the second anniversary of
+the date we make the Software available. On or after that date, you may use the
+Software under the Apache License, Version 2.0, in which case the following
+will apply:
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License.
+
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 
 Appendix: third-party notices
 
