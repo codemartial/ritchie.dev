@@ -308,6 +308,24 @@ code:not(pre code) {
   box-shadow: inset 0 0 0 1px var(--line);
 }
 
+/* The GitHub mark sits apart from the section links, after a thin rule. */
+.site-nav .nav-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  padding-inline: 0.6rem;
+  position: relative;
+}
+
+.site-nav .nav-icon::before {
+  content: "";
+  position: absolute;
+  left: -0.45rem;
+  top: 25%;
+  bottom: 25%;
+  border-left: 1px solid var(--line);
+}
+
 main {
   min-height: calc(100vh - 160px);
 }
@@ -1154,6 +1172,14 @@ h4 {
     min-height: 38px;
     padding-inline: 0.58rem;
     font-size: 0.9rem;
+  }
+
+  .site-nav .nav-icon {
+    margin-left: auto;
+  }
+
+  .site-nav .nav-icon::before {
+    content: none;
   }
 
   .hero {

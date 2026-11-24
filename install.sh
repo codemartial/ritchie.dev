@@ -15,8 +15,8 @@
 set -eu
 
 main() {
-  version='2026-11-24-31b5480b'
-  base=${RITCHIE_DOWNLOAD_URL:-'https://github.com/codemartial/ritchie.dev/releases/download/ritchie-2026-11-24-31b5480b'}
+  version='2026-11-24-7b90e549'
+  base=${RITCHIE_DOWNLOAD_URL:-'https://github.com/codemartial/ritchie/releases/download/2026-11-24-7b90e549'}
   bindir=${RITCHIE_BIN_DIR:-$HOME/.local/bin}
   sharedir=${RITCHIE_SHARE_DIR:-$HOME/.local/share/ritchie}
 
@@ -38,10 +38,10 @@ main() {
   name=ritchie-$version-$os-$arch
   archive=$name.tar.gz
   case $os-$arch in
-    darwin-arm64) expected='19bac741954dc746a32ca472002a90e2f488c4055a22cf34b9b0947f22df9ed9' ;;
-    darwin-amd64) expected='a5679ee375d28eb54b06fb9ef4b0c0bf69caa88100311fb99880ba10ce00d3df' ;;
-    linux-amd64) expected='1f882ecb4ef8d8b507c31147f0920707d9166bb999e842b11292ef19308231cf' ;;
-    linux-arm64) expected='8f8fa5c846a144cefcfcd8a9d8d942d3f7d50890ac68e5fad3d86f681bd54187' ;;
+    darwin-arm64) expected='2972da77b7501879367c94cb591ac9b4fbfbe5839df0633ff2a95933b970002c' ;;
+    darwin-amd64) expected='37a0e1c7600a50a2a242518e2d42eb5fb203d385a7a310ba103c8387bbfdc8c8' ;;
+    linux-amd64) expected='297c01a22f62d4e4f088de27a43d969d805020c4086c20f8e82f0c0141dbbf02' ;;
+    linux-arm64) expected='e0ef5ad40ef2c038085a2ada7886c67ac9c6234cee9b9f641ea6b6c72928fdbf' ;;
     *) fail "no build for $os/$arch; see https://ritchie.dev/downloads/releases/" ;;
   esac
 
