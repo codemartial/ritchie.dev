@@ -1,0 +1,33 @@
+# Ritchie
+
+> Ritchie is a programming language for distributed backend applications. Services, typed error contracts, remote failures and time budgets are part of the language, and the compiler checks them. Calls to services run concurrently without async/await. Programs compile to Go and build into a native executable.
+
+The language capsule at https://ritchie.dev/llms-full.txt describes the whole implemented language in about 25 KB, including how to install the compiler and run programs, so read it before writing Ritchie. It covers program basics; variables and functions; numbers; conditions, match, and loops; structs, methods, and enums; arrays; strings; dictionaries and nullable values; errors; type aliases; services; clock, durations, and random numbers; remote failures and the time budget; futures; projects and modules. Every rule the compiler enforces names its diagnostic code, so check each program with the compiler and fix what it reports. Call any program you could not check unchecked.
+
+Ritchie is in early development, and today a program builds as one modular monolith, which can serve its services over HTTP. Durable entities (`$Entity`), projections (`%Projection`), streams (`T~>`), and deployment as separate processes or cluster pods are planned but not in the current compiler, although some pages on ritchie.dev show them in examples of the vision. The capsule documents no storage, file, or outbound network facility, so do not write programs that need one.
+
+## Docs
+
+- [Language capsule](https://ritchie.dev/llms-full.txt): The whole implemented language in plain text, with rules, diagnostics and runnable programs. Read this before you write Ritchie.
+- [Ritchie at a Glance](https://ritchie.dev/tech/ritchie-at-a-glance/): The whole Ritchie language on one page, including syntax, types, errors, services, time and concurrency, with programs you can run. It is the language capsule as a web page.
+- [Ritchie Skill](https://ritchie.dev/skill/): Download the Ritchie Agent Skill and install it in your coding harness to write, run, explain and learn Ritchie.
+- [Ritchie Releases](https://ritchie.dev/downloads/releases/): Install the Ritchie compiler with one command, or download a pre-built archive for macOS, Linux or Windows.
+- [Try Ritchie](https://ritchie.dev/playground/): Write and run a single-file Ritchie program in the browser playground.
+
+## Concepts
+
+- [RITE](https://ritchie.dev/rite/): RITE is Ritchie’s architectural style and abstract execution model for reliable distributed applications.
+- [Automatic Concurrency Without async/await](https://ritchie.dev/tech/magic-of-automatic-concurrency/): This article traces evolving product requirements and how Ritchie copes with them compared to a mainstream language.
+- [Distributed Hello World](https://ritchie.dev/preview/): Build a distributed Hello World application and see how Ritchie makes persistence, concurrency and network boundaries part of the program. Its entities and projections are planned, not implemented.
+
+## News
+
+- [Automatic Concurrency Arrives in Ritchie](https://ritchie.dev/news/automatic-concurrency-arrives-in-ritchie/): Announcing Ritchie's most complex feature to date, along with fundamental compiler improvements.
+- [Services Arrive in Ritchie](https://ritchie.dev/news/services-arrive-in-ritchie/): Ritchie programs can now declare and call stateless services on a local monolith target.
+- [Date and Time in Ritchie, and More...](https://ritchie.dev/news/date-and-time-ritchie/): Ritchie aims for greater cross-application compatibility with built-in temporal types.
+
+## Optional
+
+- [Source repository](https://github.com/codemartial/ritchie): The compiler, the language reference and the RITE document.
+- [Language reference](https://github.com/codemartial/ritchie/tree/main/docs/ritchie-reference): The complete proposed feature set, which goes beyond what the compiler implements. Prefer the capsule for what works today.
+- [Licence](https://ritchie.dev/downloads/LICENSE.txt): The Functional Source License, Version 1.1, with Apache 2.0 as the future licence (FSL-1.1-ALv2).

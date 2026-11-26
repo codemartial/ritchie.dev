@@ -1,0 +1,627 @@
+# Ritchie language capsule
+
+> The complete description of the Ritchie programming language as the current compiler implements it. It is the capsule of the Ritchie Agent Skill, version 2026-11-24-7b90e549, and the text of https://ritchie.dev/tech/ritchie-at-a-glance/. The site index for coding agents is https://ritchie.dev/llms.txt.
+
+Every claim about Ritchie comes from the language capsule below, not
+from any other language. For a facility the capsule lacks, say that
+the skill does not document it and offer a documented alternative.
+
+## Writing programs
+
+Prefer the smallest program that answers the request, and explain the
+constructs a reader may not know. Check every program you present with the
+compiler until it prints what it should, and call any unchecked program
+unchecked.
+
+## Running programs
+
+Programs run with the Ritchie compiler, whose commands are `ritchie`,
+`rcc`, and `rcrun`, and with Go 1.27 or newer, which builds them. If `rcrun`
+is not on `PATH`, ask the user before installing it. On macOS or Linux, this
+puts the commands in
+`~/.local/bin`:
+
+```sh
+curl -fsSL https://ritchie.dev/install.sh | sh
+```
+
+Windows archives and the licence are at https://ritchie.dev/downloads/releases/.
+In a checkout of the Ritchie source, install from its root instead:
+
+```sh
+go -C src install ./cmd/ritchie
+cp src/bin/rcc src/bin/rcrun "$(dirname "$(command -v ritchie)")"
+```
+
+`rcrun --diagnostics=jsonl -` runs the source on standard input.
+`rcc dir/solution.ri` compiles without running and writes into the current
+directory the bundle `solution.run`, which `rcrun solution.run` runs, for a
+program that declares a service, and the executable `solution` otherwise.
+
+`RITCHIE_LOG_LEVEL` selects what a run writes to standard error and changes
+nothing else: `0` nothing; `1`, the default, `log` output, diagnostics, and
+the report of an error that escapes `main`; `2` and `3` also the errors that
+leave service methods and handler arms.
+
+- Exit status 1 with only JSON lines on standard error: the compiler
+  rejected the source.
+- Exit status 1 after program output: an error escaped `main`, and its
+  report follows on standard error with `at` and `raised by` lines.
+
+## Serving services over HTTP
+
+`rcrun --serve program.ri` runs `main`, if any, and serves every service
+method over HTTP at `127.0.0.1:7824`, or with `--serve=8080` on port 8080,
+until it receives a signal.
+
+Each method is reached at `POST /{module}/{Service}/{method}`, where the
+module is the file name without `.ri`. The request carries
+`Content-Type: application/json` and a JSON object with a property for each
+parameter, keyed by its name. An array is a JSON array, and a dictionary is
+a JSON array of objects such as `{"key": "a", "value": 2}`. A successful
+call returns status 200 and the result as JSON.
+
+```ritchie
+UnknownSku! { String sku }
+
+@Orders {}
+
+@Orders.total(String[] skus, Int[] qtys) -> Int | UnknownSku! {
+    Int sum = 0
+    for i in range(count(skus)) {
+        if skus[i] != "pear" { return UnknownSku! { sku: skus[i] } }
+        sum += 5 * qtys[i]
+    }
+    return sum
+}
+
+main() {
+    print(@Orders.total(["pear"], [2]))
+}
+```
+
+Posted to `http://127.0.0.1:7824/program/Orders/total`, the body
+`{"skus": ["pear", "pear"], "qtys": [2, 1]}` gets `15`, and
+`{"skus": ["kiwi"], "qtys": [1]}` gets status 422,
+`Content-Type: application/problem+json`, and this body:
+
+```json
+{"type":"urn:ritchie:error:UnknownSku","title":"UnknownSku!","status":422,"detail":"UnknownSku! { sku: \"kiwi\" }","ritchieFields":{"sku":"kiwi"}}
+```
+
+Any error that leaves the method gets status 422 in this form, and a built-in
+error such as `OutOfRange!` has no `ritchieFields`. A body that is not JSON,
+lacks a parameter without a default, has a property that is not a parameter,
+or holds a value outside the parameter's type, such as `40000` for an
+`Int16` or 4 elements for an `Int[3]`, gets status 400 with the `Malformed!`
+problem body. A `Float` takes any JSON number, a `Decimal` a number or a
+string, keeping its written scale, and a `Date`, `Time`, or `Duration` a
+string such as `"2026-03-02"`, `"23:30:00"`, or `"90.5s"`, which results and
+`ritchieFields` use too.
+
+Requests run concurrently, each under its own time budget, and one still
+running when its budget ends gets 504 with the `Cancelled!` problem body.
+
+## Teaching
+
+Teach one idea at a time in capsule order with short programs you have run,
+ask the learner to predict or change something small, give a hint before a
+solution, and explain the rule behind a diagnostic.
+
+## Language capsule
+
+### Program basics
+
+- Source files use the `.ri` extension, and comments are `//` and
+  `/* ... */`. An executable has one `main()` with no parameters, no
+  result, and no error list.
+- Newlines end statements, and semicolons separate statements on one line.
+  A statement continues onto the next line only inside parentheses, square
+  brackets, or the braces of a construction, so a line break beside a
+  binary operator needs enclosing parentheses.
+- Values and functions start lowercase, one-letter ones too, so `Int N = 1`
+  is rejected with `name.unexpected-class`. Types and services start
+  uppercase and contain a lowercase letter, as in `@Db`, and constants are
+  all uppercase with at least two characters, such as `MAX_N`.
+- Every variable and constant is declared with its type, as in
+  `String DIGITS = "0123"`, not `DIGITS = "0123"`. Module level declares
+  constants of any type, such as `[String: Int] RANK`, but no variables, so
+  a lowercase name there is rejected with `name.unexpected-class`.
+- Boolean operators are `and`, `or`, and `not`, and `and` and `or` skip
+  the right operand when the left decides, as in `i < n and xs[i] > 0`.
+  `&&`, `||`, `!x`, `++`, and `--` do not exist; write `n += 1`.
+- Precedence, tightest first: member access, call, index; unary `-`; `*` `/`
+  `%`; `+` `-`; `??`; `<` `<=` `>` `>=`; `==` `!=`; `not`; `and`; `or`;
+  `c ? a : b`, which does not nest. A chain such as `a < b <= c` holds
+  when each neighbouring pair holds, and one that mixes `<` and `>` forms
+  is rejected.
+- `print(v)` writes `v` and a line break to standard output, and `log(v)` to
+  standard error.
+- A local variable that is not read is a compile error; a loop variable or
+  a parameter may stay unread.
+- Keywords cannot be names, locals included: `and any break case contract
+  continue create else embed exhaustive false for handle if in is match
+  none not or resume return self then true unique where`.
+
+### Variables and functions
+
+```ritchie
+Int LIMIT = 42
+
+double(Int value) -> Int { return value * 2 }
+pair() -> (Int, Bool) { return 1, true }
+greet(String name, String greeting = "hello") -> String {
+    return f"{greeting} {name}"
+}
+
+main() {
+    Int total = double(LIMIT)
+    Int left, right = 1, 2
+    Int n, Bool ok = pair()
+    Int later
+    later = left + right
+    String who = greet(name: "ada")
+    print(f"{total} {n} {ok} {later} {who}")
+}
+```
+
+A call written as a statement discards its results. A declaration binds every
+result, so `Int n = pair()` is rejected with `variable.arity`, and each of its
+variables, `_` too, must be read. A variable must be assigned on every path
+before it is read. Arguments are all positional or all named.
+
+Function types are written `(Int, Int) -> Int`. A closure is written with
+`=>` and captures copies of the variables it uses:
+
+```ritchie
+apply(Int x, (Int) -> Int f) -> Int { return f(x) }
+
+main() {
+    Int offset = 10
+    (Int) -> Int add = x => x + offset
+    print(apply(1, add))
+    print(apply(2, x => x * x))
+    (Int, Int) -> Int plus = (a, b) => a + b
+    print(plus(3, 4))
+}
+```
+
+### Numbers
+
+- `Int` is 64-bit. `Int8`, `Int16`, and `Int32` widen to wider integers.
+  Integer `/` truncates toward zero, `%` takes the dividend's sign, and
+  division by zero raises `DivisionByZero!`.
+- `Float` is binary64. `print` and an f-string slot write the shortest
+  text that reads back as the same value, so `198.0` prints `198` and
+  `0.1 + 0.2` prints `0.30000000000000004`, in exponent form from an
+  exponent of 6 or below -4, as in `1.5e+07` and `1e-05`.
+- `Decimal` is exact decimal arithmetic that keeps the written scale. A
+  literal with a fraction part, such as `0.00`, is a `Decimal` where a
+  `Decimal` is required and a `Float` otherwise: after `Decimal a = 1.20`,
+  `print(a + 3.400)` prints `4.600`, `Decimal b = 1.25 * 3.00` holds
+  `3.7500`, and `print(1.20 + 3.400)` prints the `Float` `4.6`.
+- Integers, Floats, and Decimals do not mix in arithmetic or comparisons,
+  so convert with `Float.fromInt(n)`, `Decimal.fromInt(n)`, or
+  `Int.fromFloat(x)`, which truncates toward zero.
+- A `Byte` holds 0 to 255. `Byte.fromInt(n)` and `Int.fromByte(b)` convert,
+  `Byte[].fromString(s)` gives the UTF-8 bytes of `s`, and
+  `String.fromBytes(bs)` decodes them, raising `Malformed!` for invalid
+  UTF-8.
+
+### Conditions, match, and loops
+
+```ritchie
+grade(Int score) -> String {
+    match {
+        case score >= 90 => { return "A" }
+        any => { return "C" }
+    }
+}
+
+main() {
+    print(grade(85))
+}
+```
+
+`if c { } else if d { } else { }` takes no parentheses. A `match` with a
+subject compares it with each `case` value, such as a literal or a constant,
+and one without tries each `case` condition, in order. The first selected arm
+runs, in braces, and `any` is the remainder. A `match` that lists every enum
+member does not count as returning on every path, so when its arms return,
+write the last member as `any`.
+
+```ritchie
+main() {
+    for i in range(3) { print(i) }             // 0, 1, 2
+    for i in range(2, 8, 3) { print(i) }       // 2, 5
+    for x in [10, 20] { print(x) }
+    for k, v in ["a": 1] { print(f"{k}={v}") }
+    Int n = 0
+    for n < 3 { n += 1 }
+    outer: for r in range(3) {
+        for c in range(3) {
+            if r + c == 3 { break outer }
+        }
+    }
+}
+```
+
+`for { }` loops until `break`. `break` and `continue`, also in a `match`
+arm, act on the innermost loop, and `break name` or `continue name` act on
+the loop labelled `name:`.
+
+### Structs, methods, and enums
+
+```ritchie
+Point {
+    Int x
+    Int y = 0
+}
+
+Point.shift(Int dx) {
+    self.x += dx
+}
+
+Figure { CIRCLE, SQUARE }
+
+main() {
+    Point p = Point { x: 1 }
+    p.shift(4)
+    print(p)
+    Figure s = Figure.SQUARE
+    match s {
+        case Figure.CIRCLE => { print("round") }
+        case Figure.SQUARE => { print("square") }
+    }
+    print(s)
+}
+```
+
+This prints `Point { x: 5, y: 0 }` first and `SQUARE` last. A method that
+uses `self` may change its receiver when that is a variable, a field, or an
+element, so `counters[i].advance()` updates the array. A method without
+`self` is called through its type, as in `Point.origin()`. Assigning,
+passing, or returning a struct copies it. A struct contains itself only
+through a nullable field, an array, or a dictionary, such as
+`Node? next = none`.
+
+### Arrays
+
+```ritchie
+main() {
+    Int[] xs = [3, 1, 2]
+    xs = append(xs, 4)
+    xs[0] = 9
+    print(xs[1:3])
+    print(sort(xs))
+}
+```
+
+Array operations are free functions: `count`, `contains`, `indexOf` (an
+`Int?`), `first` and `last` (nullable), `append`, `insert(xs, i, v)`,
+`removeAt(xs, i)`, `concat`, `reverse`, `sort`, and `fill(v, n)`. No array
+function changes its argument, so `sort(xs)` alone does nothing: write
+`xs = sort(xs)` and `xs = append(xs, v)`. An empty literal `[]` needs a
+declared type. `grid[r][c] = 0` assigns one element of an `Int[][]`.
+`Int[3]` holds exactly 3 elements and is a type apart from `Int[]`, which
+its slice `k[0:3]` is. A module constant `Int[] MISS = [-1]` acts as an
+`Int[1]` in a handler arm, `append`, and `==`, so bind
+`Int[] miss = MISS` first. Slices `xs[lo:hi]` are half-open, and
+indexing out of range raises `OutOfRange!`. `map`, `filter`, `reduce`,
+`sum`, `find`, and `sortBy` do not exist, and `+` and `+=` do not apply to
+arrays.
+
+An index or key in an assignment target is a variable or its field, a
+literal, or `+`, `-`, or `*` of them. Any other, such as an element or its
+field, a slice, `/`, `%`, an f-string, or a call such as `toLower(w)`, as in
+`d[f[0]] = 1`, is rejected with `assignment.fallible-operand`, so bind it to
+a variable first. A read takes any index or key.
+
+Assigning an element or entry, also through `self`, and assigning the result
+of `append`, `concat`, `insert`, `removeAt`, or `remove` to the same
+variable, field, element, or entry change the value in place, as in
+`xs = removeAt(xs, count(xs) - 1)` and `d[k] = append(d[k], v)`, and
+`for i in range(n)` builds no array. A function copies an array or
+dictionary parameter at each call only when it assigns to it, and the caller
+sees the change only through a returned value. A slice and `s = f"{s}..."`
+copy the whole value, so repeating them on a large value takes quadratic
+time: collect strings in an array for `join`.
+
+### Strings
+
+```ritchie
+main() {
+    String[] names = []
+    for name in split("usr/local/bin", "/") {
+        names = append(names, replace(name, "l", "L"))
+    }
+    print(join(reverse(names), " < "))
+    String word = "hello"
+    Int at, Bool found = indexOf(word, "l")
+    print(f"{at} {found} {count(word)} {word[1:3]}")
+}
+```
+
+- String operations are free functions that take the string first:
+  `count`, `isEmpty`, `contains`, `startsWith`, `endsWith`, `indexOf`,
+  `toUpper` and `toLower`, which also convert non-ASCII letters, `trim`,
+  `replace(s, old, new)`, `split(s, sep)`, and `join(parts, sep)`. `split`
+  keeps empty fields: `split("a  b", " ")` is `["a", "", "b"]`, and
+  `split("", " ")` is `[""]`.
+- An f-string slot cannot contain a string literal, so `f"{join(xs, "/")}"`
+  is rejected with `interpolation.unterminated`: bind `String sep = "/"`
+  first. Doubled braces write a literal brace. `+` does not join strings.
+- Positions and counts are UTF-8 bytes. `s[i]` is rejected, and a slice
+  whose start or end falls inside a character raises
+  `InvalidStringBoundary!`: for `String s = "é!"`, `count(s)` is 3, `s[0:1]`
+  raises it, and `s[2:3]` is `!`. `split(s, "")` gives the characters,
+  `["é", "!"]`, whose `count` is 2.
+- `<`, `>`, `==`, and `sort` order strings by their UTF-8 bytes, so
+  `"Z" < "a"` and `"é" > "z"`.
+- Quoted strings take escapes such as `\n`, `\t`, and `\"`, and a backtick
+  string is raw and may span lines.
+- `Int.fromString(s)` accepts a sign and digits, so `"075"` gives `75`, and
+  raises `Malformed!` for other text, such as `" 5"`.
+
+### Dictionaries and nullable values
+
+```ritchie
+main() {
+    [String: Int] ages = ["ada": 36]
+    String[] f = split("lin 41", " ")
+    String who = f[0]
+    ages[who] = Int.fromString(f[1])  // not ages[f[0]]
+    ages["ada"] = (ages.get("ada") ?? 0) + 1
+    print(ages["ada"])
+    Int? maybe = ages.get("bo")
+    if maybe {
+        print(maybe)
+    } else {
+        print("absent")
+    }
+}
+```
+
+`[K: V]` is a dictionary and `[:]` is an empty one. `d[k]` raises
+`MissingKey!` for a missing key, `d.get(k)` returns `V?`, and `has`, `keys`,
+`values`, `remove`, and `count` are free functions. Iteration and `keys`
+have no fixed order. `T?` holds a `T` or `none`; test it with `if x` or
+`x != none` before using it as `T`. A test that leaves the function, such as
+`if v == none { return -1 }`, narrows `v` to `T` for the rest of the
+function, so a later `v ?? 0` is rejected there.
+
+### Errors
+
+```ritchie
+Low! { Int n }
+High! {}
+
+check(Int n) -> Int {
+    if n < 0 { return Low! { n: n } }
+    if n > 9 { return High! }
+    return n
+}
+
+main() {
+    Int a = check(-2) handle Low! e => e.n * 10
+    Int b = check(20) handle {
+        Low! => 0
+        High! => 99
+    }
+    print(f"{a} {b}")
+    for n in [1, -1, 50] {
+        Int c = check(n) handle {
+            Low! => continue
+            High! => break
+        }
+        print(c)
+    }
+    print(check(-5))
+}
+```
+
+Returning an error value raises it, also from `main` or a function without a
+result, and a function's result type stays the success type. A function may
+list its errors after the result with `|`, as in `-> Int | Low! | High!` or
+`-> none | Low!`, and a function without a list may raise any error. A list
+names every declared error type that can leave the function, its callees'
+included, and no other (`contract.undeclared-error`,
+`contract.unraised-error`), and a function that calls a function value cannot
+have one. A function that returns nothing ends with a bare `return` or at its
+end, and `return none` is rejected.
+
+Built-in errors, such as `OutOfRange!`, `MissingKey!`, `Malformed!`,
+`LengthMismatch!`, and the remote failures, form a catalog: declaring one
+is rejected with `name.reserved-name`, no error list may name one, and
+constructing one is rejected with `error.catalog-construction` except
+under `rcc --debug`.
+
+`handle` follows the whole statement it protects, not an argument or other
+part of it, on the line where that statement ends. An arm replaces the
+statement's whole value, such as the new `xs` of `xs = append(xs, f(n))`,
+or runs `continue`, `break`, or `return`, `return E!` in an arm raises
+another error, as in `Low! => return High!`, and `E! e` binds the error
+when the arm reads it. A block arm, such as
+`Low! e => { print(e.n); continue }`, supplies a replacement value by ending
+with `resume value`. A handler after a block or a loop, with `handle` on the
+line of the closing brace, protects each statement inside, so after an arm
+that completes, the block continues with its next statement, and `continue`
+and `break` in an arm of `for x in xs { ... } handle { ... }` act on that
+loop. A variable that a protected statement assigns has a value after it
+only when every arm that completes assigns it too, even when it held a
+value before.
+
+### Type aliases
+
+`Name = Type` at module level gives a type a second name. An array of a
+function type needs an alias, as in `Step = (Int) -> Int` and
+`Step[] steps = [x => x + 1]`. A nullable function value such as `Step?`
+cannot be tested, compared with `none`, or called, so pass a function with
+the default behavior instead.
+
+### Services
+
+A service is declared as `@Name {}`, and its methods have no `self`, take
+defaults and list errors like a function, and are called as
+`@Name.method(...)`. Their parameters and results are built-in types,
+structs and enums that have a method whose name does not start with `_`, and
+arrays and dictionaries of them; any other type is rejected with
+`service.boundary-type`. Over HTTP a struct is a JSON object of its fields
+and an enum the name of its member, as in `"GREEN"`.
+
+### Clock, durations, and random numbers
+
+A `Duration` literal is an integer with a unit, `ns`, `us`, `ms`, `s`, `m`,
+`h`, or `d`, such as `1500ms`; `1.5s` is rejected.
+
+`r::Clock.sleep(300ms)` suspends the caller, and
+`r::Clock.time()` returns the current `DateTime`. `DateTime.fromUnix(n)` is
+the instant `n` seconds after 1970-01-01 UTC, which prints as
+`2026-03-02T11:00:00Z`, and `t.withOffset(330m)` prints the same instant as
+`2026-03-02T16:30:00+05:30`. `t + d` adds a `Duration`, `t - u` gives one, and
+`n * 1s` makes one, which prints its nonzero parts, as in `1d9h30m` or
+`505ms33us`, and `0s` for zero. Dividing two durations gives a `Float`, so
+`Int.fromFloat(d / 1ms)` is the count of milliseconds.
+
+A `Date` is written and printed as `d2026-03-02` and a `Time` of day as
+`t23:30:00.5`, and `f"{d}"[1:]` drops the letter. A `Time` wraps at
+midnight under `+` and `-` of a `Duration`, `t01:00:00 - t23:30:00` is
+`-22h30m`, and `t23:30:00.until(t01:00:00)` is `1h30m`. A `Date` has
+`addDays(n)`, `addYears(n)`, `daysUntil(other)`, an `Int`, and
+`addMonths(n)`, which gives `d2026-02-28` for `d2026-01-31.addMonths(1)`.
+For a date's parts `y`, `m`, and `d`, the month's first day is
+`Date f = d0001-01-01.addYears(y - 1).addMonths(m - 1)`, its length
+`f.daysUntil(f.addMonths(1))` bounds a valid `d`, and the date is
+`f.addDays(d - 1)`.
+
+`r::Random g = r::Random.seed(s)` makes a generator whose draws are the
+same for the same `Byte[32] s`, and `r::Random.new()` makes an unseeded one.
+`g.range(lo, hi)` draws an `Int` in `[lo, hi)`,
+`g.ratio()` a `Float` in `[0, 1)`, and `g.bits()` a 64-bit `BitSet`, which
+prints as `0x` and 16 lowercase hexadecimal digits and can key a
+dictionary. A literal such as `0` is a `BitSet` where one is required.
+Assigning or passing a generator copies it, so a helper that draws returns
+it, as in `-> (Int, r::Random)`, or draws through a struct field as
+`self.g`. `Byte[32] s = fill(Byte.fromInt(0), 32)` makes a seed.
+
+### Remote failures and the time budget
+
+The runtime can fail a service call with a catalog error:
+`Unavailable!`, `Rejected!`, `Conflict!`, `Unmodified!`, and `Cancelled!` mean
+the call changed nothing, and `Unverified!` means a write may or may not have
+happened. This example constructs `Unavailable!` itself to stand in for a
+failing service, so it runs only as `rcrun --debug`.
+
+```ritchie
+@Weather {}
+
+@Weather.reading(String station, Duration d) -> Int {
+    if station == "north" { return Unavailable! }
+    r::Clock.sleep(d)
+    return 3
+}
+
+main() {
+    Int a = @Weather.reading("north", 0ms) handle Unavailable! => -1
+    Int c = @Weather.reading("west", 2500ms) handle Cancelled! => -2
+    print(f"{a} {c}")
+}
+```
+
+Every program runs under a time budget, 2000 ms by default, which limits
+its service calls; other code, such as an `r::Clock.sleep` in `main`,
+continues past it. `RITCHIE_ENTRY_BUDGET_MS` sets it for a run, and the
+program text cannot set or read it. A service call starts only within the
+first 70 percent of the budget, and a later one fails at once with
+`Cancelled!`. A started call without a response when the budget ends fails
+with `Cancelled!`, not `Unverified!`. Enforce time limits through this
+budget and its errors, not by timing calls.
+
+### Futures
+
+A call of a service method starts where it is written, and the program
+waits for its result at the first use of the value.
+
+- Storing a result in a variable or an array element, or appending it to an
+  array, does not wait when the target has the result's type, but a `T?`
+  target for a `T` result waits. `count(xs)` of an array of results does
+  not wait either. Every other use waits, such as a dictionary entry, a
+  field, arithmetic, `if`, an argument of another call, and `print`.
+- A use waits for its call and every call started before it, and so does a
+  call of a function value. So of two failed calls the program sees the
+  earlier one, and a loop whose body starts a call and also uses its result
+  or calls a function value runs its calls in sequence. Collect the results
+  in an array in one loop and use them in a second loop.
+- A local routine whose body calls services, writes no output, has no
+  `for` loop without `in`, and does not call itself, also through other
+  routines, starts at its call in the same way, so a routine for one item,
+  which may use its results and handle their failures, can be called for
+  every item and the calls run together.
+- A call's failure is raised at the call's statement, and only a handler
+  there catches it; an arm on a later use that nothing else selects is
+  rejected with `handle.dead-arm`.
+- A handler whose arms are each a literal, a constant, or a variable, such
+  as `handle Low! => 0`, or only return one, as in
+  `handle Low! => { return 0 }`, does not wait, so a stored marker can
+  stand for a failure. Any other arm, such as an f-string, waits.
+- Leaving a routine waits for every call written before the exit and
+  cancels every call written after it.
+- A call with a side effect also starts early, so to start a call only after
+  an earlier call has succeeded, use the earlier result first, as in an `if`.
+
+```ritchie
+Low!
+
+@Gauge {}
+@Gauge.level(Int id) -> Int | Low! {
+    r::Clock.sleep(50ms)
+    if id == 9 { return Low! }
+    return id
+}
+@Gauge.trend(Int lv) -> Int { r::Clock.sleep(50ms); return lv * 2 }
+
+reading(Int id) -> Int | Low! {
+    Int lv = @Gauge.level(id)
+    Int tr = @Gauge.trend(lv)
+    return lv + tr
+}
+
+main() {
+    Int[] sums = []
+    for id in [1, 2, 3] {
+        sums = append(sums, reading(id))
+    }
+    Int total = 0
+    for s in sums { total += s }
+    print(total)
+    Int bad = reading(9) handle Low! => -1
+    print(bad)
+}
+```
+
+### Projects and modules
+
+A project is a directory with `NAME.ritchie.toml`, whose `[modules]` table
+maps each module to its directory, as in `stock = "stock"`. Every `.ri` file
+under that directory belongs to the module, and at most one module declares
+`main`. `rcc` with no file, run in the project directory, writes `NAME`, or
+`NAME.run` when a service is declared.
+
+`::` reaches another module, as in `stock::Item.find("pen")`,
+`stock::Missing! e`, and `stock::@Depot.level("pen")`. Only a type with a
+method whose name does not start with `_`, those methods, an error type and
+its fields, and a service cross modules. Fields, struct literals, free
+functions, and constants are rejected in another module with
+`module.unpublished-member`. A served method's path names its module, as in
+`/stock/Depot/level`.
+
+## Known defects
+
+The current compiler departs from the language in these forms, so write the
+alternative.
+
+- An enum that gives values to some members only crashes `rcc`, so give
+  values to every member or to none.
+- A struct field cannot hold a function, but `rcc` accepts one and can fail
+  to build the program, so pass a function as a parameter or keep it in a
+  variable, an array, or a dictionary.
