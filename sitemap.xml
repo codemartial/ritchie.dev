@@ -52,4 +52,10 @@
         <loc>https://ritchie.dev/tech/ritchie-at-a-glance/</loc>
         <lastmod>2026-11-19</lastmod>
     </url>
+    <url>
+        <loc>https://ritchie.dev/llms.txt</loc>
+    </url>
+    <url>
+        <loc>https://ritchie.dev/llms-full.txt</loc>
+    </url>
 </urlset>
